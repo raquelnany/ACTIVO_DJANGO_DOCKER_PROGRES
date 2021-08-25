@@ -9,6 +9,8 @@ urlpatterns = [
     
     path('v1/proveedores/', views.Proveedorview.as_view()),
     path('v1/proveedores/<int:id_proveedor>', views.Proveedorview.as_view()),
+    path('v1/contacto_proveedores/', views.Contacto_Proveedorview.as_view()),
+    path('v1/contacto_proveedores/<int:id_contacto_proveedor>', views.Contacto_Proveedorview.as_view()),
     path('v1/centrosdecostos/', views.CentroCostosview.as_view()),
     path('v1/centrosdecostos/<int:id_centro_costo>', views.CentroCostosview.as_view()),
     path('v1/departamentos/', views.Departamentoview.as_view()),

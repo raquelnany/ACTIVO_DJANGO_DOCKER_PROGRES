@@ -18,12 +18,13 @@ from .controller.ControllerRol import ControllerRol
 from .controller.ControllerLogin import ControllerLogin
 from .controller.ControllerDeptTurno import ControllerDeptTurno
 from .controller.ContollerProveedor import ControllerProveedor
+from .controller.ControllerContactoProveedor import ControllerContactoProveedor
 from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import CentroCostoSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import CentroCostoSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer
 
 
@@ -67,6 +68,21 @@ class Proveedorview(APIView):
 
     def put(self, request, id_proveedor=None):
         respuesta = ControllerProveedor.modificarProveedor(request,id_proveedor)
+        return Response(respuesta)
+
+class Contacto_Proveedorview(APIView):
+    serializer_class = Contacto_ProveedorSerializer
+
+    def post(self, request):
+        respuesta = ControllerContactoProveedor.crearcontacto_proveedor(request)
+        return Response(respuesta)
+
+    def get(self, request, id_contacto_proveedor=None):
+        respuesta = ControllerContactoProveedor.listarcontacto_proveedor(id_contacto_proveedor)
+        return Response(respuesta)
+
+    def put(self, request, id_contacto_proveedor=None):
+        respuesta = ControllerContactoProveedor.modificarcontacto_proveedor(request,id_contacto_proveedor)
         return Response(respuesta)
 
 class CentroCostosview(APIView):

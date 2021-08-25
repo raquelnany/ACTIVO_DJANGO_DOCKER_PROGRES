@@ -136,3 +136,13 @@ class Proveedor(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+class Contacto_Proveedor(models.Model):
+    id_contacto_proveedor = models.AutoField(primary_key=True)
+    contacto = models.CharField(max_length=100)
+    email = models.CharField(max_length=50)
+    telefono = models.BigIntegerField()
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()

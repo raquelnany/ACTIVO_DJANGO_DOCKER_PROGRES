@@ -5,13 +5,20 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
 from .models import Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
-from .models import Departamento_Turno, Turno, Puesto, Usuario
+from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor
 
 
 class ProveedorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Proveedor
         fields = '__all__'
+        depth = 1
+
+class Contacto_ProveedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Contacto_Proveedor
+        fields = '__all__'
+        depth = 2
 
 class CentroCostoSerializer(serializers.ModelSerializer):
     class Meta:
