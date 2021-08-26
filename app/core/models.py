@@ -57,7 +57,8 @@ class EstatusUsuario(models.Model):
 
 class Idioma(models.Model):
     id_idioma = models.AutoField(primary_key=True)
-    idioma = models.CharField(max_length=25)
+    idioma = models.CharField(max_length=25, default="")
+    idioma_en = models.CharField(max_length=25, default="")
 
     def __str__(self):
         return super().__str__()

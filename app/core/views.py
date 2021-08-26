@@ -172,6 +172,9 @@ class Idiomaview(APIView):
         respuesta = ControllerIdioma.listariridioma(id_idioma)
         return Response(respuesta)
 
+    def put(self, request, id_idioma=None):
+        respuesta = ControllerIdioma.modificaridioma(request,id_idioma)
+        return Response(respuesta)   
 
 class Rolview(APIView):
     serializer_class = RolSerializer
