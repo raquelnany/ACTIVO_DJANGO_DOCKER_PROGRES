@@ -147,3 +147,15 @@ class Contacto_Proveedor(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+
+class Unidad(models.Model):
+    id_unidad = models.AutoField(primary_key=True)
+    unidad_es = models.CharField(max_length=25, default="")
+    unidad_en = models.CharField(max_length=25, default="")
+    siglas = models.CharField(max_length=25, default="")
+
+    def str(self):
+        return super().str()
+
+

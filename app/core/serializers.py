@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
 from .models import Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
-from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor
+from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad
 
 
 class ProveedorSerializer(serializers.ModelSerializer):
@@ -138,3 +138,19 @@ class Usuario_Lat_Lng_Serializer(serializers.Serializer):
 
     class Meta:
         fields = ('Lat', 'lng')
+        
+class UnidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Unidad
+        fields = '__all__'
+
+#Clase para relacionar llave y valor en formato JSON 
+#para generar un conjunto de unidades[um, km, m... n+1] ,
+#el valor de generate debe ser True, para que tenga efecto
+class setup_Serializer(serializers.Serializer):  
+
+    generate = serializers.BooleanField(required=True)
+
+    class Meta:
+
+        fields = ('generate' )

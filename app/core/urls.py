@@ -39,5 +39,8 @@ urlpatterns = [
     path('v1/historial_turnos/', views.Historial_TurnoView.as_view()),
     path('v1/historial_turnos/<int:id_historial_turno>',
          views.Historial_TurnoView.as_view()),
+    path('v1/unidades/', views.Unidadview.as_view()),
+    path('v1/unidades/<int:id_unidad>', views.Unidadview.as_view()),
+    path('v1/setup/', views.Setup.as_view()),
      
 ]

@@ -17,3 +17,5 @@ ActivoEAM.
 - [drf-yasg]
 
 ## Pre requisitos
+
+Para realizar la carga de unidades es necesario utilizar la vista "api/v1/setup/"

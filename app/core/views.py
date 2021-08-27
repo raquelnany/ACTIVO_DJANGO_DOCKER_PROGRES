@@ -18,6 +18,7 @@ from .controller.ControllerRol import ControllerRol
 from .controller.ControllerLogin import ControllerLogin
 from .controller.ControllerDeptTurno import ControllerDeptTurno
 from .controller.ContollerProveedor import ControllerProveedor
+from .controller.ControllerUnidad import ControllerUnidad
 from .controller.ControllerContactoProveedor import ControllerContactoProveedor
 from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
 
@@ -25,9 +26,26 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import CentroCostoSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
-from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer
+from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
 
+from .models import Unidad
 
+#View encargada de auto generar una serie de unidades con datos quemados por el método
+#Observación: Es importante que solo sea usada una vez
+class Setup(GenericAPIView):
+    serializer_class = setup_Serializer
+    def post(self, request, *args, **kwargs):
+
+        generate_data = request.data
+
+        #Desde el serializer el valor de generate sera de tipo booleano
+        generate=generate_data['generate']
+
+        if generate:
+            ControllerUnidad.generarunidades(request)
+            return Response({'result': 'Se han generado exitosamente las unidades: UM, km, m, in, ft, yd, m2, m3, cm3, l, oz, lb, t, g, kg, l, rll, tq, serv'})
+        return Response({'result': 'unexpected request'})
+   
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""
     serializer_class = UserSerializer
@@ -249,4 +267,20 @@ class Historial_TurnoView(APIView):
 class LoginView(APIView):
     def post(self, request):
         respuesta = ControllerLogin.login(request)
+        return Response(respuesta)
+
+
+class Unidadview(APIView):
+    serializer_class = UnidadSerializer
+
+    def post(self, request):
+        respuesta = ControllerUnidad.crearunidad(request)
+        return Response(respuesta)
+
+    def get(self, request, id_unidad=None):
+        respuesta = ControllerUnidad.listarunidad(id_unidad)
+        return Response(respuesta)
+        
+    def put(self, request, id_unidad=None):
+        respuesta = ControllerUnidad.modificarunidad(request,id_unidad)
         return Response(respuesta)
