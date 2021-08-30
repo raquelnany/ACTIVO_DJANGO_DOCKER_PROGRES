@@ -159,3 +159,12 @@ class Unidad(models.Model):
         return super().str()
 
 
+class Inventario_Categoria(models.Model):
+    id_inventario_categoria = models.AutoField(primary_key=True)
+    inventario_categoria = models.CharField(max_length=120, default="")
+    inventario_categoria_notas = models.CharField(max_length=500, default="")
+    inventario_categoria_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+
+    def str(self):
+        return super().str()
+

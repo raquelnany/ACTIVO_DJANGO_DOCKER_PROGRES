@@ -42,5 +42,7 @@ urlpatterns = [
     path('v1/unidades/', views.Unidadview.as_view()),
     path('v1/unidades/<int:id_unidad>', views.Unidadview.as_view()),
     path('v1/setup/', views.Setup.as_view()),
+    path('v1/inventario_categorias/', views.Inventario_Categoriaview.as_view()),
+    path('v1/inventario_categorias/<int:id_inventario_categoria>', views.Inventario_Categoriaview.as_view()),
      
 ]

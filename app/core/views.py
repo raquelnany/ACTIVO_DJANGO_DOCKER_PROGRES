@@ -21,11 +21,12 @@ from .controller.ContollerProveedor import ControllerProveedor
 from .controller.ControllerUnidad import ControllerUnidad
 from .controller.ControllerContactoProveedor import ControllerContactoProveedor
 from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
+from .controller.ControllerInventarioCategoria import ControllerInventarioCategoria
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import CentroCostoSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import CentroCostoSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
 
 from .models import Unidad
@@ -283,4 +284,20 @@ class Unidadview(APIView):
         
     def put(self, request, id_unidad=None):
         respuesta = ControllerUnidad.modificarunidad(request,id_unidad)
+        return Response(respuesta)
+
+
+class Inventario_Categoriaview(APIView):
+    serializer_class = Inventario_CategoriaSerializer
+
+    def post(self, request):
+        respuesta = ControllerInventarioCategoria.crearinventariocategoria(request)
+        return Response(respuesta)
+
+    def get(self, request, id_inventario_categoria=None):
+        respuesta = ControllerInventarioCategoria.listarinventariocategoria(id_inventario_categoria)
+        return Response(respuesta)
+        
+    def put(self, request, id_inventario_categoria=None):
+        respuesta = ControllerInventarioCategoria.modificarinventariocategoria(request,id_inventario_categoria)
         return Response(respuesta)
