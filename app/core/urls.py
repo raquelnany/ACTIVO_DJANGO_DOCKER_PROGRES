@@ -39,6 +39,9 @@ urlpatterns = [
     path('v1/historial_turnos/', views.Historial_TurnoView.as_view()),
     path('v1/historial_turnos/<int:id_historial_turno>',
          views.Historial_TurnoView.as_view()),
+    path('v1/jornadas/', views.Jornadaview.as_view()),
+    path('v1/jornadas/<int:id_jornada>',
+         views.Jornadaview.as_view()),
     path('v1/unidades/', views.Unidadview.as_view()),
     path('v1/unidades/<int:id_unidad>', views.Unidadview.as_view()),
     path('v1/setup/', views.Setup.as_view()),
@@ -46,5 +49,6 @@ urlpatterns = [
     path('v1/inventario_categorias/<int:id_inventario_categoria>', views.Inventario_Categoriaview.as_view()),
     path('v1/clientes/', views.Clienteview.as_view()),
     path('v1/clientes/<int:id_cliente>', views.Clienteview.as_view()),
+    
      
 ]

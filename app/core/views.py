@@ -23,11 +23,12 @@ from .controller.ControllerContactoProveedor import ControllerContactoProveedor
 from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
 from .controller.ControllerInventarioCategoria import ControllerInventarioCategoria
 from .controller.ControllerCliente import ControllerCliente
+from .controller.ControllerJornada import ControllerJornada
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
 
 from .models import Unidad
@@ -143,6 +144,16 @@ class Departamentoview(APIView):
         respuesta = ControllerDept.listardepartamento(id_departamento)
         return Response(respuesta)
 
+class Jornadaview(APIView):
+    serializer_class = JornadaSerializer
+
+    def post(self, request):
+        respuesta = ControllerJornada.crearjornada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_jornada=None):
+        respuesta = ControllerJornada.listarjornada(id_jornada)
+        return Response(respuesta)
 
 class Turnoview(APIView):
     serializer_class = TurnoSerializer

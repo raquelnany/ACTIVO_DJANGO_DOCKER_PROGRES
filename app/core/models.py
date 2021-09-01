@@ -3,6 +3,17 @@ import os
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
+
+class Jornada(models.Model):
+    id_jornada = models.AutoField(primary_key=True)
+    anio = models.CharField(max_length=25, default="")
+    mes = models.CharField(max_length=25, default="")
+    horaInicio = models.TimeField()
+    horaFinal = models.TimeField()
+    
+    def str(self):
+        return super().str()
+
 class CentroCosto(models.Model):
     id_centro_costo = models.AutoField(primary_key=True)
     codigo_centro_costo = models.BigIntegerField()
