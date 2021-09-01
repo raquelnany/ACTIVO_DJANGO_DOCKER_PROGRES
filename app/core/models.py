@@ -168,3 +168,26 @@ class Inventario_Categoria(models.Model):
     def str(self):
         return super().str()
 
+class Cliente(models.Model):
+    id_cliente = models.AutoField(primary_key=True)
+    cliente = models.CharField(max_length=45)
+    calle = models.CharField(max_length=45)
+    colonia = models.CharField(max_length=45)
+    cp = models.BigIntegerField()
+    municipio = models.CharField(max_length=45)
+    estado = models.CharField(max_length=45)
+    pais = models.CharField(max_length=45)
+    razon_social = models.CharField(max_length=75)
+    rfc = models.CharField(max_length=13)
+    telefono = models.BigIntegerField()
+    contacto = models.CharField(max_length=100)
+    email = models.CharField(max_length=50)
+    pagina_web = models.CharField(max_length=25)
+    id_zona_horaria = models.IntegerField()
+    foto_cliente = models.CharField(max_length=50)
+    usar_inventario = models.IntegerField()
+    alertas_email = models.IntegerField()
+    registro = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
