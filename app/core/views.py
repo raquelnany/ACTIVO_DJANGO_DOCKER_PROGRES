@@ -40,12 +40,23 @@ class Setup(GenericAPIView):
         generate_data = request.data
 
         #Desde el serializer el valor de generate sera de tipo booleano
-        generate=generate_data['generate']
+        generar_unidades=generate_data['generar_unidades']
+        generar_categorias=generate_data['generar_categorias']
+        mensaje =''
 
-        if generate:
+        if generar_unidades:
             ControllerUnidad.generarunidades(request)
-            return Response({'result': 'Se han generado exitosamente las unidades: UM, km, m, in, ft, yd, m2, m3, cm3, l, oz, lb, t, g, kg, l, rll, tq, serv'})
-        return Response({'result': 'unexpected request'})
+            mensaje='Se han generado exitosamente las unidades: UM, km, m, in, ft, yd, m2, m3, cm3, l, oz, lb, t, g, kg, l, rll, tq, serv'
+        if generar_categorias:
+            ControllerInventarioCategoria.generarcategorias(request)
+            mensaje=mensaje+ 'Se han generado correctamente las categorias: GENE, GRAS, SEGU, MAQU, HERR, ACEI, DIEL, PEGA, BURI, INSE, PAPE, FERRE, ALCO, JOBO, BATE, LIMP, SOLV'
+        if not generar_unidades and not generar_categorias :
+            mensaje= 'no se cargo nada'
+        return Response({'result':mensaje})
+
+    
+        
+        
    
 class CreateUserView(generics.CreateAPIView):
     """Create a new user in the system"""

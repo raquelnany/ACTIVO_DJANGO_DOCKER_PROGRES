@@ -13,7 +13,7 @@ class ControllerEstatus:
              return {"estatus":"Error"}
 
         estatusNuevo.save()
-        return {"estatus":"Ok", 'scope': estatusNuevo.activo}
+        return {"estatus":"Ok", 'estatus': estatusNuevo.activo}
 
     def listarestatus(id_estatus=None):
         if id_estatus:

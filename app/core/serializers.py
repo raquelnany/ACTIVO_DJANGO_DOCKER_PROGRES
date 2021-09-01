@@ -156,8 +156,9 @@ class Inventario_CategoriaSerializer(serializers.ModelSerializer):
 #el valor de generate debe ser True, para que tenga efecto
 class setup_Serializer(serializers.Serializer):  
 
-    generate = serializers.BooleanField(required=True)
+    generar_unidades = serializers.BooleanField(required=True)
+    generar_categorias = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generate' )
+        fields = ('generar_unidades, generar_categorias' )
