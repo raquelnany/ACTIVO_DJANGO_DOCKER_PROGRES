@@ -32,4 +32,25 @@ class ControllerJornada:
             serializer = JornadaSerializer(queryset, many=True)
             return serializer.data
 
+    def modificarjornada(request,id_jornada=None):
+        if id_jornada:
+            datosJornada = request.data
+            try:
+                JornadaModificar = Jornada.objects.get(id_jornada=id_jornada)
+            except Jornada.DoesNotExist:
+                return ({'result': 'No se encontró jornada deseada'})
+            try: 
+              
+                JornadaModificar.anio = datosJornada['anio']
+                JornadaModificar.mes =  datosJornada['mes']
+                JornadaModificar.horaInicio =  datosJornada['horaInicio']
+                JornadaModificar.horaFinal = datosJornada['horaFinal']
+              
+            except Exception:
+                return {"estatus":"Error"}
+
+            return {"estatus":"Ok", 'jornada_modificado': JornadaModificar.mes}
+        else: 
+            return {"result":"Ingrese el Id de la jornada a modificar"}
+
     

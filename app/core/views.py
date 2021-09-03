@@ -154,6 +154,10 @@ class Jornadaview(APIView):
     def get(self, request, id_jornada=None):
         respuesta = ControllerJornada.listarjornada(id_jornada)
         return Response(respuesta)
+        
+    def put(self, request, id_jornada=None):
+        respuesta = ControllerJornada.modificarjornada(request,id_jornada)
+        return Response(respuesta)
 
 class Turnoview(APIView):
     serializer_class = TurnoSerializer
