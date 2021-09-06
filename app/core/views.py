@@ -302,6 +302,10 @@ class JornadaHorasview(APIView):
     def get(self, request, id_jornada_horas=None):
         respuesta = ControllerJornadaHoras.listarjornadahoras(id_jornada_horas)
         return Response(respuesta)
+    
+    def put(self, request, id_jornada_horas=None):
+        respuesta = ControllerJornadaHoras.modificarjornadahoras(request,id_jornada_horas)
+        return Response(respuesta)
         
 class LoginView(APIView):
     def post(self, request):
@@ -350,4 +354,8 @@ class Clienteview(APIView):
 
     def get(self, request, id_cliente=None):
         respuesta = ControllerCliente.listarcliente(id_cliente)
+        return Response(respuesta)
+
+    def put(self, request, id_cliente=None):
+        respuesta = ControllerCliente.modificarcliente(request,id_cliente)
         return Response(respuesta)
