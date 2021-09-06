@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
 from .models import Jornada, Cliente, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
-from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente
+from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -128,7 +128,12 @@ class AuthTokenSerializer(serializers.Serializer):
         attrs['user'] = user
         return attrs
 
-
+class JornadaHorasSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = JornadaHoras
+        fields = '__all__'
+        depth = 1
+        
 class Historial_TurnoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Historial_Turno

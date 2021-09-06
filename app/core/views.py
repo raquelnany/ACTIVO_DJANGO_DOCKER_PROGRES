@@ -24,11 +24,12 @@ from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
 from .controller.ControllerInventarioCategoria import ControllerInventarioCategoria
 from .controller.ControllerCliente import ControllerCliente
 from .controller.ControllerJornada import ControllerJornada
+from .controller.ControllerJornadaHoras import ControllerJornadaHoras
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
 
 from .models import Unidad
@@ -291,7 +292,17 @@ class Historial_TurnoView(APIView):
             id_historial_turno)
         return Response(respuesta)
 
+class JornadaHorasview(APIView):
+    serializer_class = JornadaHorasSerializer
 
+    def post(self, request):
+        respuesta = ControllerJornadaHoras.crearjornadahoras(request)
+        return Response(respuesta)
+
+    def get(self, request, id_jornada_horas=None):
+        respuesta = ControllerJornadaHoras.listarjornadahoras(id_jornada_horas)
+        return Response(respuesta)
+        
 class LoginView(APIView):
     def post(self, request):
         respuesta = ControllerLogin.login(request)

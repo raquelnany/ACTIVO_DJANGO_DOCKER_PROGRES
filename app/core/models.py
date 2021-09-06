@@ -129,6 +129,16 @@ class Historial_Turno(models.Model):
     def __str__(self):
         return super().__str__()
 
+class JornadaHoras(models.Model):
+    id_jornada_horas = models.AutoField(primary_key=True)
+    jornada = models.ForeignKey(Jornada, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    dia = models.CharField(max_length=25, default="")
+    hora = models.TimeField()
+    
+    def __str__(self):
+        return super().__str__()
+
 class Proveedor(models.Model):
     id_proveedor = models.AutoField(primary_key=True)
     proveedor = models.CharField(max_length=25, default="")

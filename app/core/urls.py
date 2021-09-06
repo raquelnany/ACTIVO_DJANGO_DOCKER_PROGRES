@@ -42,6 +42,10 @@ urlpatterns = [
     path('v1/jornadas/', views.Jornadaview.as_view()),
     path('v1/jornadas/<int:id_jornada>',
          views.Jornadaview.as_view()),
+         
+    path('v1/jornadas_horas/', views.JornadaHorasview.as_view()),
+    path('v1/jornadas_horas/<int:id_jornada_horas>',
+         views.JornadaHorasview.as_view()),
     path('v1/unidades/', views.Unidadview.as_view()),
     path('v1/unidades/<int:id_unidad>', views.Unidadview.as_view()),
     path('v1/setup/', views.Setup.as_view()),
