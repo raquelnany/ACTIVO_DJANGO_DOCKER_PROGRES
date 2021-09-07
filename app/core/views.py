@@ -24,12 +24,13 @@ from .assets.DistanciaEntrePuntos import DistanciaEntrePuntos
 from .controller.ControllerInventarioCategoria import ControllerInventarioCategoria
 from .controller.ControllerCliente import ControllerCliente
 from .controller.ControllerJornada import ControllerJornada
+from .controller.ControllerEquipoCategoriaEstatus import ControllerEquipoCategiriaEstatus
 from .controller.ControllerJornadaHoras import ControllerJornadaHoras
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import EquipoCategoriaEstatusSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
 
 from .models import Unidad
@@ -45,6 +46,7 @@ class Setup(GenericAPIView):
         #Desde el serializer el valor de generate sera de tipo booleano
         generar_unidades=generate_data['generar_unidades']
         generar_categorias=generate_data['generar_categorias']
+        generar_equipo_categoria_estatus=generate_data['generar_equipo_categoria_estatus']
         mensaje =''
 
         if generar_unidades:
@@ -53,7 +55,10 @@ class Setup(GenericAPIView):
         if generar_categorias:
             ControllerInventarioCategoria.generarcategorias(request)
             mensaje=mensaje+ 'Se han generado correctamente las categorias: GENE, GRAS, SEGU, MAQU, HERR, ACEI, DIEL, PEGA, BURI, INSE, PAPE, FERRE, ALCO, JOBO, BATE, LIMP, SOLV'
-        if not generar_unidades and not generar_categorias :
+        if generar_equipo_categoria_estatus:
+            ControllerEquipoCategiriaEstatus.generarequipocategoriaestatus(request)
+            mensaje=mensaje+ 'Se han generado correctamente los equipo categoria estatus : Inactivo, Activo, Re-activar'
+        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus :
             mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -358,4 +363,16 @@ class Clienteview(APIView):
 
     def put(self, request, id_cliente=None):
         respuesta = ControllerCliente.modificarcliente(request,id_cliente)
+        return Response(respuesta)
+
+
+class EquipoCategoriaEstatusview(APIView):
+    serializer_class = EquipoCategoriaEstatusSerializaer
+
+    def post(self, request):
+        respuesta = ControllerEquipoCategiriaEstatus.crearequipocategoriaestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_estatus=None):
+        respuesta = ControllerEquipoCategiriaEstatus.listarequipocategoriaestatus(id_estatus)
         return Response(respuesta)

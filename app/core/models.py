@@ -212,3 +212,12 @@ class Cliente(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+
+class Equipo_Categoria_Estatus(models.Model):
+    id_equipo_categoria_estatus = models.AutoField(primary_key=True)
+    equipo_categoria_estatus_en = models.CharField(max_length=25)
+    equipo_categoria_estatus_es = models.CharField(max_length=25)
+
+    def __str__(self):
+        return super().__str__()

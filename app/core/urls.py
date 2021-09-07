@@ -42,7 +42,6 @@ urlpatterns = [
     path('v1/jornadas/', views.Jornadaview.as_view()),
     path('v1/jornadas/<int:id_jornada>',
          views.Jornadaview.as_view()),
-         
     path('v1/jornadas_horas/', views.JornadaHorasview.as_view()),
     path('v1/jornadas_horas/<int:id_jornada_horas>',
          views.JornadaHorasview.as_view()),
@@ -53,6 +52,9 @@ urlpatterns = [
     path('v1/inventario_categorias/<int:id_inventario_categoria>', views.Inventario_Categoriaview.as_view()),
     path('v1/clientes/', views.Clienteview.as_view()),
     path('v1/clientes/<int:id_cliente>', views.Clienteview.as_view()),
+    path('v1/equipo_categoria_estatus/', views.EquipoCategoriaEstatusview.as_view()),
+    path('v1/equipo_categoria_estatus/<int:id_equipo_categoria_estatus>', views.EquipoCategoriaEstatusview.as_view()),
+    
     
      
 ]
