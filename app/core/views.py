@@ -26,12 +26,13 @@ from .controller.ControllerCliente import ControllerCliente
 from .controller.ControllerJornada import ControllerJornada
 from .controller.ControllerEquipoCategoriaEstatus import ControllerEquipoCategiriaEstatus
 from .controller.ControllerJornadaHoras import ControllerJornadaHoras
+from .controller.ControllerEquipoCategoria import ControllerEquipoCategoria
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .serializers import EquipoCategoriaEstatusSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
-from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer
+from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
 
 from .models import Unidad
 
@@ -47,6 +48,7 @@ class Setup(GenericAPIView):
         generar_unidades=generate_data['generar_unidades']
         generar_categorias=generate_data['generar_categorias']
         generar_equipo_categoria_estatus=generate_data['generar_equipo_categoria_estatus']
+        generar_equipo_categoria=generate_data['generar_equipo_categoria']
         mensaje =''
 
         if generar_unidades:
@@ -58,7 +60,10 @@ class Setup(GenericAPIView):
         if generar_equipo_categoria_estatus:
             ControllerEquipoCategiriaEstatus.generarequipocategoriaestatus(request)
             mensaje=mensaje+ 'Se han generado correctamente los equipo categoria estatus : Inactivo, Activo, Re-activar'
-        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus :
+        if generar_equipo_categoria:
+            ControllerEquipoCategoria.generarequipocategoria(request)
+            mensaje=mensaje+ 'Se han generado correctamente las categorias de equipo : RTT, MCH, ELC, SFC, SBP, DLL, WLC, WLI, MRN, UTL, PN, HD, PL,ST'
+        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria :
             mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -375,4 +380,16 @@ class EquipoCategoriaEstatusview(APIView):
 
     def get(self, request, id_estatus=None):
         respuesta = ControllerEquipoCategiriaEstatus.listarequipocategoriaestatus(id_estatus)
+        return Response(respuesta)
+
+
+class EquipoCategoriaview(APIView):
+    serializer_class = EquipoCategoriaSerializer
+
+    def post(self, request):
+        respuesta = ControllerEquipoCategoria.crearequipocategoria(request)
+        return Response(respuesta)
+
+    def get(self, request, id_equipo_categoria=None):
+        respuesta = ControllerEquipoCategoria.listarequipocategoria(id_equipo_categoria)
         return Response(respuesta)

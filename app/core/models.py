@@ -221,3 +221,14 @@ class Equipo_Categoria_Estatus(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+class Equipo_Categoria(models.Model):
+    id_equipo_categoria = models.AutoField(primary_key=True)
+    equipo_categoria_en = models.CharField(max_length=60)
+    equipo_categoria_es = models.CharField(max_length=60)
+    equipo_categoria_clave_en = models.CharField(max_length=20)
+    equipo_categoria_clave_es = models.CharField(max_length=20)
+    estatus = models.ForeignKey(Equipo_Categoria_Estatus, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()

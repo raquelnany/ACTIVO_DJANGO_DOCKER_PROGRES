@@ -18,7 +18,7 @@ class ControllerEquipoCategiriaEstatus:
     def listarequipocategoriaestatus(id_equipo_categoria_estatus=None):
         if id_equipo_categoria_estatus:
             try:
-                queryset = EquipoCategoriaEstatusSerializaer.objects.get(id_equipo_categoria_estatus=id_equipo_categoria_estatus)
+                queryset = Equipo_Categoria_Estatus.objects.get(id_equipo_categoria_estatus=id_equipo_categoria_estatus)
             except Equipo_Categoria_Estatus.DoesNotExist:
                 return ({'result': 'No se encontró el estatus deseado'})
             serializer = EquipoCategoriaEstatusSerializaer(queryset)
