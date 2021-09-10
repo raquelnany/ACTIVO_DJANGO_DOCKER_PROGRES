@@ -6,7 +6,7 @@ from rest_framework import serializers
 
 from .models import Jornada, Cliente, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
-from .models import Equipo_Categoria_Estatus, Equipo_Categoria
+from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -171,10 +171,11 @@ class setup_Serializer(serializers.Serializer):
     generar_categorias = serializers.BooleanField(required=True)
     generar_equipo_categoria_estatus = serializers.BooleanField(required=True)
     generar_equipo_categoria = serializers.BooleanField(required=True)
+    generar_clase_equipo = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria' )
+        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo' )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -192,3 +193,10 @@ class EquipoCategoriaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo_Categoria
         fields = '__all__'
+
+class ClaseEquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Clase_Equipo
+        fields = '__all__'
+        depth = 2
+

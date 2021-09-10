@@ -25,7 +25,7 @@ class ControllerEquipoCategoria:
         if id_equipo_categoria:
             try:
                 queryset = Equipo_Categoria.objects.get(id_equipo_categoria=id_equipo_categoria)
-            except Equipo_Categoria_Estatus.DoesNotExist:
+            except Equipo_Categoria.DoesNotExist:
                 return ({'result': 'No se encontró la categoria de equipo deseadas'})
             serializer = EquipoCategoriaSerializer(queryset)
             return serializer.data

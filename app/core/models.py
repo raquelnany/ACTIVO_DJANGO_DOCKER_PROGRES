@@ -232,3 +232,13 @@ class Equipo_Categoria(models.Model):
     
     def __str__(self):
         return super().__str__()
+
+class Clase_Equipo(models.Model):
+    id_clase_equipo = models.AutoField(primary_key=True)
+    clase_equipo_en = models.CharField(max_length=45)
+    clase_equipo_es = models.CharField(max_length=45)
+    codigo_clase = models.BigIntegerField()
+    equipo_categoria = models.ForeignKey(Equipo_Categoria, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
