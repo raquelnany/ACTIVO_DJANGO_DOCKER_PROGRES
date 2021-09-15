@@ -242,3 +242,11 @@ class Clase_Equipo(models.Model):
     
     def __str__(self):
         return super().__str__()
+
+class Modelo_Icono(models.Model):
+    id_modelo_icono = models.AutoField(primary_key=True)
+    modelo_icono_es = models.CharField(max_length=70)
+    modelo_icono_en = models.CharField(max_length=70)
+    
+    def __str__(self):
+        return super().__str__()

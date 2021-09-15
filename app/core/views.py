@@ -1,3 +1,4 @@
+from app.core.controller.ControllerModeloIcono import ControllerModeloIcono
 from rest_framework import generics, serializers
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
@@ -32,7 +33,7 @@ from .controller.ControllerClaseEquipo import ControllerClaseEquipo
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
 
 from .models import Unidad
@@ -51,6 +52,7 @@ class Setup(GenericAPIView):
         generar_equipo_categoria_estatus=generate_data['generar_equipo_categoria_estatus']
         generar_equipo_categoria=generate_data['generar_equipo_categoria']
         generar_clase_equipo=generate_data['generar_clase_equipo']
+        generar_modelo_icono=generate_data['generar_modelo_icono']
         mensaje =''
 
         if generar_unidades:
@@ -68,7 +70,10 @@ class Setup(GenericAPIView):
         if generar_clase_equipo:
             ControllerClaseEquipo.generarclaseequipo(request)
             mensaje=mensaje+ 'Se han generado correctamente las clases de equipo : MX, CR, HE, HB, VE, PI, WI, ST, FS, PS, TR, TD, FC, CB, CPB, FD ...'
-        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo:
+        if generar_modelo_icono:
+            ControllerModeloIcono.generarmodeloicono(request)
+            mensaje=mensaje+ 'Se han generado correctamente los modelos iconos : ...'
+        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono:
             mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -408,4 +413,15 @@ class ClaseEquipoview(APIView):
 
     def get(self, request, id_equipo_categoria=None):
         respuesta = ControllerClaseEquipo.listarclaseequipo(id_equipo_categoria)
+        return Response(respuesta)
+
+class ModeloIconoview(APIView):
+    serializer_class = ModeloIconoSerializer
+
+    def post(self, request):
+        respuesta = ControllerModeloIcono.crearmodeloicono(request)
+        return Response(respuesta)
+
+    def get(self, request, id_modelo_icono=None):
+        respuesta = ControllerModeloIcono.listarmodeloicono(id_modelo_icono)
         return Response(respuesta)

@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Jornada, Cliente, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
+from .models import Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo
 
@@ -172,10 +172,11 @@ class setup_Serializer(serializers.Serializer):
     generar_equipo_categoria_estatus = serializers.BooleanField(required=True)
     generar_equipo_categoria = serializers.BooleanField(required=True)
     generar_clase_equipo = serializers.BooleanField(required=True)
+    generar_modelo_icono = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo' )
+        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono' )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -199,4 +200,10 @@ class ClaseEquipoSerializer(serializers.ModelSerializer):
         model = Clase_Equipo
         fields = '__all__'
         depth = 2
+
+class ModeloIconoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modelo_Icono
+        fields = '__all__'
+
 
