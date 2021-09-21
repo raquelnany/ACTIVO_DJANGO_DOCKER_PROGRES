@@ -29,14 +29,16 @@ from .controller.ControllerEquipoCategoriaEstatus import ControllerEquipoCategir
 from .controller.ControllerJornadaHoras import ControllerJornadaHoras
 from .controller.ControllerEquipoCategoria import ControllerEquipoCategoria
 from .controller.ControllerClaseEquipo import ControllerClaseEquipo
+from .controller.ControllerEquipoCategoriaIcono import ControllerEquipoCategoriaIcono
+from .controller.ControllerModelo import ControllerModelo
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
 
-from .models import Unidad
+from .models import Modelo, Unidad
 
 #View encargada de auto generar una serie de unidades con datos quemados por el método
 #Observación: Es importante que solo sea usada una vez
@@ -53,6 +55,7 @@ class Setup(GenericAPIView):
         generar_equipo_categoria=generate_data['generar_equipo_categoria']
         generar_clase_equipo=generate_data['generar_clase_equipo']
         generar_modelo_icono=generate_data['generar_modelo_icono']
+        generar_equipo_categoria_icono=generate_data['generar_equipo_categoria_icono']
         mensaje =''
 
         if generar_unidades:
@@ -73,7 +76,10 @@ class Setup(GenericAPIView):
         if generar_modelo_icono:
             ControllerModeloIcono.generarmodeloicono(request)
             mensaje=mensaje+ 'Se han generado correctamente los modelos iconos : ...'
-        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono:
+        if generar_equipo_categoria_icono:
+            ControllerEquipoCategoriaIcono.generarequipocategoriaIcono(request)
+            mensaje = mensaje + 'Se han generado correctamente los equipos categorias iconos'
+        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono and not generar_equipo_categoria_icono:
             mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -424,4 +430,31 @@ class ModeloIconoview(APIView):
 
     def get(self, request, id_modelo_icono=None):
         respuesta = ControllerModeloIcono.listarmodeloicono(id_modelo_icono)
+        return Response(respuesta)
+    
+
+class EquipoCategoriaIconoview(APIView):
+    serializer_class = EquipoCategoriaIconoSerializaer
+
+    def post(self, request):
+        respuesta = ControllerEquipoCategoriaIcono.crearequipocategoriaicono(request)
+        return Response(respuesta)
+
+    def get(self, request, id_equipo_categoria_icono=None):
+        respuesta = ControllerEquipoCategoriaIcono.listarequipocategoriaicono(id_equipo_categoria_icono)
+        return Response(respuesta)
+
+class Modeloview(APIView):
+    serializer_class = ModeloSerializer
+
+    def post(self, request):
+        respuesta = ControllerModelo.crearmodelo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_modelo=None):
+        respuesta = ControllerModelo.listarmodelo(id_modelo)
+        return Response(respuesta)
+
+    def put(self, request, id_modelo=None):
+        respuesta = ControllerModelo.modificarmodelo(request,id_modelo)
         return Response(respuesta)

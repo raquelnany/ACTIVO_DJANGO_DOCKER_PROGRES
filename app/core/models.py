@@ -250,3 +250,25 @@ class Modelo_Icono(models.Model):
     
     def __str__(self):
         return super().__str__()
+
+class Equipo_Categoria_Icono(models.Model):
+    id_equipo_categoria_icono = models.AutoField(primary_key=True)
+    equipo_categoria = models.ForeignKey(Equipo_Categoria, on_delete=models.SET_NULL, null=True)
+    modelo_icono = models.ForeignKey(Modelo_Icono, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Modelo(models.Model):
+    id_modelo = models.AutoField(primary_key=True)
+    num_modelo = models.CharField(max_length=20)
+    modelo = models.CharField(max_length=45)
+    descripcion = models.CharField(max_length=254)
+    fabricante = models.CharField(max_length=45)
+    tipo_de_equipo = models.CharField(max_length=45)
+    clase_equipo = models.ForeignKey(Clase_Equipo, on_delete=models.SET_NULL, null=True)
+    icono = models.ForeignKey(Modelo_Icono, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
