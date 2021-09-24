@@ -4,9 +4,9 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Equipo_Categoria_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
+from .models import Equipo, Equipo_Categoria_Icono, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
-from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo
+from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -174,10 +174,12 @@ class setup_Serializer(serializers.Serializer):
     generar_clase_equipo = serializers.BooleanField(required=True)
     generar_modelo_icono = serializers.BooleanField(required=True)
     generar_equipo_categoria_icono = serializers.BooleanField(required=True)
+    generar_instalacion_icono = serializers.BooleanField(required=True)
+    generar_equipo_estatus = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono' )
+        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono,generar_instalacion_icono, generar_equipo_estatus' )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -219,4 +221,24 @@ class ModeloSerializer(serializers.ModelSerializer):
         fields = '__all__'
         depth = 3
 
+class InstalacionIconoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instalacion_Icono
+        fields = '__all__'
 
+class InstalacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instalacion
+        fields = '__all__'
+        depth = 2
+
+class EquipoEstatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo_Estatus
+        fields = '__all__'
+
+class EquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo
+        fields = '__all__'
+        depth = 4

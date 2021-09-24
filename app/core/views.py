@@ -1,3 +1,5 @@
+from app.core.controller.ControllerInstalacion import ControllerInstalacion
+from app.core.controller.ControllerInstalacionIcono import ControllerInstalacionIcono
 from app.core.controller.ControllerModeloIcono import ControllerModeloIcono
 from rest_framework import generics, serializers
 from rest_framework.authtoken.views import ObtainAuthToken
@@ -31,11 +33,13 @@ from .controller.ControllerEquipoCategoria import ControllerEquipoCategoria
 from .controller.ControllerClaseEquipo import ControllerClaseEquipo
 from .controller.ControllerEquipoCategoriaIcono import ControllerEquipoCategoriaIcono
 from .controller.ControllerModelo import ControllerModelo
+from .controller.ControllerEquipoEstatus import ControllerEquipoEstatus
+from .controller.ControllerEquipo import ControllerEquipo
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, InstalacionIconoSerializer, InstalacionSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
 
 from .models import Modelo, Unidad
@@ -56,6 +60,8 @@ class Setup(GenericAPIView):
         generar_clase_equipo=generate_data['generar_clase_equipo']
         generar_modelo_icono=generate_data['generar_modelo_icono']
         generar_equipo_categoria_icono=generate_data['generar_equipo_categoria_icono']
+        generar_instalacion_icono = generate_data['generar_instalacion_icono']
+        generar_equipo_estatus =  generate_data['generar_equipo_estatus']
         mensaje =''
 
         if generar_unidades:
@@ -79,8 +85,15 @@ class Setup(GenericAPIView):
         if generar_equipo_categoria_icono:
             ControllerEquipoCategoriaIcono.generarequipocategoriaIcono(request)
             mensaje = mensaje + 'Se han generado correctamente los equipos categorias iconos'
-        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono and not generar_equipo_categoria_icono:
-            mensaje= 'no se cargo nada'
+        if generar_instalacion_icono:
+            ControllerInstalacionIcono.generarinstalacionicono(request)
+            mensaje = mensaje + 'Se han generado correctamente las instalaciones iconos'
+        if generar_equipo_estatus:
+            ControllerEquipoEstatus.generarequipoestatus(request)
+            mensaje = mensaje + 'Se han generado correctamente las estatus de los objetos'
+        if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono and not generar_equipo_categoria_icono and not generar_instalacion_icono:
+            if not generar_equipo_estatus:
+                mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
     
@@ -457,4 +470,56 @@ class Modeloview(APIView):
 
     def put(self, request, id_modelo=None):
         respuesta = ControllerModelo.modificarmodelo(request,id_modelo)
+        return Response(respuesta)
+
+class InstalacionIconoview(APIView):
+    serializer_class = InstalacionIconoSerializer
+
+    def post(self, request):
+        respuesta = ControllerInstalacionIcono.crearinstalacionicono(request)
+        return Response(respuesta)
+
+    def get(self, request, id_instalacion_icono=None):
+        respuesta = ControllerInstalacionIcono.listarinstalacionicono(id_instalacion_icono)
+        return Response(respuesta)
+
+class InstalacionView(APIView):
+    serializer_class = InstalacionSerializer
+
+    def post(self, request):
+        respuesta = ControllerInstalacion.crearinstalacion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_instalacion=None):
+        respuesta = ControllerInstalacion.listarinstalacion(id_instalacion)
+        return Response(respuesta)
+        
+    def put(self, request, id_instalacion=None):
+        respuesta = ControllerInstalacion.modificarinstalacion(request,id_instalacion)
+        return Response(respuesta)
+
+class EquipoEstatusView(APIView):
+    serializer_class = EquipoEstatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerEquipoEstatus.crearequipoestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_equipo_estatus=None):
+        respuesta = ControllerEquipoEstatus.listarequipoestatus(id_equipo_estatus)
+        return Response(respuesta)
+
+class Equipoview(APIView):
+    serializer_class = EquipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerEquipo.crearequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_equipo=None):
+        respuesta = ControllerEquipo.listarequipo(id_equipo)
+        return Response(respuesta)
+        
+    def put(self, request, id_equipo=None):
+        respuesta  =ControllerEquipo.modificarequipo(request,id_equipo)
         return Response(respuesta)

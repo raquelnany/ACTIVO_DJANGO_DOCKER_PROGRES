@@ -63,6 +63,14 @@ urlpatterns = [
     path('v1/equipos_categorias_iconos/', views.EquipoCategoriaIconoview.as_view()),
     path('v1/equipos_categorias_iconos/<int:id_equipo_categoria>', views.EquipoCategoriaIconoview.as_view()), 
     path('v1/modelos/', views.Modeloview.as_view()),
-    path('v1/modelos/<int:id_modelo>', views.Modeloview.as_view()),   
+    path('v1/modelos/<int:id_modelo>', views.Modeloview.as_view()),    
+    path('v1/instalacio_iconos/', views.InstalacionIconoview.as_view()),
+    path('v1/instalacio_iconos/<int:id_instalacion_icono>', views.InstalacionIconoview.as_view()),   
+    path('v1/instalaciones/', views.InstalacionView.as_view()),
+    path('v1/instalaciones/<int:id_instalacion>', views.InstalacionView.as_view()),  
+    path('v1/equipos_estatus/', views.EquipoEstatusView.as_view()),
+    path('v1/equipos_estatus/<int:id_equipo_estatus>', views.EquipoEstatusView.as_view()),  
+    path('v1/equipos/', views.Equipoview.as_view()),
+    path('v1/equipos/<int:id_equipos>', views.Equipoview.as_view()),  
      
 ]

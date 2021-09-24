@@ -272,3 +272,86 @@ class Modelo(models.Model):
     def __str__(self):
         return super().__str__()
 
+class Instalacion_Icono(models.Model):
+    id_instalacion_icono = models.AutoField(primary_key=True)
+    instalacion_icono_en = models.CharField(max_length=45)
+    instalacion_icono_es = models.CharField(max_length=45)
+  
+    def __str__(self):
+        return super().__str__()
+
+class Instalacion(models.Model):
+    id_instalacion = models.AutoField(primary_key=True)
+    descripcion_instalacion = models.CharField(max_length=45)
+    jerarquia_instalacion = models.CharField(max_length=45)
+    padre_instalacion = models.CharField(max_length=45)
+    foto_instalacion = models.CharField(max_length=45)
+    lugar_instalacion = models.CharField(max_length=45)
+    icono = models.ForeignKey(Instalacion_Icono, on_delete=models.SET_NULL, null=True)
+    color = models.IntegerField()
+    estatus_instalacion = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    horas = models.IntegerField()
+    operadores = models.IntegerField()
+      
+    def __str__(self):
+        return super().__str__()
+
+class Instalacion(models.Model):
+    id_instalacion = models.AutoField(primary_key=True)
+    descripcion_instalacion = models.CharField(max_length=45)
+    jerarquia_instalacion = models.CharField(max_length=45)
+    padre_instalacion = models.CharField(max_length=45)
+    foto_instalacion = models.CharField(max_length=45)
+    lugar_instalacion = models.CharField(max_length=45)
+    icono = models.ForeignKey(Instalacion_Icono, on_delete=models.SET_NULL, null=True)
+    color = models.IntegerField()
+    estatus_instalacion = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    horas = models.IntegerField()
+    operadores = models.IntegerField()
+      
+    def __str__(self):
+        return super().__str__()
+
+
+class Equipo_Estatus(models.Model):
+    id_equipo_estatus = models.AutoField(primary_key=True)
+    equipo_estatus_en = models.CharField(max_length=45)
+    equipo_estatus_es = models.CharField(max_length=45)
+   
+    def __str__(self):
+        return super().__str__()
+
+class Equipo(models.Model):
+    id_equipo = models.AutoField(primary_key=True)
+    numero_de_equipo = models.CharField(max_length=45)
+    modelo = models.ForeignKey(Modelo, on_delete=models.SET_NULL, null=True)
+    estatus = models.ForeignKey(Equipo_Estatus, on_delete=models.SET_NULL, null=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    centro_costos = models.ForeignKey(CentroCosto, on_delete=models.SET_NULL, null=True)
+    criticidad = models.IntegerField()
+    pasillo = models.CharField(max_length=45)
+    equipo_caido = models.IntegerField()
+    tiempo_muerto = models.CharField(max_length=20)
+    fila = models.CharField(max_length=45)
+    jerarquia = models.CharField(max_length=2)
+    codigo_qr = models.CharField(max_length=255)
+    codigo_barras = models.CharField(max_length=255)
+    foto_equipo = models.CharField(max_length=60)
+    icono =  models.ForeignKey(Modelo_Icono, on_delete=models.SET_NULL, null=True)
+    num_pedimiento = models.CharField(max_length=20)
+    garantia = models.CharField(max_length=50)
+    fecha_compra = models.DateField()
+    num_serie = models.CharField(max_length=200)
+    horas_diarias = models.CharField(max_length=20)
+    dlunes = models.IntegerField()
+    dmartes = models.IntegerField()
+    dmiercoles = models.IntegerField()
+    djueves = models.IntegerField()
+    dviernes = models.IntegerField()
+    dsabado = models.IntegerField()
+    ddomingo = models.IntegerField()
+    comentarios = models.CharField(max_length=500)
+    referencias =models.CharField(max_length=500)
+
+    def __str__(self):
+        return super().__str__()
