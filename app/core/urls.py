@@ -72,5 +72,9 @@ urlpatterns = [
     path('v1/equipos_estatus/<int:id_equipo_estatus>', views.EquipoEstatusView.as_view()),  
     path('v1/equipos/', views.Equipoview.as_view()),
     path('v1/equipos/<int:id_equipos>', views.Equipoview.as_view()),  
+    path('v1/herramientas_movimientos/', views.HerramientaMovimientoview.as_view()),
+    path('v1/herramientas_movimientos/<int:id_herramienta_movimiento>', views.HerramientaMovimientoview.as_view()),
+    path('v1/herramientas/', views.Herramientaview.as_view()),
+    path('v1/herramientas/<int:id_herramienta>', views.Herramientaview.as_view()),  
      
 ]

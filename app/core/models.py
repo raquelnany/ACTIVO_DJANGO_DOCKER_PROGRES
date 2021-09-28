@@ -355,3 +355,33 @@ class Equipo(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+class Herramienta_Movimiento(models.Model):
+    id_herramienta_movimiento = models.AutoField(primary_key=True)
+    herramienta_movimiento_en = models.CharField(max_length=75)
+    herramienta_movimiento_es = models.CharField(max_length=75)
+  
+    def __str__(self):
+        return super().__str__()
+
+
+class Herramienta(models.Model):
+    id_herramienta = models.AutoField(primary_key=True)
+    herramienta= models.CharField(max_length=500)
+    herramienta_codigo = models.CharField(max_length=50)
+    herramienta_descripcion = models.CharField(max_length=1000)
+    herramienta_marca = models.CharField(max_length=50)
+    herramienta_modelo = models.CharField(max_length=50)
+    herramienta_num_serie = models.CharField(max_length=50)
+    herramienta_departamento = models.CharField(max_length=50)
+    herramienta_proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    herramienta_usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    herramienta_registro = models.DateField()
+    herramienta_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    herramienta_foto = models.CharField(max_length=120)
+    herramienta_movimiento = models.ForeignKey(Herramienta_Movimiento, on_delete=models.SET_NULL, null=True)
+    herramienta_costo = models.DecimalField(10,2)
+
+    def __str__(self):
+        return super().__str__()
+        

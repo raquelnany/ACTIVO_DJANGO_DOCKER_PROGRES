@@ -35,11 +35,13 @@ from .controller.ControllerEquipoCategoriaIcono import ControllerEquipoCategoria
 from .controller.ControllerModelo import ControllerModelo
 from .controller.ControllerEquipoEstatus import ControllerEquipoEstatus
 from .controller.ControllerEquipo import ControllerEquipo
+from .controller.ControllerHerramientaMovimiento import ControllerHerramientaMovimiento
+from .controller.ControllerHerramienta import ControllerHerramienta
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, InstalacionIconoSerializer, InstalacionSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
 
 from .models import Modelo, Unidad
@@ -62,6 +64,7 @@ class Setup(GenericAPIView):
         generar_equipo_categoria_icono=generate_data['generar_equipo_categoria_icono']
         generar_instalacion_icono = generate_data['generar_instalacion_icono']
         generar_equipo_estatus =  generate_data['generar_equipo_estatus']
+        generar_herramienta_movimiento = generate_data['generar_herramienta_movimiento']
         mensaje =''
 
         if generar_unidades:
@@ -91,8 +94,11 @@ class Setup(GenericAPIView):
         if generar_equipo_estatus:
             ControllerEquipoEstatus.generarequipoestatus(request)
             mensaje = mensaje + 'Se han generado correctamente las estatus de los objetos'
+        if generar_herramienta_movimiento:
+            ControllerHerramientaMovimiento.generarherramientamovimiento(request)
+            mensaje = mensaje + 'Se han generado los movimientos de herramietas'
         if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono and not generar_equipo_categoria_icono and not generar_instalacion_icono:
-            if not generar_equipo_estatus:
+            if not generar_equipo_estatus and not generar_herramienta_movimiento:
                 mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -522,4 +528,30 @@ class Equipoview(APIView):
         
     def put(self, request, id_equipo=None):
         respuesta  =ControllerEquipo.modificarequipo(request,id_equipo)
+        return Response(respuesta)
+
+class HerramientaMovimientoview(APIView):
+    serializer_class = HerramientaMovimientoSerializer
+
+    def post(self, request):
+        respuesta = ControllerHerramientaMovimiento.crearherramientamovimiento(request)
+        return Response(respuesta)
+
+    def get(self, request, id_herramienta_movimiento=None):
+        respuesta = ControllerHerramientaMovimiento.listarherramientamovimiento(id_herramienta_movimiento)
+        return Response(respuesta)
+
+class Herramientaview(APIView):
+    serializer_class = HerramientaSerializer
+
+    def post(self, request):
+        respuesta = ControllerHerramienta.crearherramienta(request)
+        return Response(respuesta)
+
+    def get(self, request, id_herramienta=None):
+        respuesta = ControllerHerramienta.listarherramienta(id_herramienta)
+        return Response(respuesta)
+        
+    def put(self, request, id_herramienta=None):
+        respuesta  = ControllerHerramienta.modificarherramienta(request,id_herramienta)
         return Response(respuesta)

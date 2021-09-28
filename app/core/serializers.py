@@ -4,9 +4,10 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Equipo, Equipo_Categoria_Icono, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
+from .models import Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
+from .models import Herramienta_Movimiento
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -176,10 +177,11 @@ class setup_Serializer(serializers.Serializer):
     generar_equipo_categoria_icono = serializers.BooleanField(required=True)
     generar_instalacion_icono = serializers.BooleanField(required=True)
     generar_equipo_estatus = serializers.BooleanField(required=True)
+    generar_herramienta_movimiento = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono,generar_instalacion_icono, generar_equipo_estatus' )
+        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono,generar_instalacion_icono, generar_equipo_estatus, generar_herramienta_movimiento' )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -240,5 +242,17 @@ class EquipoEstatusSerializer(serializers.ModelSerializer):
 class EquipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Equipo
+        fields = '__all__'
+        depth = 4
+
+class HerramientaMovimientoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Herramienta_Movimiento
+        fields = '__all__'
+
+
+class HerramientaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Herramienta
         fields = '__all__'
         depth = 4
