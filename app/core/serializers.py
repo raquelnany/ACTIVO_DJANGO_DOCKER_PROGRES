@@ -7,7 +7,7 @@ from rest_framework import serializers
 from .models import Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
-from .models import Herramienta_Movimiento
+from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -256,3 +256,21 @@ class HerramientaSerializer(serializers.ModelSerializer):
         model = Herramienta
         fields = '__all__'
         depth = 4
+
+class HerramientaHistorialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Herramienta_Historial
+        fields = '__all__'
+        depth = 2
+
+class InventarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inventario
+        fields = '__all__'
+        depth = 2
+
+class InventarioTipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Inventario_Tipo
+        fields = '__all__'
+        depth = 2

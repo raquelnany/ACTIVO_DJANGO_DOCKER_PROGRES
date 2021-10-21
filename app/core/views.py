@@ -37,12 +37,14 @@ from .controller.ControllerEquipoEstatus import ControllerEquipoEstatus
 from .controller.ControllerEquipo import ControllerEquipo
 from .controller.ControllerHerramientaMovimiento import ControllerHerramientaMovimiento
 from .controller.ControllerHerramienta import ControllerHerramienta
+from .controller.ControllerHerramientaHistorial import ControllerHerramientaHistorial
+from .controller.ControllerInventarioTipo import ControllerInventarioTipo
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
-from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioTipoSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
 
@@ -555,3 +557,26 @@ class Herramientaview(APIView):
     def put(self, request, id_herramienta=None):
         respuesta  = ControllerHerramienta.modificarherramienta(request,id_herramienta)
         return Response(respuesta)
+
+class HerramientaHistorialview(APIView):
+    serializer_class = HerramientaHistorialSerializer
+
+    def post(self, request):
+        respuesta = ControllerHerramientaHistorial.crearherramientahistorial(request)
+        return Response(respuesta)
+
+    def get(self, request, id_herramienta_historial=None):
+        respuesta = ControllerHerramientaHistorial.listarherramientahistorial(id_herramienta_historial)
+        return Response(respuesta)
+
+class InventarioTipoview(APIView):
+    serializer_class = InventarioTipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerInventarioTipo.crearinventarioTipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_inventario_tipo=None):
+        respuesta = ControllerInventarioTipo.listarinventariotipo(id_inventario_tipo)
+        return Response(respuesta)
+        

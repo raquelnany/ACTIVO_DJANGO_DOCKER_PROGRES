@@ -76,5 +76,9 @@ urlpatterns = [
     path('v1/herramientas_movimientos/<int:id_herramienta_movimiento>', views.HerramientaMovimientoview.as_view()),
     path('v1/herramientas/', views.Herramientaview.as_view()),
     path('v1/herramientas/<int:id_herramienta>', views.Herramientaview.as_view()),  
+    path('v1/herramientas_historial/', views.HerramientaHistorialview.as_view()),
+    path('v1/herramientas_historial/<int:id_herramienta_historial>', views.HerramientaHistorialview.as_view()),  
+    path('v1/inventario_tipos/', views.InventarioTipoview.as_view()),
+    path('v1/inventario_tipos/<int:id_inventario_tipo>', views.InventarioTipoview.as_view()), 
      
 ]

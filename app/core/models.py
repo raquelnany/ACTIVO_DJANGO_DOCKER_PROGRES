@@ -384,4 +384,39 @@ class Herramienta(models.Model):
 
     def __str__(self):
         return super().__str__()
-        
+
+class Herramienta_Historial(models.Model):
+    id_herramienta_historial = models.AutoField(primary_key=True)
+    herramienta= models.ForeignKey(Herramienta, on_delete=models.SET_NULL, null=True)
+    herramienta_movimiento = models.ForeignKey(Herramienta_Movimiento, on_delete=models.SET_NULL, null=True)
+    fecha_movimiento = models.DateField()
+    notas_herramienta = models.CharField(max_length=1000)
+    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    prestamo = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Inventario_Tipo(models.Model):
+    id_inventario_tipo = models.AutoField(primary_key=True)
+    inventario_tipo_es = models.CharField(max_length=30)
+    inventario_tipo_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Inventario(models.Model):
+    id_inventario = models.AutoField(primary_key=True)
+    inventario = models.CharField(max_length=1000)
+    descripcion_inventario = models.CharField(max_length=1000)
+    codigo_inventario = models.CharField(max_length=50)
+    estatus_inventario = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    prioridad_inventario = models.IntegerField()
+    foto_inventario = models.CharField(max_length=200)
+    inventario_categoria = models.ForeignKey(Inventario_Categoria, on_delete=models.SET_NULL, null=True)
+    inventario_tipo = models.ForeignKey(Inventario_Tipo, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
