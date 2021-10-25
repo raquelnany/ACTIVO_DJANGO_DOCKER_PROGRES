@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Tipo_Rol, Rol
+from .models import Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Jornada, Cliente, Modelo_Icono, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo
@@ -272,5 +272,29 @@ class InventarioSerializer(serializers.ModelSerializer):
 class InventarioTipoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inventario_Tipo
+        fields = '__all__'
+        depth = 2
+
+class StockSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock
+        fields = '__all__'
+        depth = 2
+
+class StockDetalleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock_Detalle
+        fields = '__all__'
+        depth = 2
+
+class StockEntradaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock_Entrada
+        fields = '__all__'
+        depth = 2
+
+class StockAjusteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Stock_Ajuste
         fields = '__all__'
         depth = 2

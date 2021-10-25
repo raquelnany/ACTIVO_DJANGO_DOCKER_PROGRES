@@ -80,5 +80,13 @@ urlpatterns = [
     path('v1/herramientas_historial/<int:id_herramienta_historial>', views.HerramientaHistorialview.as_view()),  
     path('v1/inventario_tipos/', views.InventarioTipoview.as_view()),
     path('v1/inventario_tipos/<int:id_inventario_tipo>', views.InventarioTipoview.as_view()), 
+    path('v1/stocks/', views.Stockview.as_view()),
+    path('v1/stocks/<int:id_stock>', views.Stockview.as_view()), 
+    path('v1/stock_detalles/', views.StockDetalleview.as_view()),
+    path('v1/stock_detalles/<int:id_stock_detalle>', views.StockDetalleview.as_view()), 
+    path('v1/stock_entradas/', views.StockEntradaview.as_view()),
+    path('v1/stock_entradas/<int:id_stock_entrada>', views.StockEntradaview.as_view()), 
+    path('v1/stock_ajustes/', views.StockAjusteview.as_view()),
+    path('v1/stock_ajustes/<int:id_stock_ajuste>', views.StockAjusteview.as_view()), 
      
 ]

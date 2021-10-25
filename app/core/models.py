@@ -420,3 +420,75 @@ class Inventario(models.Model):
     def __str__(self):
         return super().__str__()
 
+class Stock(models.Model):
+    id_stock = models.AutoField(primary_key=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    cantidad_actual = models.IntegerField()
+    punto_reorden = models.IntegerField()
+    pasillo = models.models.CharField(max_length=50)
+    columna = models.models.CharField(max_length=50)
+    contenedor = models.models.CharField(max_length=50)
+    user_stock = models.IntegerField()
+    img_inventario = models.models.CharField(max_length=200)
+    maxima = models.IntegerField()
+    
+    def __str__(self):
+        return super().__str__()
+
+class Stock_Detalle(models.Model):
+    id_stock_detalle = models.AutoField(primary_key=True)
+    inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    cuenta = models.models.CharField(max_length=20)
+    centro_costos = models.ForeignKey(CentroCosto, on_delete=models.SET_NULL, null=True)
+    modelo = models.models.CharField(max_length=50)
+    numero_serie = models.models.CharField(max_length=50)
+    notas_detalles = models.models.CharField(max_length=1000)
+    unidad = models.ForeignKey(Unidad, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+
+class Stock_Entrada(models.Model):
+    id_stock_entrada = models.AutoField(primary_key=True)
+    inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    fecha_orden = models.models.DateField()
+    fecha_recibido = models.models.DateField()
+    orden_compra = models.models.CharField(max_length=50)
+    cantidad_recibida = models.models.FloatField(10,2)
+    precio_unitario = models.models.FloatField(10,2)
+    embargado_a = models.models.IntegerField()
+    user_entrada =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_disponible = models.models.FloatField(10,2)
+    moneda = models.models.IntegerField()
+    dolares = models.models.FloatField(10,2)
+
+    def __str__(self):
+        return super().__str__()
+
+class Stock_Ajuste(models.Model):
+    id_stock_ajuste = models.AutoField(primary_key=True)
+    stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
+    usuario_ajuste = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    fecha_ajuste = models.models.DateField()
+    orden_compra_1 = models.models.CharField(max_length=50)
+    orden_compra_2 = models.models.CharField(max_length=50)
+    proveedor_1 = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    proveedor_2 = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    cantidad_1 = models.models.FloatField(10,2)
+    cantidad_2 = models.models.FloatField(10,2)
+    cantidad_disponible_1 = models.models.FloatField(10,2)
+    cantidad_disponible_2 = models.models.FloatField(10,2)
+    precio_unitario_1 = models.models.FloatField(10,2)
+    precio_unitario_2 = models.models.FloatField(10,2)
+    moneda_1 = models.models.IntegerField()
+    moneda_2 = models.models.IntegerField()
+    dolares_1 = models.models.FloatField(10,2)
+    dolares_2 = models.models.FloatField(10,2)
+
+    def __str__(self):
+        return super().__str__()
+
+

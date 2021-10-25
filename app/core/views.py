@@ -39,11 +39,16 @@ from .controller.ControllerHerramientaMovimiento import ControllerHerramientaMov
 from .controller.ControllerHerramienta import ControllerHerramienta
 from .controller.ControllerHerramientaHistorial import ControllerHerramientaHistorial
 from .controller.ControllerInventarioTipo import ControllerInventarioTipo
+from .controller.ControllerStock import ControllerStock
+from .controller.ControllerStockDetalle import ControllerStockDetalle
+from .controller.ControllerStockEntrada import ControllerStockEntrada
+from .controller.ControllerStockAjuste import ControllerStockAjuste
+
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioTipoSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ClaseEquipoSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioTipoSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -579,4 +584,50 @@ class InventarioTipoview(APIView):
     def get(self, request, id_inventario_tipo=None):
         respuesta = ControllerInventarioTipo.listarinventariotipo(id_inventario_tipo)
         return Response(respuesta)
-        
+
+class Stockview(APIView):
+    serializer_class = StockSerializer
+
+    def post(self, request):
+        respuesta = ControllerStock.crearstock(request)
+        return Response(respuesta)
+
+    def get(self, request, id_stock=None):
+        respuesta = ControllerStock.listarstock(id_stock)
+        return Response(respuesta)
+
+class StockDetalleview(APIView):
+    serializer_class = StockDetalleSerializer
+
+    def post(self, request):
+        respuesta = ControllerStockDetalle.crearstockdetalle(request)
+        return Response(respuesta)
+
+    def get(self, request, id_stock_detalle=None):
+        respuesta = ControllerStockDetalle.listarstockDetalle(id_stock_detalle)
+        return Response(respuesta)
+              
+
+class StockEntradaview(APIView):
+    serializer_class = StockEntradaSerializer
+
+    def post(self, request):
+        respuesta = ControllerStockEntrada.crearstockentrada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_stock_entrada=None):
+        respuesta = ControllerStockEntrada.listarstockentrada(id_stock_entrada)
+        return Response(respuesta)
+              
+class StockAjusteview(APIView):
+    serializer_class = StockAjusteSerializer
+
+    def post(self, request):
+        respuesta = ControllerStockAjuste.crearstockajuste(request)
+        return Response(respuesta)
+
+    def get(self, request, id_stock_ajuste=None):
+        respuesta = ControllerStockAjuste.listarstockajuste(id_stock_ajuste)
+        return Response(respuesta)
+              
+                          
