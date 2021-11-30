@@ -492,3 +492,104 @@ class Stock_Ajuste(models.Model):
         return super().__str__()
 
 
+class Parte_Estatus(models.Model):
+    id_parte_estatus = models.AutoField(primary_key=True)
+    parte_estatus_en  = models.CharField(max_length=30)
+    parte_estatus_es = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Inventario_Vale(models.Model):
+    id_inventario_vale = models.AutoField(primary_key=True)
+    nombre_vale  = models.CharField(max_length=20)
+    inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_solicitada = models.models.FloatField(10,2)
+    cantidad_surtida = models.models.FloatField(10,2) 
+    parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
+    fecha_surtido = models.DateField()
+    fecha_solicitud  = models.DateField() 
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Inventario_Ajuste(models.Model):
+    id_inventario_ajuste = models.AutoField(primary_key=True)
+    nombre_ajuste  = models.CharField(max_length=20)
+    inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    fecha_solicitud  = models.DateField() 
+    fecha_aceptado = models.DateField()
+    parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
+    aprobador = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Parte_Detalle(models.Model):
+    id_parte_detalle = models.AutoField(primary_key=True)
+    orden_trabajo_parte  = models.models.IntegerField()
+    stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
+    stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
+    cantidad = models.models.IntegerField()
+    inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Parte_Detalle_Surtido(models.Model):
+    id_parte_detalle_surtido = models.AutoField(primary_key=True)
+    id_surtido_por  = models.models.IntegerField()
+    id_orden_trabajo_parte = models.models.IntegerField()
+    inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
+    fecha_surtido = models.DateField()
+    hora_surtido  = models.TimeField()
+    
+    def __str__(self):
+        return super().__str__()
+
+class Devolucion(models.Model):
+    id_devolucion = models.AutoField(primary_key=True)
+    id_devuelto_por  = models.models.IntegerField()
+    id_orden_trabajo_parte = models.models.IntegerField()
+    inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
+    fecha_devuelto = models.DateField()
+    hora_devuelto  = models.TimeField()
+    def __str__(self):
+        return super().__str__()
+
+class Almacen(models.Model):
+    id_almacen = models.AutoField(primary_key=True)
+    descripcion_almacen = models.models.CharField(max_length=45)
+    jerarquia_almacen = models.models.CharField(max_length=45)
+    padre_almacen = models.models.CharField(max_length=45)
+    foto_almacen = models.models.CharField(max_length=45)
+    lugar_almacen  = models.models.CharField(max_length=45)
+    icono = models.IntegerField()
+    color = models.IntegerField()
+    estatus_almacen = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+   
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Tipo(models.Model):
+    id_orden_trabajo_tipo = models.AutoField(primary_key=True)
+    siglas_es = models.models.CharField(max_length=20)
+    sigles_en = models.models.CharField(max_length=20)
+    orden_trabajo_tipo_es = models.models.CharField(max_length=200)
+    orden_trabajo_tipo_en = models.models.CharField(max_length=200)
+   
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Prioridad(models.Model):
+    id_orden_trabajo_prioridad = models.AutoField(primary_key=True)
+    orden_trabajo_prioridad_es = models.models.CharField(max_length=200)
+    orden_trabajo_prioridad_en = models.models.CharField(max_length=200)
+   
+    def __str__(self):
+        return super().__str__()
