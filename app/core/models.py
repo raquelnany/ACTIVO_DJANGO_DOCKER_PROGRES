@@ -296,23 +296,6 @@ class Instalacion(models.Model):
     def __str__(self):
         return super().__str__()
 
-class Instalacion(models.Model):
-    id_instalacion = models.AutoField(primary_key=True)
-    descripcion_instalacion = models.CharField(max_length=45)
-    jerarquia_instalacion = models.CharField(max_length=45)
-    padre_instalacion = models.CharField(max_length=45)
-    foto_instalacion = models.CharField(max_length=45)
-    lugar_instalacion = models.CharField(max_length=45)
-    icono = models.ForeignKey(Instalacion_Icono, on_delete=models.SET_NULL, null=True)
-    color = models.IntegerField()
-    estatus_instalacion = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
-    horas = models.IntegerField()
-    operadores = models.IntegerField()
-      
-    def __str__(self):
-        return super().__str__()
-
-
 class Equipo_Estatus(models.Model):
     id_equipo_estatus = models.AutoField(primary_key=True)
     equipo_estatus_en = models.CharField(max_length=45)
@@ -380,7 +363,7 @@ class Herramienta(models.Model):
     herramienta_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
     herramienta_foto = models.CharField(max_length=120)
     herramienta_movimiento = models.ForeignKey(Herramienta_Movimiento, on_delete=models.SET_NULL, null=True)
-    herramienta_costo = models.DecimalField(10,2)
+    herramienta_costo = models.CharField(max_length=50)
 
     def __str__(self):
         return super().__str__()
@@ -391,8 +374,8 @@ class Herramienta_Historial(models.Model):
     herramienta_movimiento = models.ForeignKey(Herramienta_Movimiento, on_delete=models.SET_NULL, null=True)
     fecha_movimiento = models.DateField()
     notas_herramienta = models.CharField(max_length=1000)
-    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario , related_name='solicitate', on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario , related_name='usuario', on_delete=models.SET_NULL, null=True)
     prestamo = models.IntegerField()
 
     def __str__(self):
@@ -426,11 +409,11 @@ class Stock(models.Model):
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
     cantidad_actual = models.IntegerField()
     punto_reorden = models.IntegerField()
-    pasillo = models.models.CharField(max_length=50)
-    columna = models.models.CharField(max_length=50)
-    contenedor = models.models.CharField(max_length=50)
+    pasillo = models.CharField(max_length=50)
+    columna = models.CharField(max_length=50)
+    contenedor = models.CharField(max_length=50)
     user_stock = models.IntegerField()
-    img_inventario = models.models.CharField(max_length=200)
+    img_inventario = models.CharField(max_length=200)
     maxima = models.IntegerField()
     
     def __str__(self):
@@ -439,11 +422,11 @@ class Stock(models.Model):
 class Stock_Detalle(models.Model):
     id_stock_detalle = models.AutoField(primary_key=True)
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
-    cuenta = models.models.CharField(max_length=20)
+    cuenta = models.CharField(max_length=20)
     centro_costos = models.ForeignKey(CentroCosto, on_delete=models.SET_NULL, null=True)
-    modelo = models.models.CharField(max_length=50)
-    numero_serie = models.models.CharField(max_length=50)
-    notas_detalles = models.models.CharField(max_length=1000)
+    modelo = models.CharField(max_length=50)
+    numero_serie = models.CharField(max_length=50)
+    notas_detalles = models.CharField(max_length=1000)
     unidad = models.ForeignKey(Unidad, on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
@@ -454,16 +437,16 @@ class Stock_Entrada(models.Model):
     id_stock_entrada = models.AutoField(primary_key=True)
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
     proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
-    fecha_orden = models.models.DateField()
-    fecha_recibido = models.models.DateField()
-    orden_compra = models.models.CharField(max_length=50)
-    cantidad_recibida = models.models.FloatField(10,2)
-    precio_unitario = models.models.FloatField(10,2)
-    embargado_a = models.models.IntegerField()
+    fecha_orden = models.DateField()
+    fecha_recibido = models.DateField()
+    orden_compra = models.CharField(max_length=50)
+    cantidad_recibida = models.CharField(max_length=50)
+    precio_unitario = models.CharField(max_length=50)
+    embargado_a = models.IntegerField()
     user_entrada =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    cantidad_disponible = models.models.FloatField(10,2)
-    moneda = models.models.IntegerField()
-    dolares = models.models.FloatField(10,2)
+    cantidad_disponible = models.CharField(max_length=50)
+    moneda = models.IntegerField()
+    dolares = models.CharField(max_length=50)
 
     def __str__(self):
         return super().__str__()
@@ -472,21 +455,21 @@ class Stock_Ajuste(models.Model):
     id_stock_ajuste = models.AutoField(primary_key=True)
     stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
     usuario_ajuste = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    fecha_ajuste = models.models.DateField()
-    orden_compra_1 = models.models.CharField(max_length=50)
-    orden_compra_2 = models.models.CharField(max_length=50)
-    proveedor_1 = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
-    proveedor_2 = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
-    cantidad_1 = models.models.FloatField(10,2)
-    cantidad_2 = models.models.FloatField(10,2)
-    cantidad_disponible_1 = models.models.FloatField(10,2)
-    cantidad_disponible_2 = models.models.FloatField(10,2)
-    precio_unitario_1 = models.models.FloatField(10,2)
-    precio_unitario_2 = models.models.FloatField(10,2)
-    moneda_1 = models.models.IntegerField()
-    moneda_2 = models.models.IntegerField()
-    dolares_1 = models.models.FloatField(10,2)
-    dolares_2 = models.models.FloatField(10,2)
+    fecha_ajuste = models.DateField()
+    orden_compra_1 = models.CharField(max_length=50)
+    orden_compra_2 = models.CharField(max_length=50)
+    proveedor_1 = models.ForeignKey(Proveedor, related_name='proveedor_1', on_delete=models.SET_NULL, null=True)
+    proveedor_2 = models.ForeignKey(Proveedor, related_name='proveedor_2', on_delete=models.SET_NULL, null=True)
+    cantidad_1 = models.CharField(max_length=50)
+    cantidad_2 = models.CharField(max_length=50)
+    cantidad_disponible_1 = models.CharField(max_length=50)
+    cantidad_disponible_2 = models.CharField(max_length=50)
+    precio_unitario_1 = models.CharField(max_length=50)
+    precio_unitario_2 = models.CharField(max_length=50)
+    moneda_1 = models.IntegerField()
+    moneda_2 = models.IntegerField()
+    dolares_1 = models.CharField(max_length=50)
+    dolares_2 = models.CharField(max_length=50)
 
     def __str__(self):
         return super().__str__()
@@ -506,8 +489,8 @@ class Inventario_Vale(models.Model):
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
     instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
     solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
-    cantidad_solicitada = models.models.FloatField(10,2)
-    cantidad_surtida = models.models.FloatField(10,2) 
+    cantidad_solicitada = models.CharField(max_length=50)
+    cantidad_surtida = models.CharField(max_length=50)
     parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
     fecha_surtido = models.DateField()
     fecha_solicitud  = models.DateField() 
@@ -521,21 +504,21 @@ class Inventario_Ajuste(models.Model):
     nombre_ajuste  = models.CharField(max_length=20)
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
     stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
-    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, related_name='solicitante', on_delete=models.SET_NULL, null=True)
     fecha_solicitud  = models.DateField() 
     fecha_aceptado = models.DateField()
     parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
-    aprobador = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    aprobador = models.ForeignKey(Usuario , related_name='aprobador', on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
         return super().__str__()
 
 class Parte_Detalle(models.Model):
     id_parte_detalle = models.AutoField(primary_key=True)
-    orden_trabajo_parte  = models.models.IntegerField()
+    orden_trabajo_parte  = models.IntegerField()
     stock = models.ForeignKey(Stock, on_delete=models.SET_NULL, null=True)
     stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
-    cantidad = models.models.IntegerField()
+    cantidad = models.IntegerField()
     inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
@@ -543,8 +526,8 @@ class Parte_Detalle(models.Model):
 
 class Parte_Detalle_Surtido(models.Model):
     id_parte_detalle_surtido = models.AutoField(primary_key=True)
-    id_surtido_por  = models.models.IntegerField()
-    id_orden_trabajo_parte = models.models.IntegerField()
+    id_surtido_por  = models.IntegerField()
+    id_orden_trabajo_parte = models.IntegerField()
     inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
     fecha_surtido = models.DateField()
     hora_surtido  = models.TimeField()
@@ -554,8 +537,8 @@ class Parte_Detalle_Surtido(models.Model):
 
 class Devolucion(models.Model):
     id_devolucion = models.AutoField(primary_key=True)
-    id_devuelto_por  = models.models.IntegerField()
-    id_orden_trabajo_parte = models.models.IntegerField()
+    id_devuelto_por  = models.IntegerField()
+    id_orden_trabajo_parte = models.IntegerField()
     inventario_vale = models.ForeignKey(Inventario_Vale, on_delete=models.SET_NULL, null=True)
     fecha_devuelto = models.DateField()
     hora_devuelto  = models.TimeField()
@@ -564,11 +547,11 @@ class Devolucion(models.Model):
 
 class Almacen(models.Model):
     id_almacen = models.AutoField(primary_key=True)
-    descripcion_almacen = models.models.CharField(max_length=45)
-    jerarquia_almacen = models.models.CharField(max_length=45)
-    padre_almacen = models.models.CharField(max_length=45)
-    foto_almacen = models.models.CharField(max_length=45)
-    lugar_almacen  = models.models.CharField(max_length=45)
+    descripcion_almacen = models.CharField(max_length=45)
+    jerarquia_almacen = models.CharField(max_length=45)
+    padre_almacen = models.CharField(max_length=45)
+    foto_almacen = models.CharField(max_length=45)
+    lugar_almacen  = models.CharField(max_length=45)
     icono = models.IntegerField()
     color = models.IntegerField()
     estatus_almacen = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
@@ -578,18 +561,35 @@ class Almacen(models.Model):
 
 class Orden_Trabajo_Tipo(models.Model):
     id_orden_trabajo_tipo = models.AutoField(primary_key=True)
-    siglas_es = models.models.CharField(max_length=20)
-    sigles_en = models.models.CharField(max_length=20)
-    orden_trabajo_tipo_es = models.models.CharField(max_length=200)
-    orden_trabajo_tipo_en = models.models.CharField(max_length=200)
+    siglas_es = models.CharField(max_length=20)
+    sigles_en = models.CharField(max_length=20)
+    orden_trabajo_tipo_es = models.CharField(max_length=200)
+    orden_trabajo_tipo_en = models.CharField(max_length=200)
    
     def __str__(self):
         return super().__str__()
 
 class Orden_Trabajo_Prioridad(models.Model):
     id_orden_trabajo_prioridad = models.AutoField(primary_key=True)
-    orden_trabajo_prioridad_es = models.models.CharField(max_length=200)
-    orden_trabajo_prioridad_en = models.models.CharField(max_length=200)
+    orden_trabajo_prioridad_es = models.CharField(max_length=200)
+    orden_trabajo_prioridad_en = models.CharField(max_length=200)
    
     def __str__(self):
         return super().__str__()
+
+class Orden_Subestatus(models.Model):
+    id_orden_subestatus = models.AutoField(primary_key=True)
+    orden_subestatus_es = models.CharField(max_length=120)
+    orden_subestatus_en = models.CharField(max_length=120)
+   
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Estatus(models.Model):
+    id_orden_trabajo_estatus = models.AutoField(primary_key=True)
+    orden_trabajo_estatus_es = models.CharField(max_length=120)
+    orden_trabajo_estatus_en = models.CharField(max_length=120)
+   
+    def __str__(self):
+        return super().__str__()
+

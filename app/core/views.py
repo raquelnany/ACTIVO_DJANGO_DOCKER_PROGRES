@@ -1,6 +1,3 @@
-from app.core.controller.ControllerInstalacion import ControllerInstalacion
-from app.core.controller.ControllerInstalacionIcono import ControllerInstalacionIcono
-from app.core.controller.ControllerModeloIcono import ControllerModeloIcono
 from rest_framework import generics, serializers
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
@@ -52,13 +49,17 @@ from .controller.ControllerOrdenTrabajoTipo import ControllerOrdenTrabajoTipo
 from .controller.ControllerOrdenTrabajoPrioridad import ControllerOrdenTrabajoPrioridad
 from .controller.ControllerInventarioVale import ControllerInventarioVale
 from .controller.ControllerParteDetalleSurtido import ControllerParteDetalleSurtido
-
+from .controller.ControllerInstalacion import ControllerInstalacion
+from .controller.ControllerInstalacionIcono import ControllerInstalacionIcono
+from .controller.ControllerModeloIcono import ControllerModeloIcono
+from .controller.ControllerOrdenSubestatus import ControllerOrdenSubestatus
+from .controller.ControllerOrdenTrabajoEstatus import ControllerOrdenTrabajoEstatus
 
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import AlmacenSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import AlmacenSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, OrdenSubestatusSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -82,6 +83,8 @@ class Setup(GenericAPIView):
         generar_instalacion_icono = generate_data['generar_instalacion_icono']
         generar_equipo_estatus =  generate_data['generar_equipo_estatus']
         generar_herramienta_movimiento = generate_data['generar_herramienta_movimiento']
+        generar_orden_subestatus = generate_data['generar_orden_subestatus']
+        generar_orden_trabajo_estatus = generate_data['generar_orden_trabajo_estatus']
         mensaje =''
 
         if generar_unidades:
@@ -114,8 +117,15 @@ class Setup(GenericAPIView):
         if generar_herramienta_movimiento:
             ControllerHerramientaMovimiento.generarherramientamovimiento(request)
             mensaje = mensaje + 'Se han generado los movimientos de herramietas'
+        if generar_orden_subestatus:
+            ControllerOrdenSubestatus.generarordensubestatus(request)
+            mensaje = mensaje + 'Se han generado los subestatus de orden'
+        if generar_orden_trabajo_estatus:
+            ControllerOrdenTrabajoEstatus.generarordentrabajoestatus(request)
+            mensaje = mensaje + 'Se han generado los estatus de orden de trabajo'
+
         if not generar_unidades and not generar_categorias and not generar_equipo_categoria_estatus and not generar_equipo_categoria and not generar_clase_equipo and not generar_modelo_icono and not generar_equipo_categoria_icono and not generar_instalacion_icono:
-            if not generar_equipo_estatus and not generar_herramienta_movimiento:
+            if not generar_equipo_estatus and not generar_herramienta_movimiento and not generar_orden_subestatus and not generar_orden_trabajo_estatus:
                 mensaje= 'no se cargo nada'
         return Response({'result':mensaje})
 
@@ -737,4 +747,26 @@ class ParteDetalleSurtidoview(APIView):
 
     def get(self, request, id_parte_detalle_surtido=None):
         respuesta = ControllerParteDetalleSurtido.listarpartedetallesurtido(id_parte_detalle_surtido)
+        return Response(respuesta)
+
+class OrdenTrabajoEstatusview(APIView):
+    serializer_class = OrdenTrabajoEstatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoEstatus.crearordentrabajoestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_estatus=None):
+        respuesta = ControllerOrdenTrabajoEstatus.listarordentrabajoestatus(id_orden_trabajo_estatus)
+        return Response(respuesta)
+
+class OrdenSubestatusview(APIView):
+    serializer_class = OrdenSubestatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenSubestatus.crearordensubestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_subestatus=None):
+        respuesta = ControllerOrdenSubestatus.listarordensubestatus(id_orden_subestatus)
         return Response(respuesta)

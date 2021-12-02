@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Almacen, Devolucion, Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Modelo_Icono, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tipo_Rol, Rol
+from .models import Almacen, Devolucion, Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Modelo_Icono, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo
@@ -178,10 +178,12 @@ class setup_Serializer(serializers.Serializer):
     generar_instalacion_icono = serializers.BooleanField(required=True)
     generar_equipo_estatus = serializers.BooleanField(required=True)
     generar_herramienta_movimiento = serializers.BooleanField(required=True)
+    generar_orden_subestatus = serializers.BooleanField(required=True)
+    generar_orden_trabajo_estatus = serializers.BooleanField(required=True)
 
     class Meta:
 
-        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono,generar_instalacion_icono, generar_equipo_estatus, generar_herramienta_movimiento' )
+        fields = ('generar_unidades, generar_categorias, generar_equipo_categoria_estatus, generar_equipo_categoria, generar_clase_equipo, generar_modelo_icono, generar_equipo_categoria_icono,generar_instalacion_icono, generar_equipo_estatus, generar_herramienta_movimiento','generar_orden_subestatus', 'generar_orden_trabajo_estatus' )
 
 
 class ClienteSerializer(serializers.ModelSerializer):
@@ -348,4 +350,14 @@ class OrdenTrabajoTipoSerializer(serializers.ModelSerializer):
 class OrdenTrabajoPrioridadSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orden_Trabajo_Prioridad
+        fields = '__all__'
+
+class OrdenTrabajoEstatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Trabajo_Estatus
+        fields = '__all__'
+
+class OrdenSubestatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Subestatus
         fields = '__all__'
