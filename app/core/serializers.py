@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import Almacen, Devolucion, Equipo, Equipo_Categoria_Icono, Herramienta, Instalacion, Instalacion_Icono, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Modelo_Icono, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tipo_Rol, Rol
+from .models import OT, Act_Ot_Codigo, Act_Ot_Tipo, Almacen, Devolucion, Equipo, Equipo_Categoria_Icono, Evento, Herramienta, Instalacion, Instalacion_Icono, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Modelo_Icono, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Orden_Trabajo, Tipo_Cambio, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo
@@ -361,3 +361,47 @@ class OrdenSubestatusSerializer(serializers.ModelSerializer):
     class Meta:
         model = Orden_Subestatus
         fields = '__all__'
+
+class OTSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OT
+        fields = '__all__'
+
+class EventoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Evento
+        fields = '__all__'
+
+class TareaOrdenTrabajoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tarea_Orden_Trabajo
+        fields = '__all__'
+
+class OrdenTrabajoParteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Trabajo_Parte
+        fields = '__all__'
+
+class TipoCambioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipo_Cambio
+        fields = '__all__'
+
+class OrdenArchivosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Archivos
+        fields = '__all__'
+        
+class AtcOtTipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Act_Ot_Tipo
+        fields = '__all__'
+
+class AtcOtCodigoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Act_Ot_Codigo
+        fields = '__all__'
+
+
+
+

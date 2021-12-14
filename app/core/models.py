@@ -593,3 +593,115 @@ class Orden_Trabajo_Estatus(models.Model):
     def __str__(self):
         return super().__str__()
 
+class OT(models.Model):
+    id_ot = models.AutoField(primary_key=True)
+    id_visible_ot = models.CharField(max_length=45)
+    descipcion_ot = models.CharField(max_length=255)
+    equipo_ot = models.ForeignKey(Equipo , on_delete=models.SET_NULL, null=True)
+    id_requisitor_ot = models.ForeignKey(Usuario, related_name='requisitor', on_delete=models.SET_NULL, null=True)
+    id_cuenta = models.DateField()
+    id_problema = models.BigIntegerField()
+    id_causa = models.BigIntegerField()
+    id_actividad = models.BigIntegerField()
+    caido_ot = models.BigIntegerField()
+    prioridad_ot = models.ForeignKey(Orden_Trabajo_Prioridad, on_delete=models.SET_NULL, null=True)
+    tipo_de_trabajo_ot = models.BigIntegerField()
+    estatus_ot = models.ForeignKey(Orden_Trabajo_Estatus, on_delete=models.SET_NULL, null=True)
+    subestatus_ot = models.ForeignKey(Orden_Subestatus, on_delete=models.SET_NULL, null=True)
+    responsable_ot = models.ForeignKey(Usuario, related_name='responsable', on_delete=models.SET_NULL, null=True)
+    fecha_inicio_ot = models.DateField()
+    fecha_estimada = models.DateField()
+    fecha_fin_ot = models.DateField()
+    tecnico_asignado = models.ForeignKey(Usuario, related_name='tecnico_asignado', on_delete=models.SET_NULL, null=True)
+    instr_trab_ot = models.CharField(max_length=1000)
+    notas_ot = models.CharField(max_length=1000)
+    trab_estimados = models.BigIntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Evento(models.Model):
+    id_evento = models.AutoField(primary_key=True)
+    tabla = models.CharField(max_length=70)
+    id_registro = models.BigIntegerField()
+    accion_en = models.CharField(max_length=50)
+    fecha  = models.DateField()
+    hora = models.TimeFieldField()
+    linux = models.CharField(max_length=20)
+    bloque_es = models.CharField(max_length=20)
+    accion_es = models.CharField(max_length=255)
+    usuario = models.CharField(max_length=255)
+    bloque_en = models.CharField(max_length=20)
+
+    def __str__(self):
+        return super().__str__()
+
+class Tarea_Orden_Trabajo(models.Model):
+    id_tarea_orden_trabajo = models.AutoField(primary_key=True)
+    id_tarea = models.IntegerField()
+    orden_trabajo = models.ForeignKey(OT , on_delete=models.SET_NULL, null=True)
+    fecha  = models.DateField()
+    hora = models.TimeFieldField()
+    instrucciones = models.CharField(max_length=500)
+    fecha_base = models.DateField()
+    tiempo_estimado = models.CharField(max_length=10)
+    ventana_cumplimiento = models.IntegerField()
+    bloque_en = models.CharField(max_length=20)
+    
+    def __str__(self):
+        return super().__str__()
+
+
+class Orden_Trabajo_Parte(models.Model):
+    id_orden_trabajo_parte = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    inventario  = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_solicitada = models.DateField()
+    cantidad_surtida = models.CharField(max_length=10)
+    parte_estatus = models.IntegerField()
+    fecha_surtido = models.DateField()
+    fecha_solicitud = models.DateField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Tipo_Cambio(models.Model):
+    id_tipo_cambio = models.AutoField(primary_key=True)
+    tipo_cambio = models.CharField(max_length=10)
+    tipo_cambio_en = models.CharField(max_length=30)
+    tipo_cambio_es = models.CharField(max_length=30)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Archivos(models.Model):
+    id_orden_archivos = models.AutoField(primary_key=True)
+    nombre_archivo = models.CharField(max_length=50)
+    archivo = models.CharField(max_length=70)
+    fecha = models.DateField()
+    comentarios = models.CharField(max_length=255)
+    id_orden = models.IntegerField()
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+
+class Act_Ot_Tipo(models.Model):
+    id_act_ot_tipo = models.AutoField(primary_key=True)
+    act_ot_tipo_en = models.CharField(max_length=45)
+    act_ot_tipo_es = models.CharField(max_length=45)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Act_Ot_Codigo(models.Model):
+    id_act_ot_codigo = models.AutoField(primary_key=True)
+    act_ot_codigo_en = models.CharField(max_length=120)
+    act_ot_codigo_es = models.CharField(max_length=120)
+    act_clave = models.CharField(max_length=20)
+
+    def __str__(self):
+        return super().__str__()

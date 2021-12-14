@@ -54,12 +54,20 @@ from .controller.ControllerInstalacionIcono import ControllerInstalacionIcono
 from .controller.ControllerModeloIcono import ControllerModeloIcono
 from .controller.ControllerOrdenSubestatus import ControllerOrdenSubestatus
 from .controller.ControllerOrdenTrabajoEstatus import ControllerOrdenTrabajoEstatus
+from .controller.ControllerOT import ControllerOT
+from .controller.ControllerActOtCodigo import ControllerActOtCodigo
+from .controller.ControllerActOtTipo import ControllerActOtTipo
+from .controller.ControllerEvento import ControllerEvento
+from .controller.ControllerOrdenArchivos import ControllerOrdenArchivos
+from .controller.ControllerOrdenTrabajoParte import ControllerOrdenTrabajoParte
+from .controller.ControllerTareaOrdenTrabajo import ControllerTareaOrdenTrabajo
+from .controller.ControllerTipoCambio import ControllerTipoCambio
 
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import AlmacenSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, OrdenSubestatusSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, Tipo_RolSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -769,4 +777,92 @@ class OrdenSubestatusview(APIView):
 
     def get(self, request, id_orden_subestatus=None):
         respuesta = ControllerOrdenSubestatus.listarordensubestatus(id_orden_subestatus)
+        return Response(respuesta)
+
+class OTview(APIView):
+    serializer_class = OTSerializer
+
+    def post(self, request):
+        respuesta = ControllerOT.crearotr(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ot=None):
+        respuesta = ControllerOT.listarot(id_ot)
+        return Response(respuesta)
+
+class ActOtCodigoview(APIView):
+    serializer_class = AtcOtCodigoSerializer
+
+    def post(self, request):
+        respuesta = ControllerActOtCodigo.crearactotcodigo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_act_ot_codigo=None):
+        respuesta = ControllerActOtCodigo.listaractotcodigo(id_act_ot_codigo)
+        return Response(respuesta)
+
+class ActOtTipoview(APIView):
+    serializer_class = AtcOtTipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerActOtTipo.crearactottipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_act_ot_tipo=None):
+        respuesta = ControllerActOtTipo.listaractottipo(id_act_ot_tipo)
+        return Response(respuesta)
+
+class Eventoview(APIView):
+    serializer_class = EventoSerializer
+
+    def post(self, request):
+        respuesta = ControllerEvento.crearorevento(request)
+        return Response(respuesta)
+
+    def get(self, request, id_evento=None):
+        respuesta = ControllerEvento.listarevento(id_evento)
+        return Response(respuesta)
+
+class OrdenArchivosview(APIView):
+    serializer_class = OrdenArchivosSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenArchivos.crearordenarchivos(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_archivos=None):
+        respuesta = ControllerOrdenArchivos.listarordenarchivos(id_orden_archivos)
+        return Response(respuesta)
+
+class OrdenTrabajoParteview(APIView):
+    serializer_class = OrdenTrabajoParteSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoParte.crearordentrabajoparte(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_parte=None):
+        respuesta = ControllerOrdenTrabajoParte.listarordentrabajoparte(id_orden_trabajo_parte)
+        return Response(respuesta)
+
+class TareaOdenTrabajoview(APIView):
+    serializer_class = TareaOrdenTrabajoSerializer
+
+    def post(self, request):
+        respuesta = ControllerTareaOrdenTrabajo.creartareaordentrabajo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_tarea_orden_trabajo=None):
+        respuesta = ControllerTareaOrdenTrabajo.listartareaordentrabajo(id_tarea_orden_trabajo)
+        return Response(respuesta)
+
+class TipoCambioview(APIView):
+    serializer_class = TipoCambioSerializer
+
+    def post(self, request):
+        respuesta = ControllerTipoCambio.creartipocambio(request)
+        return Response(respuesta)
+
+    def get(self, request, id_tipo_cambio=None):
+        respuesta = ControllerTipoCambio.listartipocambio(id_tipo_cambio)
         return Response(respuesta)
