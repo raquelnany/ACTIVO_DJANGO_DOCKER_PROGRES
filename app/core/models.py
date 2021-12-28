@@ -641,7 +641,7 @@ class Tarea_Orden_Trabajo(models.Model):
     id_tarea = models.IntegerField()
     orden_trabajo = models.ForeignKey(OT , on_delete=models.SET_NULL, null=True)
     fecha  = models.DateField()
-    hora = models.TimeFieldField()
+    hora = models.TimeField()
     instrucciones = models.CharField(max_length=500)
     fecha_base = models.DateField()
     tiempo_estimado = models.CharField(max_length=10)
@@ -702,6 +702,145 @@ class Act_Ot_Codigo(models.Model):
     act_ot_codigo_en = models.CharField(max_length=120)
     act_ot_codigo_es = models.CharField(max_length=120)
     act_clave = models.CharField(max_length=20)
+
+    def __str__(self):
+        return super().__str__()
+
+class Frecuencia(models.Model):
+    id_frecuencia = models.AutoField(primary_key=True)
+    frecuencia_es = models.CharField(max_length=30)
+    frecuencia_en = models.CharField(max_length=30)
+    tiempo_es = models.CharField(max_length=30)
+    tiempo_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Tipo_Programa(models.Model):
+    id_tipo_programa = models.AutoField(primary_key=True)
+    tipo_programa_es = models.CharField(max_length=30)
+    tipo_programa_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Equipo_Tarea(models.Model):
+    id_equipo_tarea = models.AutoField(primary_key=True)
+    tarea = models.CharField(max_length=70)
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    tipo =  models.ForeignKey(Act_Ot_Tipo, on_delete=models.SET_NULL, null=True)
+    descripcion = models.CharField(max_length=20)
+    realizar_activa = models.IntegerField()
+    tipo_programa = models.ForeignKey(Tipo_Programa, on_delete=models.SET_NULL, null=True)
+    fecha_creacion = models.DateField()
+    frecuencia = models.ForeignKey(Frecuencia, on_delete=models.SET_NULL, null=True)
+    estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    cada = models.IntegerField()
+    user = models.ForeignKey(Usuario, related_name='user' , on_delete=models.SET_NULL, null=True)
+    ultima_fecha = models.DateField()
+    numero_trabajadores = models.IntegerField()
+    usuario = models.ForeignKey(Usuario , related_name='usuario', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Tipo_Instruccion(models.Model):
+    id_tipo_instruccion = models.AutoField(primary_key=True)
+    tipo_instruccion_es = models.CharField(max_length=70)
+    tipo_instruccion_en = models.CharField(max_length=70)
+
+    def __str__(self):
+        return super().__str__()
+
+class Tiempo_Unidad(models.Model):
+    id_tiempo_unidad = models.AutoField(primary_key=True)
+    unidad_es = models.CharField(max_length=30)
+    unidad_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Instruccion(models.Model):
+    id_instruccion = models.AutoField(primary_key=True)
+    instruccion = models.CharField(max_length=50)
+    codigo = models.CharField(max_length=20)
+    tipo = models.ForeignKey(Tipo_Instruccion, on_delete=models.SET_NULL, null=True)
+    tiempo = models.CharField(max_length=20)
+    unidad = models.ForeignKey(Tiempo_Unidad, on_delete=models.SET_NULL, null=True)
+    descripcion = models.CharField(max_length=500)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Tarea_Instruccion(models.Model):
+    id_tarea_instruccion = models.AutoField(primary_key=True)
+    tarea =  models.ForeignKey(Tarea_Orden_Trabajo, on_delete=models.SET_NULL, null=True)
+    instruccion =  models.ForeignKey(Instruccion, on_delete=models.SET_NULL, null=True)
+    fecha = models.DateField()
+    hora = models.TimeField()
+    user =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    posicion =  models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Equipo_Tarea_Parte(models.Model):
+    id_equipo_tarea_parte = models.AutoField(primary_key=True)
+    parte =  models.ForeignKey(Orden_Trabajo_Parte, on_delete=models.SET_NULL, null=True)
+    cantidad_solicitada =  models.IntegerField()
+    tarea = models.ForeignKey(Tarea_Orden_Trabajo, on_delete=models.SET_NULL, null=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    user =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    instalacion =  models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Mecanismo_Falla(models.Model):
+    id_mecanismo_falla = models.AutoField(primary_key=True)
+    mecanismo_falla_en = models.CharField(max_length=30)
+    mecanismo_falla_es = models.CharField(max_length=30)
+    mecanismo_falla_code = models.CharField(max_length=10)
+
+    def __str__(self):
+        return super().__str__()
+
+class Codigo_Falla(models.Model):
+    id_codigo_falla = models.AutoField(primary_key=True)
+    codigo_falla_en = models.CharField(max_length=50)
+    codigo_falla_es = models.CharField(max_length=50)
+    codigo_falla_code = models.CharField(max_length=10)
+    mecanismo_falla = models.ForeignKey(Mecanismo_Falla, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class M4(models.Model):
+    id_4m = models.AutoField(primary_key=True)
+    es_4m = models.CharField(max_length=50)
+    en_4m = models.CharField(max_length=50)
+   
+    def __str__(self):
+        return super().__str__()
+
+
+class Act_Ot(models.Model):
+    id_act_ot_codigo = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    comentarios_act_ot = models.CharField(max_length=10)
+    fecha_act_ot = models.DateField()
+    hora_inicio_act = models.TimeField()
+    fecha_act_ot_2 = models.DateField()
+    hora_inicio_act_2 = models.TimeField()
+    hora_fin_act =  models.TimeField()
+    tipo_hora_act = models.IntegerField()
+    codigo_paro_act = models.ForeignKey(Codigo_Falla , on_delete=models.SET_NULL, null=True)
+    creador_act_ot = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    tiempo_muerto = models.IntegerField() 
 
     def __str__(self):
         return super().__str__()

@@ -4,10 +4,10 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import OT, Act_Ot_Codigo, Act_Ot_Tipo, Almacen, Devolucion, Equipo, Equipo_Categoria_Icono, Evento, Herramienta, Instalacion, Instalacion_Icono, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Modelo_Icono, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Orden_Trabajo, Tipo_Cambio, Tipo_Rol, Rol
+from .models import M4, OT, Act_Ot, Act_Ot_Codigo, Act_Ot_Tipo, Almacen, Codigo_Falla, Devolucion, Equipo, Equipo_Categoria_Icono, Equipo_Tarea, Equipo_Tarea_Parte, Evento, Frecuencia, Herramienta, Instalacion, Instalacion_Icono, Instruccion, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Mecanismo_Falla, Modelo_Icono, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Instruccion, Tarea_Orden_Trabajo, Tiempo_Unidad, Tipo_Cambio, Tipo_Programa, Tipo_Rol, Rol
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
-from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo
+from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo, Tipo_Instruccion
 
 
 class JornadaSerializer(serializers.ModelSerializer):
@@ -403,5 +403,62 @@ class AtcOtCodigoSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
+class ActOtSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Act_Ot
+        fields = '__all__'
 
+class FrecuenciaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Frecuencia
+        fields = '__all__'
 
+class TipoProgramaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipo_Programa
+        fields = '__all__'
+
+class EquipoTareaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo_Tarea
+        fields = '__all__'
+
+class TipoInstruccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tipo_Instruccion
+        fields = '__all__'
+
+class TiempoUnidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tiempo_Unidad
+        fields = '__all__'
+
+class InstruccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Instruccion
+        fields = '__all__'
+
+class TareaInstruccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Tarea_Instruccion
+        fields = '__all__'
+
+class EquipoTareaParteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Equipo_Tarea_Parte
+        fields = '__all__'
+
+class MecanismoFallaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mecanismo_Falla
+        fields = '__all__'
+
+class CodigoFallaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Codigo_Falla
+        fields = '__all__'
+
+class M4Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = M4
+        fields = '__all__'
