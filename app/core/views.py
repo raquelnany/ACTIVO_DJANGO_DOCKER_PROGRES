@@ -1,3 +1,4 @@
+from inflection import re
 from rest_framework import generics, serializers
 from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
@@ -62,12 +63,29 @@ from .controller.ControllerOrdenArchivos import ControllerOrdenArchivos
 from .controller.ControllerOrdenTrabajoParte import ControllerOrdenTrabajoParte
 from .controller.ControllerTareaOrdenTrabajo import ControllerTareaOrdenTrabajo
 from .controller.ControllerTipoCambio import ControllerTipoCambio
-
+from .controller.ControllerOrdenTrabajoCompleta import ControllerOrdenTrabajoCompleta
+from .controller.ControllerRca import ControllerRca
+from .controller.ControllerRcaAccionPreventiva import ControllerRcaAccionPreventiva
+from .controller.ControllerRcaPreventiveStatus import ControllerRcaPreventiveStatus
+from .controller.ControllerRcaStatus import ControllerRcaStatus
+from .controller.ControllerRcaTipoAccion import ControllerRcaTipoAccion
+from .controller.ControllerModoDeteccion import ControllerModoDeteccion
+from .controller.ControllerActividadMantenimiento import ControllerActividadMantenimiento
+from .controller.ControllerUsuarioRevisar import ControllerUsuarioRevisar
+from .controller.ControllerOrdenTrabajoRevisada import ControllerOrdenTrabajoRevisada
+from .controller.ControllerRutaEstatus import ControllerRutaEstatus
+from .controller.ControllerRuta import ControllerRuta
+from .controller.ControllerRutaEquipo import ControllerRutaEquipo
+from .controller.ControllerRutaCondicion import ControllerRutaCondicion
+from .controller.ControllerRutaCondicionUnidad import ControllerRutaCondicionUnidad
+from .controller.ControllerRutaEquipoComponente import ControllerRutaEquipoComponente
+from .controller.ControllerRutaSetPointOperador import ControllerRutaSetPointOperador
+from .controller.ControllerRutaSetPoint import ControllerRutaSetPoint
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RolSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -866,3 +884,207 @@ class TipoCambioview(APIView):
     def get(self, request, id_tipo_cambio=None):
         respuesta = ControllerTipoCambio.listartipocambio(id_tipo_cambio)
         return Response(respuesta)
+
+
+class OrdenTrabajoCompletaview(APIView):
+    serializer_class = OrdenTrabajoCompletaSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoCompleta.crearordentrabajocompleta(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_completa=None):
+        respuesta = ControllerOrdenTrabajoCompleta.listarordentrabajocompleta(id_orden_trabajo_completa)
+        return Response(respuesta)
+
+class Rcaview(APIView):
+    serializer_class = RCASerializer
+
+    def post(self, request):
+        respuesta = ControllerRca.crearrca(request)
+        return Response(respuesta)
+
+    def get(self, request, id_rca=None):
+        respuesta = ControllerRca.listarrca(id_rca)
+        return Response(respuesta)
+
+
+class RcaAccionPreventivaview(APIView):
+    serializer_class = RcaAccionPreventivaSerializer
+
+    def post(self, request):
+        respuesta = ControllerRcaAccionPreventiva.crearrcaaccionpreventiva(request)
+        return Response(respuesta)
+
+    def get(self, request, id_rca_accion_preventiva=None):
+        respuesta = ControllerRcaAccionPreventiva.listarrcaaccionpreventiva(id_rca_accion_preventiva)
+        return Response(respuesta)
+
+class RcaPreventiveStatusview(APIView):
+    serializer_class = RcaPreventiveStatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerRcaPreventiveStatus.crearrcapreventivestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_rca_preventive_status=None):
+        respuesta = ControllerRcaPreventiveStatus.listarrcapreventivestatus(id_rca_preventive_status)
+        return Response(respuesta)
+
+class RcaStatusview(APIView):
+    serializer_class = RcaStatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerRcaStatus.crearrcastatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_rca_status=None):
+        respuesta = ControllerRcaStatus.listarrcastatus(id_rca_status)
+        return Response(respuesta)
+
+class RcaTipoAccionview(APIView):
+    serializer_class = RcaTipoAccionSerializer
+
+    def post(self, request):
+        respuesta = ControllerRcaTipoAccion.crearrcatipoacion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_rca_tipo_accion=None):
+        respuesta = ControllerRcaTipoAccion.listarrcatipoaccion(id_rca_tipo_accion)
+        return Response(respuesta)
+
+
+class ModoDeteccionview(APIView):
+    serializer_class = ModoDeteccionSerializer
+
+    def post(self, request):
+        respuesta = ControllerModoDeteccion.crearmododeteccion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_modo_deteccion=None):
+        respuesta = ControllerModoDeteccion.listarmododeteccion(id_modo_deteccion)
+        return Response(respuesta)
+
+
+class ActividadMantenimientoview(APIView):
+    serializer_class = ActividadMantenimientoSerializer
+
+    def post(self, request):
+        respuesta = ControllerActividadMantenimiento.crearactividadmantenimiento(request)
+        return Response(respuesta)
+
+    def get(self, request, id_actividad_mantenimiento=None):
+        respuesta = ControllerActividadMantenimiento.listaractividadmantenimiento(id_actividad_mantenimiento)
+        return Response(respuesta)
+
+class UsuarioRevisarview(APIView):
+    serializer_class = UsuarioRevisarSerializer
+
+    def post(self, request):
+        respuesta = ControllerUsuarioRevisar.crearusuariorevisar(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_revisar=None):
+        respuesta = ControllerUsuarioRevisar.listarusuariorevisar(id_usuario_revisar)
+        return Response(respuesta)
+
+class OrdenTrabajoRevisadaview(APIView):
+    serializer_class = OrdenTrabajoRevisadaSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoRevisada.crearordentrabajorevisada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_revisada=None):
+        respuesta = ControllerOrdenTrabajoRevisada.listarordentrabajorevisada(id_orden_trabajo_revisada)
+        return Response(respuesta)
+
+class RutaEstatusview(APIView):
+    serializer_class = RutaEstatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaEstatus.crearrutaestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_estatus=None):
+        respuesta = ControllerRutaEstatus.listarrutaestatus(id_ruta_estatus)
+        return Response(respuesta)
+
+class Rutaview(APIView):
+    serializer_class = RutaSerializer
+
+    def post(self, request):
+        respuesta = ControllerRuta(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta=None):
+        respuesta = ControllerRuta.listarruta(id_ruta)
+        return Response(respuesta)
+
+class RutaEquipoview(APIView):
+    serializer_class = RutaEquipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaEquipo.crearrutaequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_equipo=None):
+        respuesta = ControllerRutaEquipo.listarusuariorevisar(id_ruta_equipo)
+        return Response(respuesta)
+
+class RutaCondicionview(APIView):
+    serializer_class = RutaCondicionSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaCondicion.crearrutacondicion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_condicion=None):
+        respuesta = ControllerRutaCondicion.listarrutacondicion(id_ruta_condicion)
+        return Response(respuesta)
+
+class RutaCondicionUnidadview(APIView):
+    serializer_class = RutaCondicionUnidadSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaCondicionUnidad.crearrutacondicionunidad(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_condicion_unidad=None):
+        respuesta = ControllerRutaCondicionUnidad.listarrutacondicionunidad(id_ruta_condicion_unidad)
+        return Response(respuesta)
+
+class RutaEquipoComponenteview(APIView):
+    serializer_class = RutaEquipoComponenteSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaEquipoComponente.crearrutaequipocomponente(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_equipo_componente=None):
+        respuesta = ControllerRutaEquipoComponente.listarrutaequipocomponente(id_ruta_equipo_componente)
+        return Response(respuesta)
+
+class RutaSetPointOperadorview(APIView):
+    serializer_class = RutaSetPointOperadorSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaSetPointOperador.crearrutasetpointoperador(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_set_point_operador=None):
+        respuesta = ControllerRutaSetPointOperador.listarrutasetoperador(id_ruta_set_point_operador)
+        return Response(respuesta)
+
+class RutaSetPointview(APIView):
+    serializer_class = RutaSetPointSerializer
+
+    def post(self, request):
+        respuesta = ControllerRutaSetPoint.crearrutasetpoint(request)
+        return Response(respuesta)
+
+    def get(self, request, id_ruta_set_point=None):
+        respuesta = ControllerRutaSetPoint.listarrutasetpoint(id_ruta_set_point)
+        return Response(respuesta)
+
+

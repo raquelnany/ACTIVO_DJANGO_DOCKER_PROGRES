@@ -4,7 +4,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import M4, OT, Act_Ot, Act_Ot_Codigo, Act_Ot_Tipo, Almacen, Codigo_Falla, Devolucion, Equipo, Equipo_Categoria_Icono, Equipo_Tarea, Equipo_Tarea_Parte, Evento, Frecuencia, Herramienta, Instalacion, Instalacion_Icono, Instruccion, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Mecanismo_Falla, Modelo_Icono, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Instruccion, Tarea_Orden_Trabajo, Tiempo_Unidad, Tipo_Cambio, Tipo_Programa, Tipo_Rol, Rol
+from .models import M4, OT, Act_Ot, Act_Ot_Codigo, Act_Ot_Tipo, Actividad_Mantenimiento, Almacen, Codigo_Falla, Devolucion, Equipo, Equipo_Categoria_Icono, Equipo_Tarea, Equipo_Tarea_Parte, Evento, Frecuencia, Herramienta, Instalacion, Instalacion_Icono, Instruccion, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Mecanismo_Falla, Modelo_Icono, Modo_Deteccion, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Completa, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Tipo, Orden_trabajo_Revisada, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Rca, Rca_Accion_Preventiva, Rca_Preventive_Status, Rca_Status, Rca_Tipo_Accion, Ruta, Ruta_Condicion, Ruta_Condicion_Unidad, Ruta_Equipo, Ruta_Equipo_Componente, Ruta_Estatus, Ruta_Set_Point, Ruta_Set_Point_Operador, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Instruccion, Tarea_Orden_Trabajo, Tiempo_Unidad, Tipo_Cambio, Tipo_Programa, Tipo_Rol, Rol, Usuario_Revisar
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo, Tipo_Instruccion
@@ -461,4 +461,95 @@ class CodigoFallaSerializer(serializers.ModelSerializer):
 class M4Serializer(serializers.ModelSerializer):
     class Meta:
         model = M4
+        fields = '__all__'
+
+
+class OrdenTrabajoCompletaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Trabajo_Completa
+        fields = '__all__'
+
+class RcaTipoAccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rca_Tipo_Accion
+        fields = '__all__'
+
+class RcaStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rca_Status
+        fields = '__all__'
+
+class RCASerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rca
+        fields = '__all__'
+
+class RcaPreventiveStatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rca_Preventive_Status
+        fields = '__all__'
+
+class RcaAccionPreventivaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Rca_Accion_Preventiva
+        fields = '__all__'
+
+class ModoDeteccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Modo_Deteccion
+        fields = '__all__'
+
+class ActividadMantenimientoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Actividad_Mantenimiento
+        fields = '__all__'
+
+class UsuarioRevisarSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario_Revisar
+        fields = '__all__'
+
+class OrdenTrabajoRevisadaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_trabajo_Revisada
+        fields = '__all__'
+
+class RutaEstatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Estatus
+        fields = '__all__'
+
+class RutaSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta
+        fields = '__all__'
+
+class RutaEquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Equipo
+        fields = '__all__'
+
+class RutaCondicionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Condicion
+        fields = '__all__'
+
+class RutaCondicionUnidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Condicion_Unidad
+        fields = '__all__'
+
+class RutaEquipoComponenteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Equipo_Componente
+        fields = '__all__'
+
+class RutaSetPointOperadorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Set_Point_Operador
+        fields = '__all__'
+
+class RutaSetPointSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Ruta_Set_Point
         fields = '__all__'

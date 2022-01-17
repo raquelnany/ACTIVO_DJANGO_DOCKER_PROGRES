@@ -1,5 +1,6 @@
 import binascii
 import os
+from pyexpat import model
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -844,3 +845,199 @@ class Act_Ot(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+class Modo_Deteccion(models.Model):
+    id_modo_deteccion = models.AutoField(primary_key=True)
+    modo_deteccion_en = models.CharField(max_length=50)
+    modo_deteccion_es = models.CharField(max_length=50)
+    modo_deteccion_code_en = models.CharField(max_length=50)
+    modo_deteccion_code_es = models.CharField(max_length=50)
+    def __str__(self):
+        return super().__str__()
+
+class Actividad_Mantenimiento(models.Model):
+    id_actividad_mantenimiento = models.AutoField(primary_key=True)
+    actividad_mantenimiento_en = models.CharField(max_length=30)
+    actividad_mantenimiento_es = models.CharField(max_length=30)
+    actividad_mantenimiento_code = models.CharField(max_length=10)
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Completa(models.Model):
+    id_orden_trabajo_completa = models.AutoField(primary_key=True)
+    orden_trabajo = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    cuenta_cc = models.CharField(max_length=20)
+    mecanismo_falla =  models.ForeignKey(Mecanismo_Falla, on_delete=models.SET_NULL, null=True)
+    codigo_falla = models.ForeignKey(Codigo_Falla, on_delete=models.SET_NULL, null=True)
+    id_modo_deteccion =  models.IntegerField()
+    id_actividad_mantenimiento =  models.IntegerField()
+    modo_falla = models.CharField(max_length=50)
+    notas =models.CharField(max_length=1000)
+    trabajadores_reales = models.IntegerField()
+    tiempo_real =  models.CharField(max_length=5)
+    m4 =  models.ForeignKey(M4, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+
+class Rca_Tipo_Accion(models.Model):
+    id_rca_tipo_accion = models.AutoField(primary_key=True)
+    rca_tipo_accion_en = models.CharField(max_length=50)
+    rca_tipo_accion_en = models.CharField(max_length=50)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Rca_Status(models.Model):
+    id_rca_status = models.AutoField(primary_key=True)
+    rca_status_en = models.CharField(max_length=30)
+    rca_status_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Rca(models.Model):
+    id_rca = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    rca_causa = models.CharField(max_length=100)
+    rca_tipo_accion = models.ForeignKey(Rca_Tipo_Accion, on_delete=models.SET_NULL, null=True)
+    rca_status = models.ForeignKey(Rca_Status, on_delete=models.SET_NULL, null=True)
+    rca_causa_raiz = models.CharField(max_length=100)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Rca_Preventive_Status(models.Model):
+    id_rca_status = models.AutoField(primary_key=True)
+    rca_preventive_status_en = models.CharField(max_length=50)
+    rca_preventive_status_en = models.CharField(max_length=50)
+
+    def __str__(self):
+        return super().__str__()
+
+class Rca_Accion_Preventiva(models.Model):
+    id_rca_accion_preventiva = models.AutoField(primary_key=True)
+    rca = models.ForeignKey(Rca, on_delete=models.SET_NULL, null=True)
+    ot =models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    rca_accion_preventiva = models.CharField(max_length=50)
+    fecha_cumpliento = models.DateField()
+    duenio = models.CharField(max_length=50)
+    rca_preventive_status = models.ForeignKey(Rca_Preventive_Status, on_delete=models.SET_NULL, null=True)
+    fecha_apertura = models.DateField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Usuario_Revisar(models.Model):
+    id_usuario_revisar = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Orden_trabajo_Revisada(models.Model):
+    id_orden_trabajo_revisada = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    calificacion_revisada = models.IntegerField()
+    comentarios_revisada = models.CharField(max_length=1000)
+    fecha_revisada = models.DateField()
+    hora_revisada = models.TimeField()
+    reviso = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Estatus(models.Model):
+    id_ruta_estatus = models.AutoField(primary_key=True)
+    ruta_estatus_es = models.CharField(max_length=30)
+    ruta_estatus_en = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta(models.Model):
+    id_ruta = models.AutoField(primary_key=True)
+    user_creador = models.ForeignKey(Usuario , related_name='user_creador', on_delete=models.SET_NULL, null=True)
+    user_modifico = models.ForeignKey(Usuario , related_name='user_modifico', on_delete=models.SET_NULL, null=True)
+    ruta_estatus = models.ForeignKey(Ruta_Estatus , on_delete=models.SET_NULL, null=False)
+    frecuencia = models.ForeignKey(Frecuencia , on_delete=models.SET_NULL, null=False)
+    id_asignado = models.IntegerField()
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=False)
+    ruta = models.CharField(max_length=50)
+    ruta_codigo = models.CharField(max_length=30)
+    ruta_cada = models.IntegerField()
+    ruta_modificado = models.CharField(max_length=10)
+    tipo_ot = models.ForeignKey(Orden_Trabajo_Tipo, on_delete=models.SET_NULL, null=True)
+    tipo_programa  = models.ForeignKey(Tipo_Programa, on_delete=models.SET_NULL, null=True)
+    ruta_alcance = models.IntegerField()
+    ruta_trabajadores = models.IntegerField()
+    ruta_realizar_activo = models.IntegerField()
+    tiempo_estimado = models.CharField(max_length=10)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Equipo(models.Model):
+    id_ruta_equipo = models.AutoField(primary_key=True)
+    ruta = models.ForeignKey(Ruta, on_delete=models.SET_NULL, null=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Condicion(models.Model):
+    id_ruta_condicion = models.AutoField(primary_key=True)
+    ruta_condicion_en = models.CharField(max_length=30)
+    ruta_condicion_es = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Condicion_Unidad(models.Model):
+    id_ruta_condicion_unidad = models.AutoField(primary_key=True)
+    ruta_condicion = models.ForeignKey(Ruta_Condicion, on_delete=models.SET_NULL, null=True)
+    ruta_condicion_unidad_en = models.CharField(max_length=30)
+    ruta_condicion_unidad_es = models.CharField(max_length=30)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Equipo_Componente(models.Model):
+    id_ruta_equipo_componente = models.AutoField(primary_key=True)
+    ruta_equipo = models.ForeignKey(Ruta_Equipo, on_delete=models.SET_NULL, null=True)
+    componente = models.CharField(max_length=50)
+    ruta_condicion =  models.ForeignKey(Ruta_Condicion, on_delete=models.SET_NULL, null=True)
+    ruta_condicion_unidad =  models.ForeignKey(Ruta_Condicion_Unidad, on_delete=models.SET_NULL, null=True)
+    puntos_componente = models.IntegerField()
+    fecha_componente = models.DateField()
+    ciclo = models.IntegerField()
+    id_ciclo_condicion = models.IntegerField()
+    ciclo_cantidad = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Ruta_Set_Point_Operador(models.Model):
+    id_ruta_set_point_operador = models.AutoField(primary_key=True)
+    ruta_set_point_operador_es = models.CharField(max_length=20)
+    ruta_set_point_operador_en = models.CharField(max_length=20)
+
+    def __str__(self):
+        return super().__str__()
+
+class Ruta_Set_Point(models.Model):
+    id_ruta_set_point = models.AutoField(primary_key=True)
+    ruta_equipo_componente =  models.ForeignKey(Ruta_Equipo_Componente , on_delete=models.SET_NULL, null=True)
+    ruta_set_point_operador =  models.ForeignKey(Ruta_Set_Point_Operador , on_delete=models.SET_NULL, null=True)
+    ruta_set_point_1 = models.IntegerField()
+    ruta_set_point_2 = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+

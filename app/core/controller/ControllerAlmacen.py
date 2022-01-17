@@ -7,7 +7,7 @@ class ControllerAlmacen:
     def crearalmacen(request):
         datosAlmacen = request.data
         try:
-            estatus_almacen = EstatusUsuario.objects.get(id_usuario = datosAlmacen['estatus_almacen'])
+            estatus_almacen = EstatusUsuario.objects.get(id_estatus = datosAlmacen['estatus_almacen'])
             AlmacenNuevo = Almacen.objects.create(
                 descripcion_almacen = datosAlmacen['descripcion_almacen'],
                 jerarquia_almacen = datosAlmacen['jerarquia_almacen'],
