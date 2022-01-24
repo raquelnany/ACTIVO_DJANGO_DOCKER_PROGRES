@@ -81,11 +81,23 @@ from .controller.ControllerRutaCondicionUnidad import ControllerRutaCondicionUni
 from .controller.ControllerRutaEquipoComponente import ControllerRutaEquipoComponente
 from .controller.ControllerRutaSetPointOperador import ControllerRutaSetPointOperador
 from .controller.ControllerRutaSetPoint import ControllerRutaSetPoint
+from .controller.ControllerOrdenTrabajoRuta import ControllerOrdenTrabajoRuta
+from .controller.ControllerChecklist import ControllerChecklist
+from .controller.ControllerChecklistEquipo import ControllerChecklistEquipo
+from .controller.ControllerOrdenTrabajoRutaSetPoint import ControllerOrdenTrabajoRutaSetPoint
+from .controller.ControllerChecklistAspecto import ControllerChecklistAspecto
+from .controller.ControllerChecklistInstruccion import ControllerChecklistInstruccion
+from .controller.ControllerChecklistAspectoCopiado import ControllerChecklistAspectoCopiado
+from .controller.ControllerChk import ControllerChk
+from .controller.ControllerChkEquipo import ControllerChkEquipo
+from .controller.ControllerChkAspecto import ControllerChkAspecto
+from .controller.ControllerChkInstruccion import ControllerChkIntruccion
+from .controller.ControllerOrdenTrabajoChecklist import ControllerOrdenTrabajoChecklist
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -1087,4 +1099,134 @@ class RutaSetPointview(APIView):
         respuesta = ControllerRutaSetPoint.listarrutasetpoint(id_ruta_set_point)
         return Response(respuesta)
 
+class OrdenTrabajoRutaview(APIView):
+    serializer_class = OrdenTrabajoRutaSerializer
 
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoRuta.crearordentrabajoruta(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_ruta=None):
+        respuesta = ControllerOrdenTrabajoRuta.listarordentrabajoruta(id_orden_trabajo_ruta)
+        return Response(respuesta)
+
+class Checklistview(APIView):
+    serializer_class = ChecklistSerializer
+
+    def post(self, request):
+        respuesta = ControllerChecklist.crearchecklist(request)
+        return Response(respuesta)
+
+    def get(self, request, id_checklist=None):
+        respuesta = ControllerChecklist.listarchecklist(id_checklist)
+        return Response(respuesta)
+
+class ChecklistEquipoview(APIView):
+    serializer_class = ChecklistEquipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerChecklistEquipo.crearchecklistequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_checklist_equipo=None):
+        respuesta = ControllerChecklistEquipo.listarchecklistequipo(id_checklist_equipo)
+        return Response(respuesta)
+
+class OrdenTrabajoRutaSetPointview(APIView):
+    serializer_class = OrdenTrabajoRutaSetPointSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoRutaSetPoint.crearordentrabajorutasetpoint(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_ruta_set_point=None):
+        respuesta = ControllerOrdenTrabajoRutaSetPoint.listarordentrabajorutasetpoint(id_orden_trabajo_ruta_set_point)
+        return Response(respuesta)
+
+class ChecklistAspectoview(APIView):
+    serializer_class = ChecklistAspectoSerializer
+
+    def post(self, request):
+        respuesta = ControllerChecklistAspecto.crearchecklistaspecto(request)
+        return Response(respuesta)
+
+    def get(self, request, id_checklist_aspecto=None):
+        respuesta = ControllerChecklistAspecto.listarchecklistaspecto(id_checklist_aspecto)
+        return Response(respuesta)
+
+class ChecklistInstruccionview(APIView):
+    serializer_class = ChecklistInstruccionSerializer
+
+    def post(self, request):
+        respuesta = ControllerChecklistInstruccion.crearchecklistInstruccion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_checklist_instruccion=None):
+        respuesta = ControllerChecklistInstruccion.listarchecklistinstruccion(id_checklist_instruccion)
+        return Response(respuesta)
+
+class ChecklistAspectoCopiadoview(APIView):
+    serializer_class = ChecklistAspectoCopiadoSerializer
+
+    def post(self, request):
+        respuesta = ControllerChecklistAspectoCopiado.crearchecklistaspectocopiado(request)
+        return Response(respuesta)
+
+    def get(self, request, id_checklist_aspecto_copiado=None):
+        respuesta = ControllerChecklistAspectoCopiado.listarchecklistaspectocopiado(id_checklist_aspecto_copiado)
+        return Response(respuesta)
+
+class Chkview(APIView):
+    serializer_class = ChkSerializer
+
+    def post(self, request):
+        respuesta = ControllerChk.crearchk(request)
+        return Response(respuesta)
+
+    def get(self, request, id_chk=None):
+        respuesta = ControllerChk.listarchecklistchk(id_chk)
+        return Response(respuesta)
+
+class ChkEquipoview(APIView):
+    serializer_class = ChkEquipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerChkEquipo.crearchkequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_chk_equipo=None):
+        respuesta = ControllerChkEquipo.listarchecklistequipo(id_chk_equipo)
+        return Response(respuesta)
+
+class ChkAspectoview(APIView):
+    serializer_class = ChkAspectoSerializer
+
+    def post(self, request):
+        respuesta = ControllerChkAspecto.crearchkaspecto(request)
+        return Response(respuesta)
+
+    def get(self, request, id_chk_aspecto=None):
+        respuesta = ControllerChkAspecto.listarchecklistaspecto(id_chk_aspecto)
+        return Response(respuesta)
+
+class ChkInstruccionview(APIView):
+    serializer_class = ChkInstruccionSerializer
+
+    def post(self, request):
+        respuesta = ControllerChkIntruccion.crearchkinstruccion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_chk_instruccion=None):
+        respuesta = ControllerChkIntruccion.listarcheckinstruccion(id_chk_instruccion)
+        return Response(respuesta)
+
+class OrdenTrabajoChecklistview(APIView):
+    serializer_class = OrdenTrabajoChecklistSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenTrabajoChecklist.crearordentrabajochecklist(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_trabajo_checklist=None):
+        respuesta = ControllerOrdenTrabajoChecklist.listarcheckinstruccion(id_orden_trabajo_checklist)
+        return Response(respuesta)

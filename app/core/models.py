@@ -1041,3 +1041,152 @@ class Ruta_Set_Point(models.Model):
     def __str__(self):
         return super().__str__()
 
+
+class Orden_Trabajo_Ruta(models.Model):
+    id_orden_trabajo_ruta = models.AutoField(primary_key=True)
+    orden_trabajo =  models.ForeignKey(OT , on_delete=models.SET_NULL, null=True)
+    ruta =  models.ForeignKey(Ruta , on_delete=models.SET_NULL, null=True)
+    equipo = models.ForeignKey(Equipo , on_delete=models.SET_NULL, null=True)
+    id_componente = models.ForeignKey(Ruta_Equipo_Componente , on_delete=models.SET_NULL, null=True)
+    componente =  models.CharField(max_length=50)
+    condicion =   models.ForeignKey(Ruta_Condicion , on_delete=models.SET_NULL, null=True)
+    unidad = models.ForeignKey(Unidad , on_delete=models.SET_NULL, null=True)
+    puntos = models.IntegerField()
+    ventana =  models.CharField(max_length=10)
+    realizar_activo =  models.IntegerField()
+
+
+    def __str__(self):
+        return super().__str__()
+
+class Checklist(models.Model):
+    id_checklist = models.AutoField(primary_key=True)
+    user_creador =  models.ForeignKey(Usuario , related_name='user_creador', on_delete=models.SET_NULL, null=True)
+    user_modificador = models.ForeignKey(Usuario , related_name='user_modifico', on_delete=models.SET_NULL, null=True)
+    checklist_estatus = models.ForeignKey(EstatusUsuario , on_delete=models.SET_NULL, null=True)
+    frecuencia = models.ForeignKey(Frecuencia , on_delete=models.SET_NULL, null=True)
+    id_asignado = models.IntegerField()
+    instalacion =  models.ForeignKey(Instalacion , on_delete=models.SET_NULL, null=True)
+    checklist = models.CharField(max_length=50)
+    checklist_codigo = models.CharField(max_length=30)
+    checklist_creacion = models.CharField(max_length=10)
+    checklist_cada = models.IntegerField()
+    checklist_modificado = models.CharField(max_length=10)
+    tipo_ot =  models.ForeignKey(Orden_Trabajo_Tipo , on_delete=models.SET_NULL, null=True)
+    tipo_programa =  models.ForeignKey(Tipo_Programa , on_delete=models.SET_NULL, null=True)
+    checklist_alcance = models.IntegerField()
+    checklist_trabajadores = models.IntegerField()
+    checklist_realizar_activo = models.IntegerField()
+    tiempo_estimado = models.CharField(max_length=10)
+
+    def __str__(self):
+        return super().__str__()
+
+class Checklist_Equipo(models.Model):
+    id_checklist_equipo = models.AutoField(primary_key=True)
+    checklist = models.ForeignKey(Checklist, on_delete=models.SET_NULL, null=True)
+    equipo =  models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    estatus_equipo = models.ForeignKey(Equipo_Estatus , on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Ruta_Set_Point(models.Model):
+    id_orden_trabajo_ruta_set_point = models.AutoField(primary_key=True)
+    orden_trabajo_ruta = models.ForeignKey(Orden_Trabajo_Ruta, on_delete=models.SET_NULL, null=True)
+    operador =  models.ForeignKey(Ruta_Set_Point_Operador, on_delete=models.SET_NULL, null=True)
+    punto_a_base = models.IntegerField() 
+    lectura = models.IntegerField() 
+    punto_b_base = models.IntegerField() 
+    modifico = models.IntegerField() 
+
+    def __str__(self):
+        return super().__str__()
+
+class Checklist_Aspecto(models.Model):
+    id_checklist_aspecto = models.AutoField(primary_key=True)
+    checklist_aspecto = models.CharField(max_length=1000)
+    checklist_equipo =  models.ForeignKey(Checklist_Equipo, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Checklist_Instruccion(models.Model):
+    id_checklist_instruccion = models.AutoField(primary_key=True)
+    checklist_instruccion = models.CharField(max_length=1000)
+    checklist_aspecto =  models.ForeignKey(Checklist_Aspecto, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Checklist_Aspecto_Copiado(models.Model):
+    id_checklist_aspecto_copiado = models.AutoField(primary_key=True)
+    equipo_base = models.ForeignKey(Equipo , related_name='equipo_base', on_delete=models.SET_NULL, null=True)
+    equipo_copia = models.ForeignKey(Equipo , related_name='equipo_copia', on_delete=models.SET_NULL, null=True)
+    usuario =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    fecha = models.DateField()
+    hora = models.TimeField()
+    notas = models.CharField(max_length=1000)
+
+    def __str__(self):
+        return super().__str__()
+
+class Chk(models.Model):
+    id_chk = models.AutoField(primary_key=True)
+    checklist = models.ForeignKey(Checklist, on_delete=models.SET_NULL, null=True)
+    chk_codigo =  models.CharField(max_length=10)
+    checklist =  models.CharField(max_length=50)
+    chk_fecha_creacion = models.DateField()
+    chk_hora_creacion = models.TimeField()
+    chk_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    chk_fecha_modificado = models.DateField()
+    chk_hora_modificado = models.TimeField()
+    chk_modificado_por = models.ForeignKey(Usuario , related_name='chk_modificado_por', on_delete=models.SET_NULL, null=True)
+    id_asignado = models.IntegerField()
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    tipo_ot = models.ForeignKey(Orden_Trabajo_Tipo, on_delete=models.SET_NULL, null=True)
+    tipo_programa = models.ForeignKey(Tipo_Programa, on_delete=models.SET_NULL, null=True)
+    num_trabajadores = models.IntegerField()
+    realizar_Activo = models.IntegerField()
+    tiempo_estimado = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Chk_Equipo(models.Model):
+    id_chk_equipo = models.AutoField(primary_key=True)
+    chk = models.ForeignKey(Chk, on_delete=models.SET_NULL, null=True)
+    checklist_equipo =  models.ForeignKey(Checklist_Equipo, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Chk_Aspecto(models.Model):
+    id_chk_aspecto = models.AutoField(primary_key=True)
+    chk_equipo = models.ForeignKey(Chk_Equipo, on_delete=models.SET_NULL, null=True)
+    checklist_aspecto =  models.ForeignKey(Checklist_Aspecto, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Chk_Instruccion(models.Model):
+    id_chk_instruccion = models.AutoField(primary_key=True)
+    chk_aspecto = models.ForeignKey(Chk_Aspecto, on_delete=models.SET_NULL, null=True)
+    chk_instruccion = models.CharField(max_length=1000)
+    chk_opcion = models.IntegerField()
+    chk_comentarios = models.CharField(max_length=1000)
+    chk_modificacion = models.IntegerField()
+    chk_modifico = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Orden_Trabajo_Checklist(models.Model):
+    id_orden_trabajo_checklist = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    chk = models.ForeignKey(Chk, on_delete=models.SET_NULL, null=True)
+    fecha = models.DateField()
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
