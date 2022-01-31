@@ -93,11 +93,27 @@ from .controller.ControllerChkEquipo import ControllerChkEquipo
 from .controller.ControllerChkAspecto import ControllerChkAspecto
 from .controller.ControllerChkInstruccion import ControllerChkIntruccion
 from .controller.ControllerOrdenTrabajoChecklist import ControllerOrdenTrabajoChecklist
+from .controller.ControllerDashboardAjuste import ControllerDashboardAjuste
+from .controller.ControllerDashboardMtbf import ControllerDashboardMtbf
+from .controller.ControllerAccionCorrectiva import ControllerAccionCorrectiva
+from .controller.ControllerActEquipo import ControllerActEquipo
+from .controller.ControllerCausaRaiz import ControllerCausaRaiz
+from .controller.ControllerCuentaCc import ControllerCuentaCc
+from .controller.ControllerEmpaqueTipo import ControllerEmpaqueTipo
+from .controller.ControllerEmpaqueCategoria import ControllerEmpaqueCategoria
+from .controller.ControllerEmpaque import ControllerEmpaque
+from .controller.ControllerEmpaqueStockEntrada import ControllerEmpaqueStockEntrada
+from .controller.ControllerEmpaqueStock import ControllerEmpaqueStock
+from .controller.ControllerEmpaqueStockDetalle import ControllerEmpaqueStockDetalle
+from .controller.ControllerEmpaqueStockAjuste import ControllerEmpaqueStockAjuste
+from .controller.ControllerEmpaqueStockOrdenCompra import ControllerEmpaqueStockOrdenCompra
+from .controller.ControllerEmpaqueStockSalida import ControllerEmpaqueStockSalida
+from .controller.ControllerEmpaqueVale import ControllerEmpaqueVale
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, DevolucionSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import AccionCorrectivaSerializer, ActEquipoSerializer, ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, CausaRaizSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, CuentaCcSerializer, DashboardAjusteSerializer, DashboardmtbfSerializer, DevolucionSerializer, EmpaqueCategoriaSerializer, EmpaqueSerializer, EmpaqueStockAjusteSerializer, EmpaqueStockDetalleSerializer, EmpaqueStockEntradaSerializer, EmpaqueStockOrdenCompraSerializer, EmpaqueStockSalidaSerializer, EmpaqueStockSerializer, EmpaqueTipoSerializer, EmpaqueValeSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -1229,4 +1245,180 @@ class OrdenTrabajoChecklistview(APIView):
 
     def get(self, request, id_orden_trabajo_checklist=None):
         respuesta = ControllerOrdenTrabajoChecklist.listarcheckinstruccion(id_orden_trabajo_checklist)
+        return Response(respuesta)
+
+class DashboardAjusteview(APIView):
+    serializer_class = DashboardAjusteSerializer
+
+    def post(self, request):
+        respuesta = ControllerDashboardAjuste.creardashboardajuste(request)
+        return Response(respuesta)
+
+    def get(self, request, id_dashboard_ajuste=None):
+        respuesta = ControllerDashboardAjuste.listardashboardajuste(id_dashboard_ajuste)
+        return Response(respuesta)
+
+class DashboardMtbfview(APIView):
+    serializer_class = DashboardmtbfSerializer
+
+    def post(self, request):
+        respuesta = ControllerDashboardMtbf.creardashboardmtbf(request)
+        return Response(respuesta)
+
+    def get(self, request, id_dashboard_mtbf=None):
+        respuesta = ControllerDashboardMtbf.listardashboardmtbf(id_dashboard_mtbf)
+        return Response(respuesta)
+
+class AccionCorrectivaview(APIView):
+    serializer_class = AccionCorrectivaSerializer
+
+    def post(self, request):
+        respuesta = ControllerAccionCorrectiva.crearaccioncorrectiva(request)
+        return Response(respuesta)
+
+    def get(self, request, id_accion_correctiva=None):
+        respuesta = ControllerAccionCorrectiva.listaraccioncorrectiva(id_accion_correctiva)
+        return Response(respuesta)
+
+class ActEquipoview(APIView):
+    serializer_class = ActEquipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerActEquipo.crearactequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_act_equipo=None):
+        respuesta = ControllerActEquipo.listaractequipo(id_act_equipo)
+        return Response(respuesta)
+
+class CausaRaizview(APIView):
+    serializer_class = CausaRaizSerializer
+
+    def post(self, request):
+        respuesta = ControllerCausaRaiz.crearcausaraiz(request)
+        return Response(respuesta)
+
+    def get(self, request, id_causa_raiz=None):
+        respuesta = ControllerCausaRaiz.listarcausaraiz(id_causa_raiz)
+        return Response(respuesta)
+
+class CuentaCcview(APIView):
+    serializer_class = CuentaCcSerializer
+
+    def post(self, request):
+        respuesta = ControllerCuentaCc.crearcuentacc(request)
+        return Response(respuesta)
+
+    def get(self, request, id_cuenta_cc=None):
+        respuesta = ControllerCuentaCc.listarcuentacc(id_cuenta_cc)
+        return Response(respuesta)
+
+class EmpaqueTipoview(APIView):
+    serializer_class = EmpaqueTipoSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueTipo.crearempaquetipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_tipo=None):
+        respuesta = ControllerEmpaqueTipo.listarempaquetipo(id_empaque_tipo)
+        return Response(respuesta)
+
+class EmpaqueCategoriaview(APIView):
+    serializer_class = EmpaqueCategoriaSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueCategoria.crearempaquecategoria(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_categoria=None):
+        respuesta = ControllerEmpaqueCategoria.listarempaquecategoria(id_empaque_categoria)
+        return Response(respuesta)
+
+class Empaqueview(APIView):
+    serializer_class = EmpaqueSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaque.crearempaque(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque=None):
+        respuesta = ControllerEmpaque.listarempaque(id_empaque)
+        return Response(respuesta)
+
+class EmpaqueStockEntradaview(APIView):
+    serializer_class = EmpaqueStockEntradaSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStockEntrada.crearempaquestockentrada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock_entrada=None):
+        respuesta = ControllerEmpaqueStockEntrada.listarempaquestockentrada(id_empaque_stock_entrada)
+        return Response(respuesta)
+
+class EmpaqueStockview(APIView):
+    serializer_class = EmpaqueStockSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStock.crearempaquestock(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock=None):
+        respuesta = ControllerEmpaqueStock.listarempaquestock(id_empaque_stock)
+        return Response(respuesta)
+
+class EmpaqueStockDetalleview(APIView):
+    serializer_class = EmpaqueStockDetalleSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStockDetalle.crearempaquestockdetalle(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock_detalle=None):
+        respuesta = ControllerEmpaqueStockDetalle.listarempaquestock(id_empaque_stock_detalle)
+        return Response(respuesta)
+
+class EmpaqueStockAjusteview(APIView):
+    serializer_class = EmpaqueStockAjusteSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStockAjuste.crearempaquestockajuste(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock_ajuste=None):
+        respuesta = ControllerEmpaqueStockAjuste.listarempaquestock(id_empaque_stock_ajuste)
+        return Response(respuesta)
+
+class EmpaqueStockOrdenCompraview(APIView):
+    serializer_class = EmpaqueStockOrdenCompraSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStockOrdenCompra.crearempaquestockordencompra(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock_orden_compra=None):
+        respuesta = ControllerEmpaqueStockOrdenCompra.listarempaquestockordencompra(id_empaque_stock_orden_compra)
+        return Response(respuesta)
+
+class EmpaqueStockSalidaview(APIView):
+    serializer_class = EmpaqueStockSalidaSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueStockSalida.crearempaquestock(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_stock_salida=None):
+        respuesta = ControllerEmpaqueStockSalida.listarempaquestock(id_empaque_stock_salida)
+        return Response(respuesta)
+
+class EmpaqueValeview(APIView):
+    serializer_class = EmpaqueValeSerializer
+
+    def post(self, request):
+        respuesta = ControllerEmpaqueVale.crearempaquevale(request)
+        return Response(respuesta)
+
+    def get(self, request, id_empaque_vale=None):
+        respuesta = ControllerEmpaqueVale.listarempaquevale(id_empaque_vale)
         return Response(respuesta)

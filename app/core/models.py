@@ -1190,3 +1190,207 @@ class Orden_Trabajo_Checklist(models.Model):
 
     def __str__(self):
         return super().__str__()
+
+class Dashboard_Ajuste(models.Model):
+    id_dashboard_ajuste = models.AutoField(primary_key=True)
+    dispo_1 = models.IntegerField()
+    dispo_2 = models.IntegerField()
+    dispo_3 = models.IntegerField()
+    proa_1 = models.IntegerField()
+    proa_2 = models.IntegerField()
+    proa_3 = models.IntegerField()
+    cump_1 = models.IntegerField()
+    cump_2 = models.IntegerField()
+    cump_3 = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Dashboard_Mtbf(models.Model):
+    id_dashboard_mtbf = models.AutoField(primary_key=True)
+    id_mes = models.IntegerField()
+    anio = models.IntegerField()
+    ajuste = models.ForeignKey(Dashboard_Ajuste, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Accion_Correctiva(models.Model):
+    id_accion_correctiva = models.AutoField(primary_key=True)
+    ot = models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
+    comentarios = models.CharField(max_length=1000)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Act_Equipo(models.Model):
+    id_act_equipo = models.AutoField(primary_key=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    descr_act = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Causa_Raiz(models.Model):
+    id_causa_raiz = models.AutoField(primary_key=True)
+    equipo = models.ForeignKey(Equipo, on_delete=models.SET_NULL, null=True)
+    descripcion_causa_raiz = models.CharField(max_length=200)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Cuenta_Cc(models.Model):
+    id_cuenta_cc = models.AutoField(primary_key=True)
+    centro_costos = models.ForeignKey(CentroCosto, on_delete=models.SET_NULL, null=True)
+    cuenta_cc = models.CharField(max_length=20)
+    descripcion_cuenta_cc = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Tipo(models.Model):
+    id_empaque_tipo = models.AutoField(primary_key=True)
+    empaque_tipo_es = models.CharField(max_length=50)
+    empaque_tipo_en = models.CharField(max_length=50)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Categoria(models.Model):
+    id_empaque_categoria = models.AutoField(primary_key=True)
+    empaque_categoria = models.CharField(max_length=120)
+    empaque_categoria_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    empaque_categoria_notas = models.CharField(max_length=500)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque(models.Model):
+    id_empaque = models.AutoField(primary_key=True)
+    empaque = models.CharField(max_length=100)
+    descripcion_empaque = models.CharField(max_length=1000)
+    codigo_empaque = models.CharField(max_length=50)
+    estatus_empaque= models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    prioridad_empaque= models.ForeignKey(Orden_Trabajo_Prioridad, on_delete=models.SET_NULL, null=True)
+    foto_empaque = models.CharField(max_length=200)
+    empaque_categoria = models.ForeignKey(Empaque_Categoria, on_delete=models.SET_NULL, null=True)
+    empaque_tipo = models.ForeignKey(Empaque_Tipo, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock_Entrada(models.Model):
+    id_empaque_stock_entrada = models.AutoField(primary_key=True)
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    fecha_orden = models.DateField()
+    fecha_recibido = models.DateField()
+    orden_compra =  models.CharField(max_length=50)
+    cantidad_recibida = models.CharField(max_length=10)
+    precio_unitario = models.CharField(max_length=10)
+    embargado_a = models.IntegerField()
+    user_entrada = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_disponible = models.CharField(max_length=10)
+    moneda = models.IntegerField()
+    dolares = models.CharField(max_length=10)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock(models.Model):
+    id_empaque_stock = models.AutoField(primary_key=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    cantidad_actual = models.IntegerField()
+    punto_reorden = models.IntegerField()
+    pasillo =  models.CharField(max_length=50)
+    columna = models.CharField(max_length=50)
+    contenedor = models.CharField(max_length=50)
+    user_stock = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    img_empaque = models.CharField(max_length=200)
+    maxima = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock_Detalle(models.Model):
+    id_empaque_stock_detalle = models.AutoField(primary_key=True)
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    cuenta =  models.CharField(max_length=20)
+    centro_costo = models.ForeignKey(CentroCosto, on_delete=models.SET_NULL, null=True)
+    modelo = models.CharField(max_length=50)
+    numero_serie = models.CharField(max_length=50)
+    notas_detalles = models.CharField(max_length=1000)
+    unidad = models.ForeignKey(Unidad, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock_Ajuste(models.Model):
+    id_empaque_stock_ajuste = models.AutoField(primary_key=True)
+    empaque_stock_entrada = models.ForeignKey(Empaque_Stock_Entrada, on_delete=models.SET_NULL, null=True)
+    usuario_ajuste = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    fecha_ajuste = models.CharField(max_length=16)
+    orden_compra_1 =   models.CharField(max_length=50)
+    orden_compra_2 =   models.CharField(max_length=50)
+    proveedor_1 = models.ForeignKey(Proveedor , related_name='proveedor_1', on_delete=models.SET_NULL, null=True)
+    proveedor_2 = models.ForeignKey(Proveedor , related_name='proveedor_2', on_delete=models.SET_NULL, null=True)
+    cantidad_disponible_1 = models.CharField(max_length=12)
+    cantidad_disponible_2 = models.CharField(max_length=12)
+    precio_unitario_1 = models.CharField(max_length=12)
+    precio_unitario_2 = models.CharField(max_length=12)
+    moneda_1 = models.IntegerField()
+    moneda_2 = models.IntegerField()
+    dolares_1 = models.CharField(max_length=12)
+    dolares_2 = models.CharField(max_length=12)
+
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock_Orden_Compra(models.Model):
+    id_empaque_stock_orden_compra = models.AutoField(primary_key=True)
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Proveedor, on_delete=models.SET_NULL, null=True)
+    fecha_orden = models.DateField()
+    fecha_recibido = models.DateField()
+    orden_compra =  models.CharField(max_length=50)
+    cantidad_recibida = models.CharField(max_length=10)
+    precio_unitario = models.CharField(max_length=10)
+    embargado_a = models.IntegerField()
+    user_entrada = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_disponible = models.CharField(max_length=10)
+    moneda = models.IntegerField()
+    dolares = models.CharField(max_length=10)
+    estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Stock_Salida(models.Model):
+    id_empaque_stock_salida = models.AutoField(primary_key=True)
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    fecha_salida = models.DateField()
+    notas =  models.CharField(max_length=1000)
+    cantidad_salida = models.IntegerField()
+    precio_unitario = models.CharField(max_length=12)
+    user_salida = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Empaque_Vale(models.Model):
+    id_empaque_vale = models.AutoField(primary_key=True)
+    nombre_empaque =  models.CharField(max_length=20)    
+    empaque = models.ForeignKey(Empaque, on_delete=models.SET_NULL, null=True)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    cantidad_solicitada = models.CharField(max_length=12)
+    cantidad_surtida = models.CharField(max_length=12)
+    parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
+    fecha_surtido = models.DateField()
+    fecha_solicitado = models.DateField()
+    
+    def __str__(self):
+        return super().__str__()
+
