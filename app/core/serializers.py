@@ -5,7 +5,7 @@ from django.db.models import fields
 from django.utils.translation import ugettext_lazy as _
 from rest_framework import serializers
 
-from .models import M4, OT, Accion_Correctiva, Act_Equipo, Act_Ot, Act_Ot_Codigo, Act_Ot_Tipo, Actividad_Mantenimiento, Almacen, Causa_Raiz, Checklist_Aspecto, Checklist_Aspecto_Copiado, Checklist_Equipo, Checklist_Instruccion, Chk, Chk_Aspecto, Chk_Equipo, Chk_Instruccion, Codigo_Falla, Cuenta_Cc, Dashboard_Ajuste, Dashboard_Mtbf, Devolucion, Empaque, Empaque_Categoria, Empaque_Stock, Empaque_Stock_Ajuste, Empaque_Stock_Detalle, Empaque_Stock_Entrada, Empaque_Stock_Orden_Compra, Empaque_Stock_Salida, Empaque_Tipo, Empaque_Vale, Equipo, Equipo_Categoria_Icono, Equipo_Tarea, Equipo_Tarea_Parte, Evento, Frecuencia, Herramienta, Instalacion, Instalacion_Icono, Instruccion, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Mecanismo_Falla, Modelo_Icono, Modo_Deteccion, Orden_Archivos, Orden_Subestatus, Orden_Trabajo_Checklist, Orden_Trabajo_Completa, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Ruta, Orden_Trabajo_Ruta_Set_Point, Orden_Trabajo_Tipo, Orden_trabajo_Revisada, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Rca, Rca_Accion_Preventiva, Rca_Preventive_Status, Rca_Status, Rca_Tipo_Accion, Ruta, Ruta_Condicion, Ruta_Condicion_Unidad, Ruta_Equipo, Ruta_Equipo_Componente, Ruta_Estatus, Ruta_Set_Point, Ruta_Set_Point_Operador, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Tarea_Instruccion, Tarea_Orden_Trabajo, Tiempo_Unidad, Tipo_Cambio, Tipo_Programa, Tipo_Rol, Rol, Usuario_Revisar
+from .models import M4, OT, Accion_Correctiva, Act_Equipo, Act_Ot, Act_Ot_Codigo, Act_Ot_Tipo, Actividad_Mantenimiento, Almacen, Causa_Raiz, Checklist_Aspecto, Checklist_Aspecto_Copiado, Checklist_Equipo, Checklist_Instruccion, Chk, Chk_Aspecto, Chk_Equipo, Chk_Instruccion, Codigo_Falla, Criticidad, Cuenta_Cc, Dashboard_Ajuste, Dashboard_Mtbf, Devolucion, Empaque, Empaque_Categoria, Empaque_Stock, Empaque_Stock_Ajuste, Empaque_Stock_Detalle, Empaque_Stock_Entrada, Empaque_Stock_Orden_Compra, Empaque_Stock_Salida, Empaque_Tipo, Empaque_Vale, Equipo, Equipo_Categoria_Icono, Equipo_Tarea, Equipo_Tarea_Parte, Estado_Material, Estado_Paquete, Estado_Sello, Evento, Frecuencia, Giro, Herramienta, Instalacion, Instalacion_Icono, Instruccion, Inventario_Ajuste, Inventario_Vale, Jornada, Cliente, Mantenimiento, Mecanismo_Falla, Menu, Mes, Modelo_Icono, Modo_Deteccion, Nivel_Gastos, Nivel_Mro, Orden_Archivo, Orden_Archivos, Orden_De_Compra, Orden_De_Compra_Accion, Orden_De_Compra_Archivo, Orden_De_Compra_Archivo_Costo, Orden_De_Compra_Archivo_Proveedor, Orden_De_Compra_Cotizacion, Orden_De_Compra_Cotizacion_Producto, Orden_De_Compra_Email_Visto, Orden_De_Compra_Estado, Orden_De_Compra_Historial, Orden_De_Compra_Mensaje, Orden_De_Compra_Presupuesto, Orden_De_Compra_Producto, Orden_De_Compra_Proveedor, Orden_Inventario, Orden_Subestatus, Orden_Trabajo_Checklist, Orden_Trabajo_Completa, Orden_Trabajo_Estatus, Orden_Trabajo_Parte, Orden_Trabajo_Prioridad, Orden_Trabajo_Ruta, Orden_Trabajo_Ruta_Set_Point, Orden_Trabajo_Tipo, Orden_trabajo_Revisada, Parte, Parte_Detalle, Parte_Detalle_Surtido, Parte_Estatus, Prob_Equipo, Proveedor, CentroCosto, Departamento, EstatusUsuario, Historial_Turno, Idioma, Puesto, Rca, Rca_Accion_Preventiva, Rca_Preventive_Status, Rca_Status, Rca_Tipo_Accion, Requisicion, Requisicion_Estatus, Ruta, Ruta_Condicion, Ruta_Condicion_Unidad, Ruta_Equipo, Ruta_Equipo_Componente, Ruta_Estatus, Ruta_Set_Point, Ruta_Set_Point_Operador, Satisfaccion, Scope, Stock, Stock_Ajuste, Stock_Detalle, Stock_Entrada, Submenu, Suscripcion, Tarea_Instruccion, Tarea_Orden_Trabajo, Tiempo_Unidad, Tipo_Cambio, Tipo_Programa, Tipo_Rol, Rol, Token, Usuario_, Usuario_Revisar
 from .models import Departamento_Turno, Turno, Puesto, Usuario, Contacto_Proveedor, Unidad, Inventario_Categoria, Cliente, JornadaHoras
 from .models import Equipo_Categoria_Estatus, Equipo_Categoria, Clase_Equipo, Modelo, Equipo_Estatus
 from .models import Herramienta_Movimiento, Herramienta_Historial, Inventario, Inventario_Tipo, Tipo_Instruccion
@@ -388,9 +388,9 @@ class TipoCambioSerializer(serializers.ModelSerializer):
         model = Tipo_Cambio
         fields = '__all__'
 
-class OrdenArchivosSerializer(serializers.ModelSerializer):
+class OrdenArchivoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Orden_Archivos
+        model = Orden_Archivo
         fields = '__all__'
         
 class AtcOtTipoSerializer(serializers.ModelSerializer):
@@ -693,4 +693,179 @@ class EmpaqueStockSalidaSerializer(serializers.ModelSerializer):
 class EmpaqueValeSerializer(serializers.ModelSerializer):
     class Meta:
         model = Empaque_Vale
+        fields = '__all__'
+
+class OrdenArchivosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Archivos
+        fields = '__all__'
+
+class OrdenInventarioSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_Inventario
+        fields = '__all__'
+
+class MesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mes
+        fields = '__all__'
+        
+class MantenimientoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Mantenimiento
+        fields = '__all__'
+
+class MenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Menu
+        fields = '__all__'
+
+class ParteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Parte
+        fields = '__all__'
+
+class ProbEquipoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Prob_Equipo
+        fields = '__all__'
+
+class RequisicionEstatusSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Requisicion_Estatus
+        fields = '__all__'
+
+class RequisicionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Requisicion
+        fields = '__all__'
+
+class SatisfaccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Satisfaccion
+        fields = '__all__'
+
+class SubmenuSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Submenu
+        fields = '__all__'
+
+class SuscripcionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Suscripcion
+        fields = '__all__'
+
+class TokenSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Token
+        fields = '__all__'
+
+class Usuario_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Usuario_
+        fields = '__all__'
+
+class CriticidadSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Criticidad
+        fields = '__all__'
+
+class EstadoMaterialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estado_Material
+        fields = '__all__'
+
+class EstadoPaqueteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estado_Paquete
+        fields = '__all__'
+
+class EstadoSelloSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Estado_Sello
+        fields = '__all__'
+
+class GiroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Giro
+        fields = '__all__'
+
+class NivelMroSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nivel_Mro
+        fields = '__all__'
+
+class NivelGastosSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Nivel_Gastos
+        fields = '__all__'
+
+class OrdenDeCompraEstadoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Estado
+        fields = '__all__'
+
+class OrdenDeCompraAccionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Accion
+        fields = '__all__'
+
+class OrdenDeCompraProveedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Proveedor
+        fields = '__all__'
+
+class OrdenDeCompraSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra
+        fields = '__all__'
+
+class OrdenDeCompraProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Producto
+        fields = '__all__'
+
+class OrdenDeCompraCotizacionProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Cotizacion_Producto
+        fields = '__all__'
+
+class OrdenDeCompraArchivoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Archivo
+        fields = '__all__'
+
+class OrdenDeCompraArchivoProveedorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Archivo_Proveedor
+        fields = '__all__'
+
+class OrdenDeCompraCotizacionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Cotizacion
+        fields = '__all__'
+
+class OrdenDeCompraArchivoCostoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Archivo_Costo
+        fields = '__all__'
+
+class OrdenDeCompraEmailVistoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Email_Visto
+        fields = '__all__'
+
+class OrdenDeCompraHistorialSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Historial
+        fields = '__all__'
+
+class OrdenDeCompraMensajeSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Mensaje
+        fields = '__all__'
+
+class OrdenDeCompraPresupuestoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Orden_De_Compra_Presupuesto
         fields = '__all__'

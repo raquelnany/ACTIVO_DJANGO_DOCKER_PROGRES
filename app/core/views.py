@@ -109,11 +109,46 @@ from .controller.ControllerEmpaqueStockAjuste import ControllerEmpaqueStockAjust
 from .controller.ControllerEmpaqueStockOrdenCompra import ControllerEmpaqueStockOrdenCompra
 from .controller.ControllerEmpaqueStockSalida import ControllerEmpaqueStockSalida
 from .controller.ControllerEmpaqueVale import ControllerEmpaqueVale
+from .controller.ControllerOrdenArchivos import ControllerOrdenArchivos
+from .controller.ControllerOrdenInventario import ControllerOrdenInventario
+from .controller.ControllerMes import ControllerMes
+from .controller.ControllerMantenimieto import ControllerMantenimiento
+from .controller.ControllerMenu import ControllerMenu
+from .controller.ControllerParte import ControllerParte
+from .controller.ControllerProbEquipo import ControllerProbEquipo
+from .controller.ControllerRequisicionEstatus import ControllerRequisicionEstatus
+from .controller.ControllerRequisicion import ControllerRequisicion
+from .controller.ControllerSatisfaccion import ControllerSatisfaccion
+from .controller.ControllerSubmenu import ControllerSubmenu
+from .controller.ControllerSuscripcion import ControllerSuscripcion
+from .controller.ControllerToken import ControllerToken
+from .controller.ControllerUsuario_ import ControllerUsuario_
+from .controller.ControllerCriticidad import ControllerCriticidad
+from .controller.ControllerEstadoMaterial import ControllerEstadoMaterial
+from .controller.ControllerEstadoPaquete import ControllerEstadoPaquete
+from .controller.ControllerEstadoSello import ControllerEstadoSello
+from .controller.ControllerGiro import ControllerGiro
+from .controller.ControllerNivelMro import ControllerNivelMro
+from .controller.ControllerNivelGastos import ControllerNivelGastos
+from .controller.ControllerOrdenDeCompraEstado import ControllerOrdenDeCompraEstado
+from .controller.ControllerOrdenDeCompraAccion import ControllerOrdenDeCompraAccion
+from .controller.ControllerOrdenDeCompraProveedor import ControllerOrdenDeCompraProveedor
+from .controller.ControllerOrdenDeCompra import ControllerOrdenDeCompra
+from .controller.ControllerOrdenDeCompraProducto import ControllerOrdenDeCompraProducto
+from .controller.ControllerOrdenDeCompraCotizacionProducto import ControllerOrdenDeCompraCotizacionProducto
+from .controller.ControllerOrdenDeCompraArchivo import ControllerOrdenDeCompraArchivo
+from .controller.ControllerOrdenDeCompraArchivoProveedor import ControllerOrdenDeCompraArchivoProveedor
+from .controller.ControllerOrdenDeCompraCotizacion import ControllerOrdenDeCompraCotizacion
+from .controller.ControllerOrdenDeCompraArchivoCosto import ControllerOrdenDeCompraArchivoCosto
+from .controller.ControllerOrdenDeCompraEmailVisto import ControllerOrdenDeCompraEmailVisto
+from .controller.ControllerOrdenDeCompraHistorial import ControllerOrdenDeCompraHistorial
+from .controller.ControllerOrdenDeCompraMensaje import ControllerOrdenDeCompraMensaje
+from .controller.ControllerOrdenDeCompraPresupuesto import ControllerOrdenDeCompraPresupuesto
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .serializers import AccionCorrectivaSerializer, ActEquipoSerializer, ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, CausaRaizSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, CuentaCcSerializer, DashboardAjusteSerializer, DashboardmtbfSerializer, DevolucionSerializer, EmpaqueCategoriaSerializer, EmpaqueSerializer, EmpaqueStockAjusteSerializer, EmpaqueStockDetalleSerializer, EmpaqueStockEntradaSerializer, EmpaqueStockOrdenCompraSerializer, EmpaqueStockSalidaSerializer, EmpaqueStockSerializer, EmpaqueTipoSerializer, EmpaqueValeSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EventoSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, OTSerializer, OrdenArchivosSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
+from .serializers import AccionCorrectivaSerializer, ActEquipoSerializer, ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, CausaRaizSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, CriticidadSerializer, CuentaCcSerializer, DashboardAjusteSerializer, DashboardmtbfSerializer, DevolucionSerializer, EmpaqueCategoriaSerializer, EmpaqueSerializer, EmpaqueStockAjusteSerializer, EmpaqueStockDetalleSerializer, EmpaqueStockEntradaSerializer, EmpaqueStockOrdenCompraSerializer, EmpaqueStockSalidaSerializer, EmpaqueStockSerializer, EmpaqueTipoSerializer, EmpaqueValeSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EstadoMaterialSerializer, EstadoPaqueteSerializer, EstadoSelloSerializer, EventoSerializer, GiroSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, MantenimientoSerializer, MenuSerializer, MesSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, NivelGastosSerializer, NivelMroSerializer, OTSerializer, OrdenArchivosSerializer, OrdenDeCompraAccionSerializer, OrdenDeCompraArchivoCostoSerializer, OrdenDeCompraArchivoProveedorSerializer, OrdenDeCompraArchivoSerializer, OrdenDeCompraCotizacionSerializer, OrdenDeCompraEmailVistoSerializer, OrdenDeCompraEstadoSerializer, OrdenDeCompraHistorialSerializer, OrdenDeCompraMensajeSerializer, OrdenDeCompraPresupuestoSerializer, OrdenDeCompraProductoSerializer, OrdenDeCompraProveedorSerializer, OrdenDeCompraSerializer, OrdenInventarioSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, ParteSerializer, ProbEquipoSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RequisicionEstatusSerializer, RequisicionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, SatisfaccionSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, SubmenuSerializer, SuscripcionSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TokenSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, Usuario_Serializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
 from .models import Modelo, Unidad
@@ -1421,4 +1456,381 @@ class EmpaqueValeview(APIView):
 
     def get(self, request, id_empaque_vale=None):
         respuesta = ControllerEmpaqueVale.listarempaquevale(id_empaque_vale)
+        return Response(respuesta)
+
+class OrdenArchivosview(APIView):
+    serializer_class = OrdenArchivosSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenArchivos.crearordenarchivos(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_archivos=None):
+        respuesta = ControllerOrdenArchivos.listarordenarchivos(id_orden_archivos)
+        return Response(respuesta)
+
+class OrdenInventarioview(APIView):
+    serializer_class = OrdenInventarioSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenInventario.crearordeninventario(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_inventario=None):
+        respuesta = ControllerOrdenInventario.listarordeninventario(id_orden_inventario)
+        return Response(respuesta)
+
+class Mesview(APIView):
+    serializer_class = MesSerializer
+
+    def post(self, request):
+        respuesta = ControllerMes.crearmes(request)
+        return Response(respuesta)
+
+class Mantenimientoview(APIView):
+    serializer_class = MantenimientoSerializer
+
+    def post(self, request):
+        respuesta = ControllerMantenimiento.crearmantenimiento(request)
+        return Response(respuesta)
+
+    def get(self, request, id_mantenimiento=None):
+        respuesta = ControllerMantenimiento.listarmantenimiento(id_mantenimiento)
+        return Response(respuesta)
+
+class Menuview(APIView):
+    serializer_class = MenuSerializer
+
+    def post(self, request):
+        respuesta = ControllerMenu.crearmenu(request)
+        return Response(respuesta)
+
+    def get(self, request, id_menu=None):
+        respuesta = ControllerMenu.listarmenu(id_menu)
+        return Response(respuesta)
+
+class Parteview(APIView):
+    serializer_class = ParteSerializer
+
+    def post(self, request):
+        respuesta = ControllerParte.crearparte(request)
+        return Response(respuesta)
+
+    def get(self, request, id_parte=None):
+        respuesta = ControllerParte.listarparte(id_parte)
+        return Response(respuesta)
+
+class ProbEquipoview(APIView):
+    serializer_class = ProbEquipoSerializer
+
+    def post(self, request):
+        respuesta =ControllerProbEquipo.crearprobequipo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_prob_equipo=None):
+        respuesta = ControllerProbEquipo.listarprobequipo(id_prob_equipo)
+        return Response(respuesta)
+
+class RequisicionEstatusview(APIView):
+    serializer_class = RequisicionEstatusSerializer
+
+    def post(self, request):
+        respuesta = ControllerRequisicionEstatus.crearrequisicionestatus(request)
+        return Response(respuesta)
+
+    def get(self, request, id_requisicion_estatus=None):
+        respuesta = ControllerRequisicionEstatus.listarrequisicionestatus(id_requisicion_estatus)
+        return Response(respuesta)
+
+class Requisicionview(APIView):
+    serializer_class = RequisicionSerializer
+
+    def post(self, request):
+        respuesta = ControllerRequisicion.crearrequisicion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_requisicion=None):
+        respuesta = ControllerRequisicion.listarrequisicion(id_requisicion)
+        return Response(respuesta)
+        
+class Satisfaccionview(APIView):
+    serializer_class = SatisfaccionSerializer
+
+    def post(self, request):
+        respuesta =ControllerSatisfaccion.crearsatisfaccion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_satisfaccion=None):
+        respuesta = ControllerSatisfaccion.listarsatisfaccion(id_satisfaccion)
+        return Response(respuesta)
+
+class Submenuview(APIView):
+    serializer_class = SubmenuSerializer
+
+    def post(self, request):
+        respuesta = ControllerSubmenu.crearsubmenu(request)
+        return Response(respuesta)
+
+    def get(self, request, id_submenu=None):
+        respuesta = ControllerSubmenu.listarsubmenu(id_submenu)
+        return Response(respuesta)
+
+class Suscripcionview(APIView):
+    serializer_class = SuscripcionSerializer
+
+    def post(self, request):
+        respuesta = ControllerSuscripcion.crearsuscripcion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_suscripcion=None):
+        respuesta = ControllerSuscripcion.listarsuscripcion(id_suscripcion)
+        return Response(respuesta)
+
+class Tokenview(APIView):
+    serializer_class = TokenSerializer
+
+    def post(self, request):
+        respuesta = ControllerToken.creartoken(request)
+        return Response(respuesta)
+
+class Usuario_view(APIView):
+    serializer_class = Usuario_Serializer
+
+    def post(self, request):
+        respuesta = ControllerUsuario_.crearusuario_(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_=None):
+        respuesta = ControllerUsuario_.listarusuario_(id_usuario_)
+        return Response(respuesta)
+
+class Criticidadview(APIView):
+    serializer_class = CriticidadSerializer
+
+    def post(self, request):
+        respuesta = ControllerCriticidad.crearcriticidad(request)
+        return Response(respuesta)
+
+    def get(self, request, id_criticidad=None):
+        respuesta = ControllerCriticidad.listarcriticidad(id_criticidad)
+        return Response(respuesta)
+
+class EstadoMaterialview(APIView):
+    serializer_class = EstadoMaterialSerializer
+
+    def post(self, request):
+        respuesta = ControllerEstadoMaterial.crearestadomaterial(request)
+        return Response(respuesta)
+
+    def get(self, request, id_estado_material=None):
+        respuesta = ControllerEstadoMaterial.listarestadomaterial(id_estado_material)
+        return Response(respuesta)
+
+class EstadoPaqueteview(APIView):
+    serializer_class = EstadoPaqueteSerializer
+
+    def post(self, request):
+        respuesta = ControllerEstadoPaquete.crearestadopaquete(request)
+        return Response(respuesta)
+
+    def get(self, request, id_estado_paquete=None):
+        respuesta = ControllerEstadoPaquete.listarestadopaquete(id_estado_paquete)
+        return Response(respuesta)
+
+class EstadoSelloview(APIView):
+    serializer_class = EstadoSelloSerializer
+
+    def post(self, request):
+        respuesta = ControllerEstadoSello.crearestadosello(request)
+        return Response(respuesta)
+
+    def get(self, request, id_estado_sello=None):
+        respuesta = ControllerEstadoSello.listarestadosello(id_estado_sello)
+        return Response(respuesta)
+
+class Giroview(APIView):
+    serializer_class = GiroSerializer
+
+    def post(self, request):
+        respuesta = ControllerGiro.creargiro(request)
+        return Response(respuesta)
+
+    def get(self, request, id_giro=None):
+        respuesta = ControllerGiro.listarestadopaquete(id_giro)
+        return Response(respuesta)
+
+class NivelMroview(APIView):
+    serializer_class = NivelMroSerializer
+
+    def post(self, request):
+        respuesta = ControllerNivelMro.crearnivelmro(request)
+        return Response(respuesta)
+
+    def get(self, request, id_nivel_mro=None):
+        respuesta = ControllerNivelMro.listarnivelmro(id_nivel_mro)
+        return Response(respuesta)
+
+class NivelGastosview(APIView):
+    serializer_class = NivelGastosSerializer
+
+    def post(self, request):
+        respuesta = ControllerNivelGastos.crearnivelgastos(request)
+        return Response(respuesta)
+
+    def get(self, request, id_nivel_gastos=None):
+        respuesta = ControllerNivelGastos.listarnivelgastos(id_nivel_gastos)
+        return Response(respuesta)
+
+class OrdenDeCompraEstadoview(APIView):
+    serializer_class = OrdenDeCompraEstadoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraEstado.crearordendecompraestado(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta =ControllerOrdenDeCompraEstado.listarordendecompraestado(id)
+        return Response(respuesta)
+
+class OrdenDeCompraAccionview(APIView):
+    serializer_class = OrdenDeCompraAccionSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraAccion.crearordendecompraaccion(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraAccion.listarordendecompraaccion(id)
+        return Response(respuesta)    
+
+class OrdenDeCompraProveedorview(APIView):
+    serializer_class = OrdenDeCompraProveedorSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraProveedor.crearordendecompraproveedor(request)
+        return Response(respuesta)
+
+    def get(self, request, id_proveedor=None):
+        respuesta = ControllerOrdenDeCompraProveedor.listarordendecompraproveedor(id_proveedor)
+        return Response(respuesta)
+
+class OrdenDeCompraview(APIView):
+    serializer_class = OrdenDeCompraSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompra.crearordendecompra(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta =ControllerOrdenDeCompra.listarordendecompra(id)
+        return Response(respuesta)
+
+class OrdenDeCompraProductoview(APIView):
+    serializer_class = OrdenDeCompraProductoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraProducto.crearordendecompraproducto(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraProducto.listarordendecompraproducto(id)
+        return Response(respuesta)
+
+class OrdenDeCompraContizacionProductoview(APIView):
+    serializer_class = OrdenDeCompraProductoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraProducto.crearordendecompraproducto(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraProducto.listarordendecompraproducto(id)
+        return Response(respuesta)
+        
+class OrdenDeCompraArchivoview(APIView):
+    serializer_class = OrdenDeCompraArchivoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraArchivo.crearordendecompraarchivo(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_compra_archivo=None):
+        respuesta =ControllerOrdenDeCompraArchivo.listarordendecompraarchivo(id_orden_compra_archivo)
+        return Response(respuesta)
+
+class OrdenDeCompraArchivoProveedorview(APIView):
+    serializer_class = OrdenDeCompraArchivoProveedorSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraArchivoProveedor.crearordendecompraarchivoproveedor(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_compra_archivo_proveedor=None):
+        respuesta = ControllerOrdenDeCompraArchivoProveedor.listarordendecompraarchivo(id_orden_compra_archivo_proveedor)
+        return Response(respuesta)
+
+class OrdenDeCompraCotizacionview(APIView):
+    serializer_class = OrdenDeCompraCotizacionSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraCotizacion.crearordendecompracotizacion(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraCotizacion.listarordendecompracotizacion(id)
+        return Response(respuesta)
+
+class OrdenDeCompraArchivoCostoview(APIView):
+    serializer_class = OrdenDeCompraArchivoCostoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraArchivoCosto.crearordendecompraarchivocosto(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraArchivoCosto.listarordendecompraarchivocosto(id)
+        return Response(respuesta)
+
+class OrdenDeCompraEmailVistoview(APIView):
+    serializer_class = OrdenDeCompraEmailVistoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraEmailVisto.crearordendecompraemailvisto(request)
+        return Response(respuesta)
+
+    def get(self, request, orden_de_compra_email_visto=None):
+        respuesta = ControllerOrdenDeCompraEmailVisto.listarordendecompraemailvisto(orden_de_compra_email_visto)
+        return Response(respuesta)
+
+class OrdenDeCompraHistorialview(APIView):
+    serializer_class = OrdenDeCompraHistorialSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraHistorial.crearordendecomprahistorial(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraHistorial.listarordendecompraemailvisto(id)
+        return Response(respuesta)
+
+class OrdenDeCompraMensajeview(APIView):
+    serializer_class = OrdenDeCompraMensajeSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraMensaje.crearordendecompramensaje(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraMensaje.listarordendecompramensaje(id)
+        return Response(respuesta)
+
+class OrdenDeCompraPresupuestoview(APIView):
+    serializer_class = OrdenDeCompraPresupuestoSerializer
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraPresupuesto.crearordendecomprapresupuesto(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOrdenDeCompraPresupuesto.listarordendecomprapresupuesto(id)
         return Response(respuesta)
