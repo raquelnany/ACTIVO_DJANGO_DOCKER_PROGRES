@@ -6,7 +6,7 @@ class ControllerChk:
     def crearchk(request):
         datosChecklist = request.data
         try:
-            checklist = Checklist.objects.get(id_checklist = datosChecklist['checklist'])
+            checklist = Checklist.objects.get(id_checklist = datosChecklist['id_checklist'])
             chk_estatus = EstatusUsuario.objects.get(id_estatus = datosChecklist['chk_estatus'])
             chk_modificado_por = Usuario.objects.get(id_usuario = datosChecklist['usuario'])
             instalacion = Instalacion.objects.get(id_instalacion = datosChecklist['instalacion'])
@@ -14,7 +14,7 @@ class ControllerChk:
             tipo_programa = Tipo_Programa.objects.get(id_tipo_programa = datosChecklist['tipo_programa'])
 
             checklistNuevo = Chk.objects.create(
-                checklist = checklist,
+                id_checklist = checklist,
                 chk_codigo = datosChecklist['chk_codigo'],
                 checklist = datosChecklist['checklist'],
                 chk_fecha_creacion = datosChecklist['chk_fecha_creacion'],

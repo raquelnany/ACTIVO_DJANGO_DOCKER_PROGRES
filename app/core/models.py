@@ -375,8 +375,8 @@ class Herramienta_Historial(models.Model):
     herramienta_movimiento = models.ForeignKey(Herramienta_Movimiento, on_delete=models.SET_NULL, null=True)
     fecha_movimiento = models.DateField()
     notas_herramienta = models.CharField(max_length=1000)
-    solicitante = models.ForeignKey(Usuario , related_name='solicitate', on_delete=models.SET_NULL, null=True)
-    usuario = models.ForeignKey(Usuario , related_name='usuario', on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
     prestamo = models.IntegerField()
 
     def __str__(self):
@@ -459,8 +459,8 @@ class Stock_Ajuste(models.Model):
     fecha_ajuste = models.DateField()
     orden_compra_1 = models.CharField(max_length=50)
     orden_compra_2 = models.CharField(max_length=50)
-    proveedor_1 = models.ForeignKey(Proveedor, related_name='proveedor_1', on_delete=models.SET_NULL, null=True)
-    proveedor_2 = models.ForeignKey(Proveedor, related_name='proveedor_2', on_delete=models.SET_NULL, null=True)
+    proveedor_1 = models.ForeignKey(Proveedor, related_name='+', on_delete=models.SET_NULL, null=True)
+    proveedor_2 = models.ForeignKey(Proveedor, related_name='+', on_delete=models.SET_NULL, null=True)
     cantidad_1 = models.CharField(max_length=50)
     cantidad_2 = models.CharField(max_length=50)
     cantidad_disponible_1 = models.CharField(max_length=50)
@@ -505,11 +505,11 @@ class Inventario_Ajuste(models.Model):
     nombre_ajuste  = models.CharField(max_length=20)
     inventario = models.ForeignKey(Inventario, on_delete=models.SET_NULL, null=True)
     stock_entrada = models.ForeignKey(Stock_Entrada, on_delete=models.SET_NULL, null=True)
-    solicitante = models.ForeignKey(Usuario, related_name='solicitante', on_delete=models.SET_NULL, null=True)
+    solicitante = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
     fecha_solicitud  = models.DateField() 
     fecha_aceptado = models.DateField()
     parte_estatus = models.ForeignKey(Parte_Estatus, on_delete=models.SET_NULL, null=True)
-    aprobador = models.ForeignKey(Usuario , related_name='aprobador', on_delete=models.SET_NULL, null=True)
+    aprobador = models.ForeignKey(Usuario ,related_name='+', on_delete=models.SET_NULL, null=True)
     
     def __str__(self):
         return super().__str__()
@@ -599,7 +599,7 @@ class OT(models.Model):
     id_visible_ot = models.CharField(max_length=45)
     descipcion_ot = models.CharField(max_length=255)
     equipo_ot = models.ForeignKey(Equipo , on_delete=models.SET_NULL, null=True)
-    id_requisitor_ot = models.ForeignKey(Usuario, related_name='requisitor', on_delete=models.SET_NULL, null=True)
+    id_requisitor_ot = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
     id_cuenta = models.DateField()
     id_problema = models.BigIntegerField()
     id_causa = models.BigIntegerField()
@@ -609,11 +609,11 @@ class OT(models.Model):
     tipo_de_trabajo_ot = models.BigIntegerField()
     estatus_ot = models.ForeignKey(Orden_Trabajo_Estatus, on_delete=models.SET_NULL, null=True)
     subestatus_ot = models.ForeignKey(Orden_Subestatus, on_delete=models.SET_NULL, null=True)
-    responsable_ot = models.ForeignKey(Usuario, related_name='responsable', on_delete=models.SET_NULL, null=True)
+    responsable_ot = models.ForeignKey(Usuario,related_name='+', on_delete=models.SET_NULL, null=True)
     fecha_inicio_ot = models.DateField()
     fecha_estimada = models.DateField()
     fecha_fin_ot = models.DateField()
-    tecnico_asignado = models.ForeignKey(Usuario, related_name='tecnico_asignado', on_delete=models.SET_NULL, null=True)
+    tecnico_asignado = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
     instr_trab_ot = models.CharField(max_length=1000)
     notas_ot = models.CharField(max_length=1000)
     trab_estimados = models.BigIntegerField()
@@ -627,7 +627,7 @@ class Evento(models.Model):
     id_registro = models.BigIntegerField()
     accion_en = models.CharField(max_length=50)
     fecha  = models.DateField()
-    hora = models.TimeFieldField()
+    hora = models.TimeField()
     linux = models.CharField(max_length=20)
     bloque_es = models.CharField(max_length=20)
     accion_es = models.CharField(max_length=255)
@@ -737,10 +737,10 @@ class Equipo_Tarea(models.Model):
     frecuencia = models.ForeignKey(Frecuencia, on_delete=models.SET_NULL, null=True)
     estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
     cada = models.IntegerField()
-    user = models.ForeignKey(Usuario, related_name='user' , on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
     ultima_fecha = models.DateField()
     numero_trabajadores = models.IntegerField()
-    usuario = models.ForeignKey(Usuario , related_name='usuario', on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
 
     def __str__(self):
         return super().__str__()
@@ -962,12 +962,12 @@ class Ruta_Estatus(models.Model):
 
 class Ruta(models.Model):
     id_ruta = models.AutoField(primary_key=True)
-    user_creador = models.ForeignKey(Usuario , related_name='user_creador', on_delete=models.SET_NULL, null=True)
-    user_modifico = models.ForeignKey(Usuario , related_name='user_modifico', on_delete=models.SET_NULL, null=True)
-    ruta_estatus = models.ForeignKey(Ruta_Estatus , on_delete=models.SET_NULL, null=False)
-    frecuencia = models.ForeignKey(Frecuencia , on_delete=models.SET_NULL, null=False)
+    user_creador = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
+    user_modifico = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
+    ruta_estatus = models.ForeignKey(Ruta_Estatus , on_delete=models.SET_NULL, null=True)
+    frecuencia = models.ForeignKey(Frecuencia , on_delete=models.SET_NULL, null=True)
     id_asignado = models.IntegerField()
-    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=False)
+    instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
     ruta = models.CharField(max_length=50)
     ruta_codigo = models.CharField(max_length=30)
     ruta_cada = models.IntegerField()
@@ -1061,8 +1061,8 @@ class Orden_Trabajo_Ruta(models.Model):
 
 class Checklist(models.Model):
     id_checklist = models.AutoField(primary_key=True)
-    user_creador =  models.ForeignKey(Usuario , related_name='user_creador', on_delete=models.SET_NULL, null=True)
-    user_modificador = models.ForeignKey(Usuario , related_name='user_modifico', on_delete=models.SET_NULL, null=True)
+    user_creador =  models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
+    user_modificador = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
     checklist_estatus = models.ForeignKey(EstatusUsuario , on_delete=models.SET_NULL, null=True)
     frecuencia = models.ForeignKey(Frecuencia , on_delete=models.SET_NULL, null=True)
     id_asignado = models.IntegerField()
@@ -1121,8 +1121,8 @@ class Checklist_Instruccion(models.Model):
 
 class Checklist_Aspecto_Copiado(models.Model):
     id_checklist_aspecto_copiado = models.AutoField(primary_key=True)
-    equipo_base = models.ForeignKey(Equipo , related_name='equipo_base', on_delete=models.SET_NULL, null=True)
-    equipo_copia = models.ForeignKey(Equipo , related_name='equipo_copia', on_delete=models.SET_NULL, null=True)
+    equipo_base = models.ForeignKey(Equipo ,related_name='+', on_delete=models.SET_NULL, null=True)
+    equipo_copia = models.ForeignKey(Equipo , related_name='+', on_delete=models.SET_NULL, null=True)
     usuario =  models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
     fecha = models.DateField()
     hora = models.TimeField()
@@ -1133,7 +1133,7 @@ class Checklist_Aspecto_Copiado(models.Model):
 
 class Chk(models.Model):
     id_chk = models.AutoField(primary_key=True)
-    checklist = models.ForeignKey(Checklist, on_delete=models.SET_NULL, null=True)
+    id_checklist = models.ForeignKey(Checklist, on_delete=models.SET_NULL, null=True)
     chk_codigo =  models.CharField(max_length=10)
     checklist =  models.CharField(max_length=50)
     chk_fecha_creacion = models.DateField()
@@ -1141,7 +1141,7 @@ class Chk(models.Model):
     chk_estatus = models.ForeignKey(EstatusUsuario, on_delete=models.SET_NULL, null=True)
     chk_fecha_modificado = models.DateField()
     chk_hora_modificado = models.TimeField()
-    chk_modificado_por = models.ForeignKey(Usuario , related_name='chk_modificado_por', on_delete=models.SET_NULL, null=True)
+    chk_modificado_por = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
     id_asignado = models.IntegerField()
     instalacion = models.ForeignKey(Instalacion, on_delete=models.SET_NULL, null=True)
     tipo_ot = models.ForeignKey(Orden_Trabajo_Tipo, on_delete=models.SET_NULL, null=True)
@@ -1333,8 +1333,8 @@ class Empaque_Stock_Ajuste(models.Model):
     fecha_ajuste = models.CharField(max_length=16)
     orden_compra_1 =   models.CharField(max_length=50)
     orden_compra_2 =   models.CharField(max_length=50)
-    proveedor_1 = models.ForeignKey(Proveedor , related_name='proveedor_1', on_delete=models.SET_NULL, null=True)
-    proveedor_2 = models.ForeignKey(Proveedor , related_name='proveedor_2', on_delete=models.SET_NULL, null=True)
+    proveedor_1 = models.ForeignKey(Proveedor , related_name='+', on_delete=models.SET_NULL, null=True)
+    proveedor_2 = models.ForeignKey(Proveedor , related_name='+', on_delete=models.SET_NULL, null=True)
     cantidad_disponible_1 = models.CharField(max_length=12)
     cantidad_disponible_2 = models.CharField(max_length=12)
     precio_unitario_1 = models.CharField(max_length=12)
@@ -1505,11 +1505,11 @@ class Requisicion(models.Model):
 class Satisfaccion(models.Model):
     id_satisfaccion = models.AutoField(primary_key=True)
     ot =  models.ForeignKey(OT, on_delete=models.SET_NULL, null=True)
-    requisitor = models.ForeignKey(Usuario , related_name='requisitor', on_delete=models.SET_NULL, null=True)
+    requisitor = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
     folio = models.CharField(max_length=20)
     fecha_completado = models.CharField(max_length=16)
     fecha_satisfaccion = models.CharField(max_length=16)
-    user_completo = models.ForeignKey(Usuario , related_name='user_completo', on_delete=models.SET_NULL, null=True)
+    user_completo = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True)
     satisfaccion = models.IntegerField()
     comentarios = models.CharField(max_length=2000)
 
@@ -1541,8 +1541,8 @@ class Token(models.Model):
     def __str__(self):
         return super().__str__()
 
-class Usuario_(models.Model):
-    id_usuario_ = models.AutoField(primary_key=True)
+class Usuario_A(models.Model):
+    id_usuario_a = models.AutoField(primary_key=True)
     cliente = models.ForeignKey(Cliente, on_delete=models.SET_NULL, null=True)  
     usuario  = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)  
     fecha = models.DateField()
@@ -1658,7 +1658,7 @@ class Orden_De_Compra(models.Model):
     id = models.AutoField(primary_key=True)
     id_visible_orden_de_compra = models.CharField(max_length=45)  
     accion = models.IntegerField()
-    usuario_elabora =  models.ForeignKey(Usuario, related_name='usuario_elabora', on_delete=models.SET_NULL, null=True)   
+    usuario_elabora =  models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)   
     fecha_emitido  = models.CharField(max_length=45) 
     hora_emitido  = models.CharField(max_length=45) 
     fecha_deadline  = models.CharField(max_length=45) 
@@ -1678,7 +1678,7 @@ class Orden_De_Compra(models.Model):
     comprador_asignado = models.IntegerField()
     criticidad = models.IntegerField()
     linea_caida = models.IntegerField()
-    solicitante = models.ForeignKey(Usuario, related_name='solicitante', on_delete=models.SET_NULL, null=True) 
+    solicitante = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True) 
 
     def __str__(self):
         return super().__str__()
@@ -1802,8 +1802,8 @@ class Orden_De_Compra_Mensaje(models.Model):
 class Orden_De_Compra_Presupuesto(models.Model):
     id = models.AutoField(primary_key=True)
     id_fiscal = models.CharField(max_length=45)
-    usuario_autoriza_presupuesto = models.ForeignKey(Usuario , related_name='usuario_autoriza_presupuesto', on_delete=models.SET_NULL, null=True)   
-    usuario_solicita_presupuesto = models.ForeignKey(Usuario , related_name='usuario_solicita_presupuesto', on_delete=models.SET_NULL, null=True) 
+    usuario_autoriza_presupuesto = models.ForeignKey(Usuario ,related_name='+', on_delete=models.SET_NULL, null=True)   
+    usuario_solicita_presupuesto = models.ForeignKey(Usuario , related_name='+', on_delete=models.SET_NULL, null=True) 
     fecha_presupuesto = models.CharField(max_length=45)
     plazo_presupuesto = models.CharField(max_length=45)
     importe = models.CharField(max_length=45)

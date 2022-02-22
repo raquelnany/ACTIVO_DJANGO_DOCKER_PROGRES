@@ -5,7 +5,7 @@ from rest_framework.settings import api_settings
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
 
-from .controller.ControllerCentroCosto import CentroCosto, ControllerCentroCosto
+from .controller.ControllerCentroCosto import ControllerCentroCosto
 from .controller.ControllerHistTurno import ControllerHistTurno
 from .controller.ControllerPuesto import ControllerPuesto
 from .controller.ControllerIdioma import ControllerIdioma
@@ -1600,8 +1600,8 @@ class Usuario_view(APIView):
         respuesta = ControllerUsuario_.crearusuario_(request)
         return Response(respuesta)
 
-    def get(self, request, id_usuario_=None):
-        respuesta = ControllerUsuario_.listarusuario_(id_usuario_)
+    def get(self, request, id_usuario_a=None):
+        respuesta = ControllerUsuario_.listarusuario_(id_usuario_a)
         return Response(respuesta)
 
 class Criticidadview(APIView):

@@ -1,5 +1,5 @@
 from ..serializers import Usuario_Serializer
-from ..models import Cliente, Usuario, Usuario_
+from ..models import Cliente, Usuario, Usuario_A
 
 
 class ControllerUsuario_:
@@ -9,7 +9,7 @@ class ControllerUsuario_:
             cliente = Cliente.objects.get(id_cliente = datosUsuario_['cliente'])
             usuario = Usuario.objects.get(id_usuario = datosUsuario_['usuario'])
             
-            usuario_Nuevo = Usuario_.objects.create(
+            usuario_Nuevo = Usuario_A.objects.create(
                 cliente = cliente,
                 usuario  = usuario,
                 fecha =  datosUsuario_['fecha'],
@@ -26,17 +26,17 @@ class ControllerUsuario_:
         except Exception:
              return {"estatus":"Error"}
 
-        return {"estatus":"Ok", 'nuevo_usuario_': usuario_Nuevo.id_usuario_}
+        return {"estatus":"Ok", 'nuevo_usuario_': usuario_Nuevo.id_usuario_a}
        
-    def listarusuario_(id_usuario_=None):
-        if id_usuario_:
+    def listarusuario_(id_usuario_a=None):
+        if id_usuario_a:
             try:
-                queryset = Usuario_.objects.get(id_usuario_=id_usuario_)
-            except Usuario_.DoesNotExist:
+                queryset = Usuario_A.objects.get(id_usuario_a=id_usuario_a)
+            except Usuario_A.DoesNotExist:
                 return ({'result': 'No se encontró el usuario_ deseado'})
             serializer = Usuario_Serializer(queryset)
             return serializer.data
         else:
-            queryset = Usuario_.objects.all()
+            queryset = Usuario_A.objects.all()
             serializer = Usuario_Serializer(queryset, many=True)
             return serializer.data
