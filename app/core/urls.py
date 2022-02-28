@@ -287,6 +287,40 @@ urlpatterns = [
     path('v1/orden_de_compra_mensaje/<int:id>', views.OrdenDeCompraMensajeview.as_view()),
     path('v1/orden_de_compra_presupuesto/', views.OrdenDeCompraPresupuestoview.as_view()),
     path('v1/orden_de_compra_presupuesto/<int:id>', views.OrdenDeCompraPresupuestoview.as_view()),
+    path('v1/estado_producto_recibido/', views.EstadoProductoRecibidoview.as_view()),
+    path('v1/estado_producto_recibido/<int:id_estado_producto_recibido>', views.EstadoProductoRecibidoview.as_view()),
+    path('v1/oc_chat/', views.OcChatview.as_view()),
+    path('v1/oc_chat/<int:id_oc_chat>', views.OcChatview.as_view()),
+    path('v1/oc_estado/', views.OcEstadoview.as_view()),
+    path('v1/oc_estado/<int:id>', views.OcEstadoview.as_view()),
+    path('v1/oc_mensaje_proveedor/', views.OcMensajeProveedorview.as_view()),
+    path('v1/oc_mensaje_proveedor/<int:id>', views.OcMensajeProveedorview.as_view()),
+    path('v1/oc_mensaje_usuario/', views.OcMensajeUsuarioview.as_view()),
+    path('v1/oc_mensaje_usuario/<int:id>', views.OcMensajeUsuarioview.as_view()),
+    path('v1/oc_presupuesto_costos/', views.OcPresupuestoCostosview.as_view()),
+    path('v1/oc_presupuesto_costos/<int:id>', views.OcPresupuestoCostosview.as_view()),
+    path('v1/oc_prod/', views.OcProdview.as_view()),
+    path('v1/oc_prod/<int:id>', views.OcProdview.as_view()),
+    path('v1/oc_prov/', views.OcProvview.as_view()),
+    path('v1/oc_prov/<int:id>', views.OcProvview.as_view()),
+    path('v1/orden_de_compra_aprovada/', views.OrdenDecompraAprovadaview.as_view()),
+    path('v1/orden_de_compra_aprovada/<int:id_orden_compra_aprovada>', views.OrdenDecompraAprovadaview.as_view()),
+    path('v1/proveedor_giro/', views.ProveedorGiroview.as_view()),
+    path('v1/proveedor_giro/<int:id_proveeor_giro>', views.ProveedorGiroview.as_view()),
+    path('v1/usuario_contrasena/', views.UsuarioContrasenaview.as_view()),
+    path('v1/usuario_contrasena/<int:id_usuario_contrasena>', views.UsuarioContrasenaview.as_view()),
+    path('v1/usuario_evento/', views.UsuarioEventoview.as_view()),
+    path('v1/usuario_evento/<int:id_usuario_evento>', views.UsuarioEventoview.as_view()),
+    path('v1/usuario_mro/', views.UsuarioMroview.as_view()),
+    path('v1/usuario_mro/<int:id_usuario_mro>', views.UsuarioMroview.as_view()),
+    path('v1/usuario_sesion/', views.UsuarioSesionview.as_view()),
+    path('v1/usuario_sesion/<int:id_usuario_sesion>', views.UsuarioSesionview.as_view()),
+    path('v1/usuario_activoeam/', views.UsuarioActivoeamview.as_view()),
+    path('v1/usuario_activoeam/<int:id_usuario_activoeam>', views.UsuarioActivoeamview.as_view()),
+
+
+
+
 
 
 ]

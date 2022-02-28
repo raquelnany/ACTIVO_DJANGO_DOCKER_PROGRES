@@ -144,6 +144,22 @@ from .controller.ControllerOrdenDeCompraEmailVisto import ControllerOrdenDeCompr
 from .controller.ControllerOrdenDeCompraHistorial import ControllerOrdenDeCompraHistorial
 from .controller.ControllerOrdenDeCompraMensaje import ControllerOrdenDeCompraMensaje
 from .controller.ControllerOrdenDeCompraPresupuesto import ControllerOrdenDeCompraPresupuesto
+from .controller.ControllerEstadoProductoRecibido import ControllerEstadoProductoRecibido
+from .controller.ControllerOcChat import ControllerOcChat
+from .controller.ControllerOcEstado import ControllerOcEstado
+from .controller.ControllerOcMensajeProveedor import ControllerOcMensajeProveedor
+from .controller.ControllerOcMensajeUsuario import ControllerOcMensajeUsuario
+from .controller.ControllerOcPresupuestoCostos import ControllerOcPresupuestoCostos
+from .controller.ControllerOcProd import ControllerOcProd
+from .controller.ControllerOcProv import ControllerOcProv
+from .controller.ControllerOrdenDeCompraAprovada import ControllerOrdenDeCompraAprovada
+from .controller.ControllerProveedorGiro import ControllerProveedorGiro
+from .controller.ControllerRequisicionAprovada import ControllerRequisicionAprovada
+from .controller.ControllerUsuarioContrasena import ControllerUsuarioContrasena
+from .controller.ControllerUsuarioEvento import ControllerUsuarioEvento
+from .controller.ControllerUsuarioMro import ControllerUsuarioMro
+from .controller.ControllerUsuarioSesion import ControllerUsuarioSesion
+from .controller.ControllerUsuarioActivoeam import ControllerUsuarioActivoeam
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -151,7 +167,7 @@ from rest_framework.views import APIView
 from .serializers import AccionCorrectivaSerializer, ActEquipoSerializer, ActividadMantenimientoSerializer, AlmacenSerializer, AtcOtCodigoSerializer, AtcOtTipoSerializer, CausaRaizSerializer, ChecklistAspectoCopiadoSerializer, ChecklistAspectoSerializer, ChecklistEquipoSerializer, ChecklistInstruccionSerializer, ChecklistSerializer, ChkAspectoSerializer, ChkEquipoSerializer, ChkInstruccionSerializer, ChkSerializer, ClaseEquipoSerializer, CriticidadSerializer, CuentaCcSerializer, DashboardAjusteSerializer, DashboardmtbfSerializer, DevolucionSerializer, EmpaqueCategoriaSerializer, EmpaqueSerializer, EmpaqueStockAjusteSerializer, EmpaqueStockDetalleSerializer, EmpaqueStockEntradaSerializer, EmpaqueStockOrdenCompraSerializer, EmpaqueStockSalidaSerializer, EmpaqueStockSerializer, EmpaqueTipoSerializer, EmpaqueValeSerializer, EquipoCategoriaEstatusSerializaer, EquipoCategoriaIconoSerializaer, EquipoEstatusSerializer, EquipoSerializer, EstadoMaterialSerializer, EstadoPaqueteSerializer, EstadoSelloSerializer, EventoSerializer, GiroSerializer, HerramientaMovimientoSerializer, HerramientaSerializer, InstalacionIconoSerializer, InstalacionSerializer, InventarioAjusteSerializer, InventarioTipoSerializer, InventarioValeSerializer, JornadaHorasSerializer, JornadaSerializer, CentroCostoSerializer, ClienteSerializer, Contacto_ProveedorSerializer, Departamento_TurnoSerializer, EstatusSerializer, IdiomaSerializer, Inventario_CategoriaSerializer, MantenimientoSerializer, MenuSerializer, MesSerializer, ModeloIconoSerializer, ModeloSerializer, ModoDeteccionSerializer, NivelGastosSerializer, NivelMroSerializer, OTSerializer, OrdenArchivosSerializer, OrdenDeCompraAccionSerializer, OrdenDeCompraArchivoCostoSerializer, OrdenDeCompraArchivoProveedorSerializer, OrdenDeCompraArchivoSerializer, OrdenDeCompraCotizacionSerializer, OrdenDeCompraEmailVistoSerializer, OrdenDeCompraEstadoSerializer, OrdenDeCompraHistorialSerializer, OrdenDeCompraMensajeSerializer, OrdenDeCompraPresupuestoSerializer, OrdenDeCompraProductoSerializer, OrdenDeCompraProveedorSerializer, OrdenDeCompraSerializer, OrdenInventarioSerializer, OrdenSubestatusSerializer, OrdenTrabajoChecklistSerializer, OrdenTrabajoCompletaSerializer, OrdenTrabajoEstatusSerializer, OrdenTrabajoParteSerializer, OrdenTrabajoPrioridadSerializer, OrdenTrabajoRevisadaSerializer, OrdenTrabajoRutaSerializer, OrdenTrabajoRutaSetPointSerializer, OrdenTrabajoTipoSerializer, ParteDetalleSerializer, ParteDetalleSurtidoSerializer, ParteEstatusSerializer, ParteSerializer, ProbEquipoSerializer, PuestoSerializer, RCASerializer, RcaAccionPreventivaSerializer, RcaPreventiveStatusSerializer, RcaStatusSerializer, RcaTipoAccionSerializer, RequisicionEstatusSerializer, RequisicionSerializer, RolSerializer, RutaCondicionSerializer, RutaCondicionUnidadSerializer, RutaEquipoComponenteSerializer, RutaEquipoSerializer, RutaEstatusSerializer, RutaSerializer, RutaSetPointOperadorSerializer, RutaSetPointSerializer, SatisfaccionSerializer, ScopeSerializer, StockAjusteSerializer, StockDetalleSerializer, StockEntradaSerializer, StockSerializer, SubmenuSerializer, SuscripcionSerializer, TareaOrdenTrabajoSerializer, Tipo_RolSerializer, TipoCambioSerializer, TokenSerializer, TurnoSerializer, UserSerializer, AuthTokenSerializer, DepartamentoSerializer, Usuario_Serializer, UsuarioRevisarSerializer, UsuarioSerializer, CentroCostoSerializer, ProveedorSerializer
 from .serializers import Usuario_Lat_Lng_Serializer, TurnoSerializer, UnidadSerializer, setup_Serializer, EquipoCategoriaSerializer, HerramientaHistorialSerializer
 
-from .models import Modelo, Unidad
+from .models import Estado_Producto_Recibido, Modelo, Oc_Chat, Oc_Estado, Oc_Mensaje_Proveedor, Oc_Mensaje_Usuario, Oc_Presupuesto_Costos, Oc_Prod, Oc_Prov, Orden_De_Compra_Aprovada, Proveedor_Giro, Requisicion_Aprovada, Unidad, Usuario_Activoeam, Usuario_Contrasena, Usuario_Evento, Usuario_Mro, Usuario_Sesion
 
 #View encargada de auto generar una serie de unidades con datos quemados por el método
 #Observación: Es importante que solo sea usada una vez
@@ -1833,4 +1849,180 @@ class OrdenDeCompraPresupuestoview(APIView):
 
     def get(self, request, id=None):
         respuesta = ControllerOrdenDeCompraPresupuesto.listarordendecomprapresupuesto(id)
+        return Response(respuesta)
+
+class EstadoProductoRecibidoview(APIView):
+    serializer_class = Estado_Producto_Recibido
+
+    def post(self, request):
+        respuesta = ControllerEstadoProductoRecibido.crearestadoproductorecibido(request)
+        return Response(respuesta)
+
+    def get(self, request, id_estado_producto_recibido=None):
+        respuesta = ControllerEstadoProductoRecibido.listarestadoproductorecibido(id_estado_producto_recibido)
+        return Response(respuesta)
+
+class OcChatview(APIView):
+    serializer_class = Oc_Chat
+
+    def post(self, request):
+        respuesta = ControllerOcChat.crearocchat(request)
+        return Response(respuesta)
+
+    def get(self, request, id_oc_chat=None):
+        respuesta = ControllerOcChat.listarocchat(id_oc_chat)
+        return Response(respuesta)
+
+class OcEstadoview(APIView):
+    serializer_class = Oc_Estado
+
+    def post(self, request):
+        respuesta = ControllerOcEstado.creaocestado(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcEstado.listarocestado(id)
+        return Response(respuesta)
+
+class OcMensajeProveedorview(APIView):
+    serializer_class = Oc_Mensaje_Proveedor
+
+    def post(self, request):
+        respuesta = ControllerOcMensajeProveedor.creaocmensajeproveedor(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcMensajeProveedor.listarocmensajeproveedor(id)
+        return Response(respuesta)
+
+class OcMensajeUsuarioview(APIView):
+    serializer_class = Oc_Mensaje_Usuario
+
+    def post(self, request):
+        respuesta = ControllerOcMensajeUsuario.creaocmensajeusuario(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcMensajeUsuario.listarocmensajeusuario(id)
+        return Response(respuesta)
+
+class OcPresupuestoCostosview(APIView):
+    serializer_class = Oc_Presupuesto_Costos
+
+    def post(self, request):
+        respuesta = ControllerOcPresupuestoCostos.creaocpresupuestocostos(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcPresupuestoCostos.listarocpresupuestocostos(id)
+        return Response(respuesta)
+
+class OcProdview(APIView):
+    serializer_class = Oc_Prod
+
+    def post(self, request):
+        respuesta = ControllerOcProd.creaocprod(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcProd.listarocprod(id)
+        return Response(respuesta)
+
+class OcProvview(APIView):
+    serializer_class = Oc_Prov
+
+    def post(self, request):
+        respuesta = ControllerOcProv.creaocprov(request)
+        return Response(respuesta)
+
+    def get(self, request, id=None):
+        respuesta = ControllerOcProv.listarocprov(id)
+        return Response(respuesta)
+
+class OrdenDecompraAprovadaview(APIView):
+    serializer_class = Orden_De_Compra_Aprovada
+
+    def post(self, request):
+        respuesta = ControllerOrdenDeCompraAprovada.creaocaprovada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_orden_compra_aprovada=None):
+        respuesta = ControllerOrdenDeCompraAprovada.listarocaprovada(id_orden_compra_aprovada)
+        return Response(respuesta)
+
+class ProveedorGiroview(APIView):
+    serializer_class = Proveedor_Giro
+
+    def post(self, request):
+        respuesta = ControllerProveedorGiro.crearproveedorgiro(request)
+        return Response(respuesta)
+
+    def get(self, request, id_proveeor_giro=None):
+        respuesta = ControllerProveedorGiro.listarproveedorgiro(id_proveeor_giro)
+        return Response(respuesta)
+
+class RequisicionAprovadaview(APIView):
+    serializer_class = Requisicion_Aprovada
+
+    def post(self, request):
+        respuesta = ControllerRequisicionAprovada.crearrequisicionaprovada(request)
+        return Response(respuesta)
+
+    def get(self, request, id_requisicion_aprovada=None):
+        respuesta = ControllerRequisicionAprovada.listarrequisicionaprovada(id_requisicion_aprovada)
+        return Response(respuesta)
+
+class UsuarioContrasenaview(APIView):
+    serializer_class = Usuario_Contrasena
+
+    def post(self, request):
+        respuesta = ControllerUsuarioContrasena.crearusuariocontrasena(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_contrasena=None):
+        respuesta = ControllerUsuarioContrasena.listarusuariocontrasena(id_usuario_contrasena)
+        return Response(respuesta)
+
+class UsuarioEventoview(APIView):
+    serializer_class = Usuario_Evento
+
+    def post(self, request):
+        respuesta = ControllerUsuarioEvento.crearusuarioevento(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_evento=None):
+        respuesta = ControllerUsuarioEvento.listarusuarioevento(id_usuario_evento)
+        return Response(respuesta)
+
+class UsuarioMroview(APIView):
+    serializer_class = Usuario_Mro
+
+    def post(self, request):
+        respuesta = ControllerUsuarioMro.crearusuariomro(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_mro=None):
+        respuesta = ControllerUsuarioMro.listarusuariomro(id_usuario_mro)
+        return Response(respuesta)
+
+class UsuarioSesionview(APIView):
+    serializer_class = Usuario_Sesion
+
+    def post(self, request):
+        respuesta = ControllerUsuarioSesion.crearusuariosesion(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_sesion=None):
+        respuesta = ControllerUsuarioSesion.listarusuariosesion(id_usuario_sesion)
+        return Response(respuesta)
+
+class UsuarioActivoeamview(APIView):
+    serializer_class = Usuario_Activoeam
+
+    def post(self, request):
+        respuesta = ControllerUsuarioActivoeam.crearusuarioactivoeam(request)
+        return Response(respuesta)
+
+    def get(self, request, id_usuario_activoeam=None):
+        respuesta = ControllerUsuarioActivoeam.listarusuarioactivoeam(id_usuario_activoeam)
         return Response(respuesta)

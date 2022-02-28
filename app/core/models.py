@@ -1810,3 +1810,161 @@ class Orden_De_Compra_Presupuesto(models.Model):
     
     def __str__(self):
         return super().__str__()
+
+class Estado_Producto_Recibido(models.Model):
+    id_estado_producto_recibido = models.AutoField(primary_key=True)
+    producto = models.ForeignKey(Orden_De_Compra_Producto, on_delete=models.SET_NULL, null=True)   
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+    estado_paquete = models.ForeignKey(Estado_Paquete, on_delete=models.SET_NULL, null=True)
+    estado_material = models.ForeignKey(Estado_Material, on_delete=models.SET_NULL, null=True)
+    estado_sello = models.ForeignKey(Estado_Sello, on_delete=models.SET_NULL, null=True)
+    fecha = models.CharField(max_length=50)
+    hora = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Chat(models.Model):
+    id_oc_chat = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)   
+    fecha = models.CharField(max_length=45)
+    hora = models.CharField(max_length=45)
+    timestamp = models.CharField(max_length=45)
+    prov = models.ForeignKey(Orden_De_Compra_Proveedor, on_delete=models.SET_NULL, null=True)
+    mensaje = models.CharField(max_length=255)
+    cotizacion = models.ForeignKey(Orden_De_Compra_Cotizacion, on_delete=models.SET_NULL, null=True)
+    envia = models.IntegerField()
+    
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Estado(models.Model):
+    id = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)   
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Mensaje_Proveedor(models.Model):
+    id = models.AutoField(primary_key=True)
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Orden_De_Compra_Proveedor, on_delete=models.SET_NULL, null=True)   
+    fk_mensaje = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Oc_Mensaje_Usuario(models.Model):
+    id = models.AutoField(primary_key=True)
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)   
+    fk_mensaje = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Presupuesto_Costos(models.Model):
+    id = models.AutoField(primary_key=True)
+    oc_presupuesto = models.ForeignKey(Orden_De_Compra_Presupuesto, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Prod(models.Model):
+    id = models.AutoField(primary_key=True)
+    producto = models.ForeignKey(Orden_De_Compra_Producto, on_delete=models.SET_NULL, null=True)
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Oc_Prov(models.Model):
+    id = models.AutoField(primary_key=True)
+    prov = models.ForeignKey(Orden_De_Compra_Proveedor, on_delete=models.SET_NULL, null=True)
+    oc = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+    visto = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Orden_De_Compra_Aprovada(models.Model):
+    id_orden_compra_aprovada = models.AutoField(primary_key=True)
+    orden_compra = models.ForeignKey(Orden_De_Compra, on_delete=models.SET_NULL, null=True)
+    id_aprovacion_1 = models.IntegerField()
+    id_aprovacion_2 = models.IntegerField()
+    id_aprovacion_3 = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Proveedor_Giro(models.Model):
+    id_proveeor_giro = models.AutoField(primary_key=True)
+    giro = models.ForeignKey(Giro, on_delete=models.SET_NULL, null=True)
+    proveedor = models.ForeignKey(Orden_De_Compra_Proveedor, on_delete=models.SET_NULL, null=True)
+    
+    def __str__(self):
+        return super().__str__()
+
+class Requisicion_Aprovada(models.Model):
+    id_requisicion_aprovada = models.AutoField(primary_key=True)
+    requisicion = models.ForeignKey(Requisicion, on_delete=models.SET_NULL, null=True)
+    id_aprovacion_1 = models.IntegerField()
+    id_aprovacion_2 = models.IntegerField()
+    id_aprovacion_3 = models.IntegerField()
+
+    def __str__(self):
+        return super().__str__()
+
+class Usuario_Contrasena(models.Model):
+    id_usuario_contrasena = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    contrasena = models.CharField(max_length=250)
+    fecha = models.CharField(max_length=50)
+    hora = models.CharField(max_length=50)
+
+    def __str__(self):
+        return super().__str__()
+
+class Usuario_Evento(models.Model):
+    id_usuario_evento = models.AutoField(primary_key=True)
+    usuario_modifica = models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
+    movimiento = models.CharField(max_length=100)
+    elemento = models.CharField(max_length=100)
+    anterior = models.CharField(max_length=100)
+    nuevo = models.CharField(max_length=100)
+    fecha = models.CharField(max_length=20)
+    hora = models.CharField(max_length=20)
+    usaurio_modificado =  models.ForeignKey(Usuario, related_name='+', on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Usuario_Mro(models.Model):
+    id_usuario_mro = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    nivel = models.ForeignKey(Nivel_Mro, on_delete=models.SET_NULL, null=True)
+    gastos = models.ForeignKey(Nivel_Gastos, on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return super().__str__()
+
+class Usuario_Sesion(models.Model):
+    id_usuario_sesion = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+    fecha_inicio = models.CharField(max_length=20)
+    hora_inicio = models.CharField(max_length=20)
+    fecha_cierre = models.CharField(max_length=20)
+    hora_cierre = models.CharField(max_length=20)
+
+    def __str__(self):
+        return super().__str__()
+
+
+class Usuario_Activoeam(models.Model):
+    id_usuario_activoeam = models.AutoField(primary_key=True)
+    usuario = models.ForeignKey(Usuario, on_delete=models.SET_NULL, null=True)
+  
+    def __str__(self):
+        return super().__str__()
