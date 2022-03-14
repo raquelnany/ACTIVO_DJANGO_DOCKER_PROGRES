@@ -4,6 +4,7 @@ from rest_framework.authtoken.views import ObtainAuthToken
 from rest_framework.settings import api_settings
 from rest_framework.generics import GenericAPIView
 from rest_framework.response import Response
+from rest_framework.permissions import IsAuthenticated
 
 from .controller.ControllerCentroCosto import ControllerCentroCosto
 from .controller.ControllerHistTurno import ControllerHistTurno
@@ -266,6 +267,7 @@ class UsuarioLatLngView(GenericAPIView):
         return Response({'distancia_usuario_planta': f'{mts} metros', 'acceso':acceso})
 
 class Proveedorview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ProveedorSerializer
 
     def post(self, request):
@@ -281,6 +283,7 @@ class Proveedorview(APIView):
         return Response(respuesta)
 
 class Contacto_Proveedorview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Contacto_ProveedorSerializer
 
     def post(self, request):
@@ -296,6 +299,7 @@ class Contacto_Proveedorview(APIView):
         return Response(respuesta)
 
 class CentroCostosview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = CentroCostoSerializer
 
     def post(self, request):
@@ -312,6 +316,7 @@ class CentroCostosview(APIView):
    
 
 class Departamentoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = DepartamentoSerializer
 
     def post(self, request):
@@ -323,6 +328,7 @@ class Departamentoview(APIView):
         return Response(respuesta)
 
 class Jornadaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = JornadaSerializer
 
     def post(self, request):
@@ -338,6 +344,7 @@ class Jornadaview(APIView):
         return Response(respuesta)
 
 class Turnoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TurnoSerializer
 
     def post(self, request):
@@ -350,6 +357,7 @@ class Turnoview(APIView):
 
 
 class Tipo_Rolview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Tipo_RolSerializer
 
     def post(self, request):
@@ -362,6 +370,7 @@ class Tipo_Rolview(APIView):
 
 
 class Scopeview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ScopeSerializer
 
     def post(self, request):
@@ -374,6 +383,7 @@ class Scopeview(APIView):
 
 
 class Estatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EstatusSerializer
 
     def post(self, request):
@@ -386,6 +396,7 @@ class Estatusview(APIView):
 
 
 class Idiomaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = IdiomaSerializer
 
     def post(self, request):
@@ -401,6 +412,7 @@ class Idiomaview(APIView):
         return Response(respuesta)   
 
 class Rolview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RolSerializer
 
     def post(self, request):
@@ -413,6 +425,7 @@ class Rolview(APIView):
 
 
 class Departamento_Turnoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Departamento_TurnoSerializer
 
     def post(self, request):
@@ -426,6 +439,7 @@ class Departamento_Turnoview(APIView):
 
 
 class Puestoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = PuestoSerializer
 
     def post(self, request):
@@ -438,6 +452,7 @@ class Puestoview(APIView):
 
 
 class Usuarioview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = UsuarioSerializer
 
     def post(self, request):
@@ -454,12 +469,14 @@ class Usuarioview(APIView):
         
 
 class PerfilUsuarioview(APIView):
+    permission_classes = [IsAuthenticated]
     def get(self, request, p_nombre=None):
         respuesta = ControllerUsuario.verPerfil(p_nombre)
         return Response(respuesta)
 
 
 class Historial_TurnoView(APIView):
+    permission_classes = [IsAuthenticated]
     def post(self, request):
         respuesta = ControllerHistTurno.crearhistorial_turno(request)
         return Response(respuesta)
@@ -470,6 +487,7 @@ class Historial_TurnoView(APIView):
         return Response(respuesta)
 
 class JornadaHorasview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = JornadaHorasSerializer
 
     def post(self, request):
@@ -484,13 +502,14 @@ class JornadaHorasview(APIView):
         respuesta = ControllerJornadaHoras.modificarjornadahoras(request,id_jornada_horas)
         return Response(respuesta)
         
-class LoginView(APIView):
+class Loginview(APIView):
     def post(self, request):
         respuesta = ControllerLogin.login(request)
         return Response(respuesta)
 
 
 class Unidadview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = UnidadSerializer
 
     def post(self, request):
@@ -507,6 +526,7 @@ class Unidadview(APIView):
 
 
 class Inventario_Categoriaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Inventario_CategoriaSerializer
 
     def post(self, request):
@@ -523,6 +543,7 @@ class Inventario_Categoriaview(APIView):
 
 
 class Clienteview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ClienteSerializer
 
     def post(self, request):
@@ -539,6 +560,7 @@ class Clienteview(APIView):
 
 
 class EquipoCategoriaEstatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EquipoCategoriaEstatusSerializaer
 
     def post(self, request):
@@ -551,6 +573,7 @@ class EquipoCategoriaEstatusview(APIView):
 
 
 class EquipoCategoriaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EquipoCategoriaSerializer
 
     def post(self, request):
@@ -562,6 +585,7 @@ class EquipoCategoriaview(APIView):
         return Response(respuesta)
 
 class ClaseEquipoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ClaseEquipoSerializer
 
     def post(self, request):
@@ -573,6 +597,7 @@ class ClaseEquipoview(APIView):
         return Response(respuesta)
 
 class ModeloIconoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ModeloIconoSerializer
 
     def post(self, request):
@@ -583,8 +608,8 @@ class ModeloIconoview(APIView):
         respuesta = ControllerModeloIcono.listarmodeloicono(id_modelo_icono)
         return Response(respuesta)
     
-
 class EquipoCategoriaIconoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EquipoCategoriaIconoSerializaer
 
     def post(self, request):
@@ -596,6 +621,7 @@ class EquipoCategoriaIconoview(APIView):
         return Response(respuesta)
 
 class Modeloview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ModeloSerializer
 
     def post(self, request):
@@ -611,6 +637,7 @@ class Modeloview(APIView):
         return Response(respuesta)
 
 class InstalacionIconoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = InstalacionIconoSerializer
 
     def post(self, request):
@@ -622,6 +649,7 @@ class InstalacionIconoview(APIView):
         return Response(respuesta)
 
 class InstalacionView(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = InstalacionSerializer
 
     def post(self, request):
@@ -637,6 +665,7 @@ class InstalacionView(APIView):
         return Response(respuesta)
 
 class EquipoEstatusView(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EquipoEstatusSerializer
 
     def post(self, request):
@@ -648,6 +677,7 @@ class EquipoEstatusView(APIView):
         return Response(respuesta)
 
 class Equipoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EquipoSerializer
 
     def post(self, request):
@@ -663,6 +693,7 @@ class Equipoview(APIView):
         return Response(respuesta)
 
 class HerramientaMovimientoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = HerramientaMovimientoSerializer
 
     def post(self, request):
@@ -674,6 +705,7 @@ class HerramientaMovimientoview(APIView):
         return Response(respuesta)
 
 class Herramientaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = HerramientaSerializer
 
     def post(self, request):
@@ -689,6 +721,7 @@ class Herramientaview(APIView):
         return Response(respuesta)
 
 class HerramientaHistorialview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = HerramientaHistorialSerializer
 
     def post(self, request):
@@ -700,6 +733,7 @@ class HerramientaHistorialview(APIView):
         return Response(respuesta)
 
 class InventarioTipoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = InventarioTipoSerializer
 
     def post(self, request):
@@ -711,6 +745,7 @@ class InventarioTipoview(APIView):
         return Response(respuesta)
 
 class Stockview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = StockSerializer
 
     def post(self, request):
@@ -722,6 +757,7 @@ class Stockview(APIView):
         return Response(respuesta)
 
 class StockDetalleview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = StockDetalleSerializer
 
     def post(self, request):
@@ -731,9 +767,10 @@ class StockDetalleview(APIView):
     def get(self, request, id_stock_detalle=None):
         respuesta = ControllerStockDetalle.listarstockDetalle(id_stock_detalle)
         return Response(respuesta)
-              
 
 class StockEntradaview(APIView):
+    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
     serializer_class = StockEntradaSerializer
 
     def post(self, request):
@@ -745,6 +782,7 @@ class StockEntradaview(APIView):
         return Response(respuesta)
               
 class StockAjusteview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = StockAjusteSerializer
 
     def post(self, request):
@@ -756,6 +794,7 @@ class StockAjusteview(APIView):
         return Response(respuesta)
               
 class ParteEstatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ParteEstatusSerializer
 
     def post(self, request):
@@ -767,6 +806,7 @@ class ParteEstatusview(APIView):
         return Response(respuesta)
 
 class InventarioAjusteview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = InventarioAjusteSerializer
 
     def post(self, request):
@@ -778,6 +818,7 @@ class InventarioAjusteview(APIView):
         return Response(respuesta)
 
 class ParteDetalleview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ParteDetalleSerializer
 
     def post(self, request):
@@ -789,6 +830,7 @@ class ParteDetalleview(APIView):
         return Response(respuesta)
         
 class Devolucionview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = DevolucionSerializer
 
     def post(self, request):
@@ -800,6 +842,7 @@ class Devolucionview(APIView):
         return Response(respuesta)
 
 class Almacenview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = AlmacenSerializer
 
     def post(self, request):
@@ -811,6 +854,7 @@ class Almacenview(APIView):
         return Response(respuesta)
 
 class OrdenTrabajoTipoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenTrabajoTipoSerializer
 
     def post(self, request):
@@ -822,6 +866,7 @@ class OrdenTrabajoTipoview(APIView):
         return Response(respuesta)
 
 class OrdenTrabajoPrioridadview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenTrabajoPrioridadSerializer
 
     def post(self, request):
@@ -833,6 +878,7 @@ class OrdenTrabajoPrioridadview(APIView):
         return Response(respuesta)
 
 class InventarioValeview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = InventarioValeSerializer
 
     def post(self, request):
@@ -844,6 +890,7 @@ class InventarioValeview(APIView):
         return Response(respuesta)
 
 class ParteDetalleSurtidoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = ParteDetalleSurtidoSerializer
 
     def post(self, request):
@@ -855,6 +902,7 @@ class ParteDetalleSurtidoview(APIView):
         return Response(respuesta)
 
 class OrdenTrabajoEstatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenTrabajoEstatusSerializer
 
     def post(self, request):
@@ -866,6 +914,7 @@ class OrdenTrabajoEstatusview(APIView):
         return Response(respuesta)
 
 class OrdenSubestatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenSubestatusSerializer
 
     def post(self, request):
@@ -877,6 +926,7 @@ class OrdenSubestatusview(APIView):
         return Response(respuesta)
 
 class OTview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OTSerializer
 
     def post(self, request):
@@ -888,6 +938,7 @@ class OTview(APIView):
         return Response(respuesta)
 
 class ActOtCodigoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = AtcOtCodigoSerializer
 
     def post(self, request):
@@ -899,6 +950,7 @@ class ActOtCodigoview(APIView):
         return Response(respuesta)
 
 class ActOtTipoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = AtcOtTipoSerializer
 
     def post(self, request):
@@ -910,6 +962,7 @@ class ActOtTipoview(APIView):
         return Response(respuesta)
 
 class Eventoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = EventoSerializer
 
     def post(self, request):
@@ -921,6 +974,7 @@ class Eventoview(APIView):
         return Response(respuesta)
 
 class OrdenArchivosview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenArchivosSerializer
 
     def post(self, request):
@@ -932,6 +986,7 @@ class OrdenArchivosview(APIView):
         return Response(respuesta)
 
 class OrdenTrabajoParteview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenTrabajoParteSerializer
 
     def post(self, request):
@@ -943,6 +998,7 @@ class OrdenTrabajoParteview(APIView):
         return Response(respuesta)
 
 class TareaOdenTrabajoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TareaOrdenTrabajoSerializer
 
     def post(self, request):
@@ -954,6 +1010,7 @@ class TareaOdenTrabajoview(APIView):
         return Response(respuesta)
 
 class TipoCambioview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = TipoCambioSerializer
 
     def post(self, request):
@@ -964,8 +1021,8 @@ class TipoCambioview(APIView):
         respuesta = ControllerTipoCambio.listartipocambio(id_tipo_cambio)
         return Response(respuesta)
 
-
 class OrdenTrabajoCompletaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenTrabajoCompletaSerializer
 
     def post(self, request):
@@ -977,6 +1034,7 @@ class OrdenTrabajoCompletaview(APIView):
         return Response(respuesta)
 
 class Rcaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RCASerializer
 
     def post(self, request):
@@ -987,8 +1045,8 @@ class Rcaview(APIView):
         respuesta = ControllerRca.listarrca(id_rca)
         return Response(respuesta)
 
-
 class RcaAccionPreventivaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RcaAccionPreventivaSerializer
 
     def post(self, request):
@@ -1000,6 +1058,7 @@ class RcaAccionPreventivaview(APIView):
         return Response(respuesta)
 
 class RcaPreventiveStatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RcaPreventiveStatusSerializer
 
     def post(self, request):
@@ -1011,6 +1070,7 @@ class RcaPreventiveStatusview(APIView):
         return Response(respuesta)
 
 class RcaStatusview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = RcaStatusSerializer
 
     def post(self, request):
@@ -1841,6 +1901,7 @@ class OrdenDeCompraMensajeview(APIView):
         return Response(respuesta)
 
 class OrdenDeCompraPresupuestoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = OrdenDeCompraPresupuestoSerializer
 
     def post(self, request):
@@ -1852,6 +1913,7 @@ class OrdenDeCompraPresupuestoview(APIView):
         return Response(respuesta)
 
 class EstadoProductoRecibidoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Estado_Producto_Recibido
 
     def post(self, request):
@@ -1863,6 +1925,7 @@ class EstadoProductoRecibidoview(APIView):
         return Response(respuesta)
 
 class OcChatview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Chat
 
     def post(self, request):
@@ -1874,6 +1937,7 @@ class OcChatview(APIView):
         return Response(respuesta)
 
 class OcEstadoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Estado
 
     def post(self, request):
@@ -1885,6 +1949,7 @@ class OcEstadoview(APIView):
         return Response(respuesta)
 
 class OcMensajeProveedorview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Mensaje_Proveedor
 
     def post(self, request):
@@ -1896,6 +1961,7 @@ class OcMensajeProveedorview(APIView):
         return Response(respuesta)
 
 class OcMensajeUsuarioview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Mensaje_Usuario
 
     def post(self, request):
@@ -1907,6 +1973,7 @@ class OcMensajeUsuarioview(APIView):
         return Response(respuesta)
 
 class OcPresupuestoCostosview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Presupuesto_Costos
 
     def post(self, request):
@@ -1918,6 +1985,7 @@ class OcPresupuestoCostosview(APIView):
         return Response(respuesta)
 
 class OcProdview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Prod
 
     def post(self, request):
@@ -1929,6 +1997,7 @@ class OcProdview(APIView):
         return Response(respuesta)
 
 class OcProvview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Oc_Prov
 
     def post(self, request):
@@ -1940,6 +2009,7 @@ class OcProvview(APIView):
         return Response(respuesta)
 
 class OrdenDecompraAprovadaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Orden_De_Compra_Aprovada
 
     def post(self, request):
@@ -1951,6 +2021,7 @@ class OrdenDecompraAprovadaview(APIView):
         return Response(respuesta)
 
 class ProveedorGiroview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Proveedor_Giro
 
     def post(self, request):
@@ -1962,6 +2033,7 @@ class ProveedorGiroview(APIView):
         return Response(respuesta)
 
 class RequisicionAprovadaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Requisicion_Aprovada
 
     def post(self, request):
@@ -1973,6 +2045,7 @@ class RequisicionAprovadaview(APIView):
         return Response(respuesta)
 
 class UsuarioContrasenaview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Usuario_Contrasena
 
     def post(self, request):
@@ -1984,6 +2057,7 @@ class UsuarioContrasenaview(APIView):
         return Response(respuesta)
 
 class UsuarioEventoview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Usuario_Evento
 
     def post(self, request):
@@ -1995,6 +2069,7 @@ class UsuarioEventoview(APIView):
         return Response(respuesta)
 
 class UsuarioMroview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Usuario_Mro
 
     def post(self, request):
@@ -2006,6 +2081,7 @@ class UsuarioMroview(APIView):
         return Response(respuesta)
 
 class UsuarioSesionview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Usuario_Sesion
 
     def post(self, request):
@@ -2017,6 +2093,7 @@ class UsuarioSesionview(APIView):
         return Response(respuesta)
 
 class UsuarioActivoeamview(APIView):
+    permission_classes = [IsAuthenticated]
     serializer_class = Usuario_Activoeam
 
     def post(self, request):
@@ -2026,3 +2103,4 @@ class UsuarioActivoeamview(APIView):
     def get(self, request, id_usuario_activoeam=None):
         respuesta = ControllerUsuarioActivoeam.listarusuarioactivoeam(id_usuario_activoeam)
         return Response(respuesta)
+

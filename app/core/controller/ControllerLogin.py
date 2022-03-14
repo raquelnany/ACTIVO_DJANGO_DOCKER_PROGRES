@@ -13,8 +13,7 @@ class ControllerLogin:
         except User.DoesNotExist:
             return ({'result': 'Nombre de usuario incorrecto.'})
         
-        psw_valid = check_password(password,user.password)
-        if not psw_valid:
+        if not password == user.password:
             return ({'result': 'Contraseña incorrecta.'})
 
         token, created = Token.objects.get_or_create(user=user)

@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from ..serializers import UsuarioSerializer
 from ..models import Puesto, Usuario, Rol, EstatusUsuario, Idioma
 
@@ -38,6 +39,12 @@ class ControllerUsuario:
                 puesto = puesto,
                 idioma = idioma,
                 estatus = estatus,
+            )
+
+            userNuevo = User.objects.create(
+                username = username,
+                email = datosUsuario['email'],
+                password =  datosUsuario['password'],
             )
                 
         except Exception:

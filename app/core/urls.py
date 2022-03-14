@@ -317,6 +317,7 @@ urlpatterns = [
     path('v1/usuario_sesion/<int:id_usuario_sesion>', views.UsuarioSesionview.as_view()),
     path('v1/usuario_activoeam/', views.UsuarioActivoeamview.as_view()),
     path('v1/usuario_activoeam/<int:id_usuario_activoeam>', views.UsuarioActivoeamview.as_view()),
+    path('v1/login/', views.Loginview.as_view()),
 
 
 
